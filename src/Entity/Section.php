@@ -23,6 +23,9 @@ class Section
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'sections')]
+    private ?Laundry $laundry = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Section
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getLaundry(): ?Laundry
+    {
+        return $this->laundry;
+    }
+
+    public function setLaundry(?Laundry $laundry): static
+    {
+        $this->laundry = $laundry;
 
         return $this;
     }

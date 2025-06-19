@@ -29,6 +29,9 @@ class Livraison
     #[ORM\Column(type: Types::TEXT)]
     private ?string $instructions = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Order $ordere = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Livraison
     public function setInstructions(string $instructions): static
     {
         $this->instructions = $instructions;
+
+        return $this;
+    }
+
+    public function getOrdere(): ?Order
+    {
+        return $this->ordere;
+    }
+
+    public function setOrdere(?Order $ordere): static
+    {
+        $this->ordere = $ordere;
 
         return $this;
     }

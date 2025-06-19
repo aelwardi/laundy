@@ -20,6 +20,9 @@ class Comment
     #[ORM\Column]
     private ?int $rating = null;
 
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    private ?Order $ordere = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class Comment
     public function setRating(int $rating): static
     {
         $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getOrdere(): ?Order
+    {
+        return $this->ordere;
+    }
+
+    public function setOrdere(?Order $ordere): static
+    {
+        $this->ordere = $ordere;
 
         return $this;
     }

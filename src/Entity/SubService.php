@@ -19,6 +19,9 @@ class SubService
     #[ORM\Column]
     private ?float $priceArticle = null;
 
+    #[ORM\ManyToOne(inversedBy: 'subServices')]
+    private ?PressingCouette $pressingCouette = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class SubService
     public function setPriceArticle(float $priceArticle): static
     {
         $this->priceArticle = $priceArticle;
+
+        return $this;
+    }
+
+    public function getPressingCouette(): ?PressingCouette
+    {
+        return $this->pressingCouette;
+    }
+
+    public function setPressingCouette(?PressingCouette $pressingCouette): static
+    {
+        $this->pressingCouette = $pressingCouette;
 
         return $this;
     }

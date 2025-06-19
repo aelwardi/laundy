@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Enum\statusOrderEnum;
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
@@ -20,6 +22,27 @@ class Order
 
     #[ORM\Column(enumType: statusOrderEnum::class)]
     private ?statusOrderEnum $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    private ?User $usere = null;
+
+    /**
+     * @var Collection<int, Item>
+     */
+    #[ORM\OneToMany(targetEntity: Item::class, mappedBy: 'ordere')]
+    private Collection $items;
+
+    /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'ordere')]
+    private Collection $comments;
+
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -46,6 +69,78 @@ class Order
     public function setStatus(statusOrderEnum $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getUsere(): ?User
+    {
+        return $this->usere;
+    }
+
+    public function setUsere(?User $usere): static
+    {
+        $this->usere = $usere;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Item>
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(Item $item): static
+    {
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->setOrdere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): static
+    {
+        if ($this->items->removeElement($item)) {
+            // set the owning side to null (unless already changed)
+            if ($item->getOrdere() === $this) {
+                $item->setOrdere(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setOrdere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getOrdere() === $this) {
+                $comment->setOrdere(null);
+            }
+        }
 
         return $this;
     }

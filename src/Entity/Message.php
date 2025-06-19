@@ -20,6 +20,12 @@ class Message
     #[ORM\Column]
     private ?\DateTime $createdAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'messages')]
+    private ?SupportTicket $supportTicket = null;
+
+    #[ORM\ManyToOne(inversedBy: 'messages')]
+    private ?User $usere = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +51,30 @@ class Message
     public function setCreatedAt(\DateTime $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getSupportTicket(): ?SupportTicket
+    {
+        return $this->supportTicket;
+    }
+
+    public function setSupportTicket(?SupportTicket $supportTicket): static
+    {
+        $this->supportTicket = $supportTicket;
+
+        return $this;
+    }
+
+    public function getUsere(): ?User
+    {
+        return $this->usere;
+    }
+
+    public function setUsere(?User $usere): static
+    {
+        $this->usere = $usere;
 
         return $this;
     }

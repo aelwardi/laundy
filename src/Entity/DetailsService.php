@@ -20,6 +20,9 @@ class DetailsService
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'detailsServices')]
+    private ?PressingCouette $pressingCouette = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +48,18 @@ class DetailsService
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPressingCouette(): ?PressingCouette
+    {
+        return $this->pressingCouette;
+    }
+
+    public function setPressingCouette(?PressingCouette $pressingCouette): static
+    {
+        $this->pressingCouette = $pressingCouette;
 
         return $this;
     }

@@ -19,6 +19,9 @@ class SocialMedia
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
+    #[ORM\ManyToOne(inversedBy: 'socialMedia')]
+    private ?Laundry $laundry = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class SocialMedia
     public function setUrl(string $url): static
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getLaundry(): ?Laundry
+    {
+        return $this->laundry;
+    }
+
+    public function setLaundry(?Laundry $laundry): static
+    {
+        $this->laundry = $laundry;
 
         return $this;
     }

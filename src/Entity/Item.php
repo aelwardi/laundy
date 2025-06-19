@@ -29,6 +29,9 @@ class Item
     #[ORM\Column]
     private ?float $quantity = null;
 
+    #[ORM\ManyToOne(inversedBy: 'items')]
+    private ?Order $ordere = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Item
     public function setQuantity(float $quantity): static
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getOrdere(): ?Order
+    {
+        return $this->ordere;
+    }
+
+    public function setOrdere(?Order $ordere): static
+    {
+        $this->ordere = $ordere;
 
         return $this;
     }

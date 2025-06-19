@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\HowWorksRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,20 @@ class HowWorks
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+
+    #[ORM\ManyToOne(inversedBy: 'howWorks')]
+    private ?Laundry $laundry = null;
+
+    /**
+     * @var Collection<int, Step>
+     */
+    #[ORM\OneToMany(targetEntity: Step::class, mappedBy: 'howWork')]
+    private Collection $steps;
+
+    public function __construct()
+    {
+        $this->steps = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -90,6 +106,48 @@ class HowWorks
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getLaundry(): ?Laundry
+    {
+        return $this->laundry;
+    }
+
+    public function setLaundry(?Laundry $laundry): static
+    {
+        $this->laundry = $laundry;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Step>
+     */
+    public function getSteps(): Collection
+    {
+        return $this->steps;
+    }
+
+    public function addStep(Step $step): static
+    {
+        if (!$this->steps->contains($step)) {
+            $this->steps->add($step);
+            $step->setHowWork($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStep(Step $step): static
+    {
+        if ($this->steps->removeElement($step)) {
+            // set the owning side to null (unless already changed)
+            if ($step->getHowWork() === $this) {
+                $step->setHowWork(null);
+            }
+        }
 
         return $this;
     }

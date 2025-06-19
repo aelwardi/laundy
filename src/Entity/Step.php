@@ -22,6 +22,9 @@ class Step
     #[ORM\Column]
     private ?int $rang = null;
 
+    #[ORM\ManyToOne(inversedBy: 'steps')]
+    private ?HowWorks $howWork = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Step
     public function setRang(int $rang): static
     {
         $this->rang = $rang;
+
+        return $this;
+    }
+
+    public function getHowWork(): ?HowWorks
+    {
+        return $this->howWork;
+    }
+
+    public function setHowWork(?HowWorks $howWork): static
+    {
+        $this->howWork = $howWork;
 
         return $this;
     }
