@@ -6,7 +6,7 @@ use App\Repository\WashRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: WashRepository::class)]
-class Wash
+class Wash extends Service
 {
     #[ORM\Column]
     private ?float $priceKg = null;

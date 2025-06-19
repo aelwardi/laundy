@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PressingCouetteRepository::class)]
-class PressingCouette
+class PressingCouette extends Service
 {
     /**
      * @var Collection<int, SubService>
