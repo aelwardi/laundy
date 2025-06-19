@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\statusOrderEnum;
 use App\Repository\OrderRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,8 +18,8 @@ class Order
     #[ORM\Column]
     private ?float $priceTotal = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $status = null;
+    #[ORM\Column(enumType: statusOrderEnum::class)]
+    private ?statusOrderEnum $status = null;
 
     public function getId(): ?int
     {
@@ -37,12 +38,12 @@ class Order
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getStatus(): ?statusOrderEnum
     {
         return $this->status;
     }
 
-    public function setStatus(string $status): static
+    public function setStatus(statusOrderEnum $status): static
     {
         $this->status = $status;
 

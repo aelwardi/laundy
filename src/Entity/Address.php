@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\typeAddressEnum;
 use App\Repository\AddressRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,11 +18,11 @@ class Address
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $type = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $details = null;
+
+    #[ORM\Column(enumType: typeAddressEnum::class)]
+    private ?typeAddressEnum $type = null;
 
     public function getId(): ?int
     {
@@ -40,18 +41,6 @@ class Address
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     public function getDetails(): ?string
     {
         return $this->details;
@@ -60,6 +49,18 @@ class Address
     public function setDetails(string $details): static
     {
         $this->details = $details;
+
+        return $this;
+    }
+
+    public function getType(): ?typeAddressEnum
+    {
+        return $this->type;
+    }
+
+    public function setType(typeAddressEnum $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

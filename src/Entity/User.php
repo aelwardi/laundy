@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\typeUserEnum;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -41,8 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $type = null;
+    #[ORM\Column(enumType: typeUserEnum::class)]
+    private ?typeUserEnum $type = null;
 
     public function getId(): ?int
     {
@@ -153,12 +154,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getType(): ?string
+    public function getType(): ?typeUserEnum
     {
         return $this->type;
     }
 
-    public function setType(string $type): static
+    public function setType(typeUserEnum $type): static
     {
         $this->type = $type;
 
