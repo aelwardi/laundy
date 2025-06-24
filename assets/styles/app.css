@@ -1,1 +1,64 @@
 @import "tailwindcss";
+
+@theme {
+    --color-blue-50: #f0f7ff;
+    --color-blue-100: #dfefff;
+    --color-blue-200: #b8dfff;
+    --color-blue-300: #79c6ff;
+    --color-blue-400: #33aafd;
+    --color-blue-500: #0890f1;
+    --color-blue-600: #0070cc;
+    --color-blue-700: #0059a5;
+    --color-blue-800: #044c88;
+    --color-blue-900: #094071;
+    --color-blue-950: #06284b;
+
+    --color-yellow-50: #fff9eb;
+    --color-yellow-100: #ffe6b0;
+    --color-yellow-200: #ffd988;
+    --color-yellow-300: #ffc04a;
+    --color-yellow-400: #FFD06D;
+    --color-yellow-500: #f98307;
+    --color-yellow-600: #dd5d02;
+    --color-yellow-700: #b73e06;
+    --color-yellow-800: #942f0c;
+    --color-yellow-900: #7a270d;
+    --color-yellow-950: #461202;
+
+    --color-torea-50: #ebf3ff;
+    --color-torea-100: #dbe9ff;
+    --color-torea-200: #bdd5ff;
+    --color-torea-300: #96b8ff;
+    --color-torea-400: #6c8eff;
+    --color-torea-500: #4a66ff;
+    --color-torea-600: #2a3aff;
+    --color-torea-700: #1e29e4;
+    --color-torea-800: #1c27b7;
+    --color-torea-900: #202b93;
+    --color-torea-950: #121654;
+
+    --color-pass-50: #f0faff;
+    --color-pass-100: #dff4ff;
+    --color-pass-200: #baebff;
+    --color-pass-300: #79dbff;
+    --color-pass-400: #32cafe;
+    --color-pass-500: #07b3f0;
+    --color-pass-600: #0091cd;
+    --color-pass-700: #0073a6;
+    --color-pass-800: #036189;
+    --color-pass-900: #095171;
+    --color-pass-950: #06334b;
+
+    --color-water-50: #EDFAFF;
+    --color-water-100: #d0f7f3;
+    --color-water-200: #93ece5;
+    --color-water-300: #69dfda;
+    --color-water-400: #3bc6c5;
+    --color-water-500: #21aaab;
+    --color-water-600: #188689;
+    --color-water-700: #176b6e;
+    --color-water-800: #175558;
+    --color-water-900: #2FCCC0;
+    --color-water-950: #08272b;
+
+}
