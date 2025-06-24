@@ -85,7 +85,7 @@ class AppFixtures extends Fixture
         $howWorks1 = new HowWorks();
         $howWorks1->setIndice('Souple');
         $howWorks1->setTitle('Planifiez votre collecte');
-        $howWorks1->setImage('img10.png');
+        $howWorks1->setImage('img11.png');
         $howWorks1->setRang(2);
         $howWorks1->setDescription('Planifiez votre journée en toute simplicité. Choisissez un délai de collecte et de livraison qui vous convient.');
         $howWorks1->setLaundry($laundry);
@@ -110,7 +110,7 @@ class AppFixtures extends Fixture
         $howWorks2 = new HowWorks();
         $howWorks2->setIndice('Souple');
         $howWorks2->setTitle('Planifiez votre collecte');
-        $howWorks2->setImage('img10.png');
+        $howWorks2->setImage('img12.png');
         $howWorks2->setRang(3);
         $howWorks2->setDescription('Planifiez votre journée en toute simplicité. Choisissez un délai de collecte et de livraison qui vous convient.');
         $howWorks2->setLaundry($laundry);
@@ -135,7 +135,7 @@ class AppFixtures extends Fixture
         $howWorks3 = new HowWorks();
         $howWorks3->setIndice('Souple');
         $howWorks3->setTitle('Planifiez votre collecte');
-        $howWorks3->setImage('img10.png');
+        $howWorks3->setImage('img13.png');
         $howWorks3->setRang(4);
         $howWorks3->setDescription('Planifiez votre journée en toute simplicité. Choisissez un délai de collecte et de livraison qui vous convient.');
         $howWorks3->setLaundry($laundry);

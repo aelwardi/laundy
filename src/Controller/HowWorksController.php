@@ -13,7 +13,8 @@ final class HowWorksController extends AbstractController
     public function index(HowWorksRepository $howWorksRepository): Response
     {
         $howWorks = $howWorksRepository->findAll();
-        dd($howWorks);
-        return $this->render('how_works/index.html.twig');
+        return $this->render('how_works/index.html.twig', [
+            'howWorks' => $howWorks,
+        ]);
     }
 }

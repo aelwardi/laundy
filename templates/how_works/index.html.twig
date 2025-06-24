@@ -13,7 +13,6 @@
 </head>
 
 <body class="bg-white font-sans">
-  <!-- Navbar Sticky + Color Change on Scroll -->
   <nav id="navbar"
     class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-water-50 px-8 py-4 flex items-center justify-between">
     <div id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</div>
@@ -28,7 +27,6 @@
       class="ml-4 bg-blue-500 text-white font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
       dès maintenant</a>
   </nav>
-  <!-- Hero / Title Section with Button perfectly tangent to the bottom of the ellipse curve -->
   <section class="relative flex flex-col justify-center items-center overflow-hidden bg-transparent md:p-10">
     <!-- Grand demi-cercle bleu clair en SVG, bouton au point le plus bas de la courbe -->
     <div class="absolute inset-0 z-0 pointer-events-none">
@@ -53,107 +51,52 @@
     </div>
   </section>
   <div class="max-w-5xl mx-auto">
-    
-    <!-- Step 1 -->
-    <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
+    {% for work in howWorks %}
+        {% if loop.index is odd %}
+        <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
       <div class="flex-1">
-        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">Souple</div>
-        <h2 class="text-2xl font-bold mb-2">1. Planifiez votre collecte</h2>
-        <p class="mb-4">Planifiez votre journée en toute simplicité. Choisissez un délai de collecte et de livraison qui
-          vous convient.</p>
+        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">{{work.indice}}</div>
+        <h2 class="text-2xl font-bold mb-2">{{work.rang}}. {{work.title}}</h2>
+        <p class="mb-4">{{work.description}}</p>
         <div class="flex flex-col gap-3 mb-2">
-          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
-            <svg class="w-5 h-5" ...></svg>
-            Réservez en ligne.
+            {% for step in work.steps %}
+          <div class="flex items-center gap-2 text-sm font-semibold py-2">
+            <img src="{{ step.icon }}" alt="icon" class="w-7 h-7 mr-2" />
+            {{step.title}}
           </div>
-          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
-            <svg class="w-5 h-5" ...></svg>
-            Créneaux disponibles le week-end et le soir
-          </div>
+            {% endfor %}
         </div>
       </div>
       <div class="flex-1 flex flex-col items-center">
-        <img src="img10.png" alt="image" class="rounded-xl mb-4 object-cover" />
+        <img src="{{work.image}}" alt="image" class="rounded-xl mb-4 object-cover" />
       </div>
     </section>
     <hr class="border-gray-400 mt-10">
-
-    <!-- Step 2 -->
-    <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
+        {% else %}
+        <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
       <div class="flex-1 flex flex-col items-center">
-        <img src="img11.png" alt="image" class="rounded-xl mb-4 object-cover" />
+        <img src="{{work.image}}" alt="image" class="rounded-xl mb-4 object-cover" />
       </div>
       <div class="flex-1">
-        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">Rapide et facile</div>
-        <h2 class="text-2xl font-bold mb-2">2. Emballez votre linge</h2>
-        <p class="mb-4">Emballez vos articles dans un sac jetable. Utilisez un sac par service. Notre chauffeur les transférera dans des sacs Laundryheap réutilisables que vous pourrez conserver pour votre prochaine commande.</p>
+        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">{{work.indice}}</div>
+        <h2 class="text-2xl font-bold mb-2">{{work.rang}}. {{work.title}}</h2>
+        <p class="mb-4">{{work.description}}</p>
         <div class="flex flex-col gap-3 mb-2">
-          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
-            <svg class="w-5 h-5" ...></svg>
-            Emballez un sac par service
+            {% for step in work.steps %}
+          <div class="flex items-center gap-2 text-sm font-semibold py-2">
+            <img src="{{ step.icon }}" alt="icon" class="w-7 h-7 mr-2" />
+            {{step.title}}
           </div>
-          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
-            <svg class="w-5 h-5" ...></svg>
-            Pas besoin de compter ou de peser vos articles
-          </div>
+           {% endfor %}
         </div>
       </div>
     </section>
     <hr class="border-gray-400 mt-10">
+        {% endif %}
+    {% endfor %}
 
-    <!-- Step 3 -->
-    <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
-      <div class="flex-1">
-        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">Transparent</div>
-        <h2 class="text-2xl font-bold mb-2">3. Attendez notre livreur</h2>
-        <p class="mb-4">Vous recevrez une notification lorsque notre chauffeur sera à proximité. Il récupérera vos sacs et les apportera à votre centre de nettoyage local.</p>
-        <div class="flex flex-col gap-3 mb-2">
-          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
-            <svg class="w-5 h-5" ...></svg>
-            Mises à jour régulières des commandes
-          </div>
-          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
-            <svg class="w-5 h-5" ...></svg>
-            Suivi des conducteurs en temps réel
-          </div>
-        </div>
-      </div>
-      <div class="flex-1 flex flex-col items-center">
-        <img src="img12.png" alt="image" class="rounded-xl mb-4 object-cover" />
-      </div>
-    </section>
-    <hr class="border-gray-400 mt-10">
-
-    <!-- Step 4 -->
-    <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
-      <div class="flex-1 flex flex-col items-center">
-        <img src="img13.png" alt="image" class="rounded-xl mb-4 object-cover" />
-      </div>
-      <div class="flex-1">
-        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">Pratique</div>
-        <h2 class="text-2xl font-bold mb-2">4. Détendez-vous pendant que nous nous occupons de votre linge</h2>
-        <p class="mb-4">Votre établissement partenaire local nettoiera vos articles avec le plus grand soin. Notre chauffeur vous les ramènera ensuite quand vous le souhaitez. Vous avez le contrôle total de votre livraison et pouvez toujours la reprogrammer si vous n'êtes pas chez vous.</p>
-        <div class="flex flex-col gap-3 mb-2">
-          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
-            <svg class="w-5 h-5" ...></svg>
-            Délai d'exécution de 24 heures
-          </div>
-          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
-            <svg class="w-5 h-5" ...></svg>
-                Suivi des commandes en temps réel
-            </div>
-            <div class="flex items-center gap-2 text-sm font-semibold pl-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <rect width="18" height="14" x="3" y="7" rx="2" stroke="currentColor"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3v4M8 3v4"/>
-                </svg>
-                Facile à reprogrammer
-            </div>
-        </div>
-      </div>
-    </section>
   </div>
-    <!-- CTA Bandeau -->
+  
   <section class="bg-water-900 mt-10">
     <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
       <div class="flex-shrink-0">
@@ -171,7 +114,7 @@
       </div>
     </div>
   </section>
-  <!-- Footer -->
+  
   <footer class="bg-white py-8 border-t border-gray-400 mt-10 max-w-5xl mx-auto">
     <div class="flex flex-col md:flex-row justify-between items-center">
       <div class="text-xl font-bold mb-4 md:mb-0">Laundry</div>
