@@ -6,6 +6,8 @@ use App\Entity\Laundry;
 use App\Entity\Section;
 use App\Entity\HowWorks;
 use App\Entity\Step;
+use App\Entity\Wash;
+use App\Entity\PressingCouette;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -164,6 +166,96 @@ class AppFixtures extends Fixture
         $step9->setHowWork($howWorks3);
         $howWorks3->addStep($step9);
         $manager->persist($step9);
+
+        $wash = new Wash();
+        $wash->setName('Laver');
+        $wash->setDescription('Pour le linge de tous les jours, les draps et les serviettes.');
+        $wash->setImage('img14.png');
+        $wash->setTitle('Linge non trié');
+        $wash->setPriceKg(4.15);
+        $wash->setLaundry($laundry);
+        $manager->persist($wash);
+        
+        $wash1 = new Wash();
+        $wash1->setName('Laver');
+        $wash1->setDescription('Pour le linge de tous les jours, les draps et les serviettes.');
+        $wash1->setImage('img14.png');
+        $wash1->setTitle('Linge trié');
+        $wash1->setPriceKg(5.15);
+        $wash1->setLaundry($laundry);
+        $manager->persist($wash1);
+
+        $pressingCouette = new PressingCouette();
+        $pressingCouette->setName('Pressing');
+        $pressingCouette->setDescription('Pour vêtements et tissus délicats.');
+        $pressingCouette->setImage('img15.png');
+        $pressingCouette->setTitle('Chemises');
+        $pressingCouette->setLaundry($laundry);
+        $manager->persist($pressingCouette);
+
+        $pressingCouette1 = new PressingCouette();
+        $pressingCouette1->setName('Pressing');
+        $pressingCouette1->setDescription('Pour vêtements et tissus délicats.');
+        $pressingCouette1->setImage('img15.png');
+        $pressingCouette1->setTitle('Chemisiers');
+        $pressingCouette1->setLaundry($laundry);
+        $manager->persist($pressingCouette1);
+
+        $pressingCouette2 = new PressingCouette();
+        $pressingCouette2->setName('Pressing');
+        $pressingCouette2->setDescription('Pour vêtements et tissus délicats.');
+        $pressingCouette2->setImage('img15.png');
+        $pressingCouette2->setTitle('Pantalons / Jupes');
+        $pressingCouette2->setLaundry($laundry);
+        $manager->persist($pressingCouette2);
+
+        $pressingCouette3 = new PressingCouette();
+        $pressingCouette3->setName('Pressing');
+        $pressingCouette3->setDescription('Pour vêtements et tissus délicats.');
+        $pressingCouette3->setImage('img15.png');
+        $pressingCouette3->setTitle('Chemises');
+        $pressingCouette3->setLaundry($laundry);
+        $manager->persist($pressingCouette3);
+
+        $pressingCouette4 = new PressingCouette();
+        $pressingCouette4->setName('Pressing');
+        $pressingCouette4->setDescription('Pour vêtements et tissus délicats.');
+        $pressingCouette4->setImage('img15.png');
+        $pressingCouette4->setTitle('Robes');
+        $pressingCouette4->setLaundry($laundry);
+        $manager->persist($pressingCouette4);
+
+        $pressingCouette5 = new PressingCouette();
+        $pressingCouette5->setName('Couettes & Ameublements');
+        $pressingCouette5->setDescription('Pour les articles plus volumineux qui nécessitent des soins supplémentaires.');
+        $pressingCouette5->setImage('img16.png');
+        $pressingCouette5->setTitle('Couettes plume');
+        $pressingCouette5->setLaundry($laundry);
+        $manager->persist($pressingCouette5);
+
+        $pressingCouette6 = new PressingCouette();
+        $pressingCouette6->setName('Couettes & Ameublements');
+        $pressingCouette6->setDescription('Pour les articles plus volumineux qui nécessitent des soins supplémentaires.');
+        $pressingCouette6->setImage('img16.png');
+        $pressingCouette6->setTitle('Couettes Synthétique');
+        $pressingCouette6->setLaundry($laundry);
+        $manager->persist($pressingCouette6);
+
+        $pressingCouette7 = new PressingCouette();
+        $pressingCouette7->setName('Couettes & Ameublements');
+        $pressingCouette7->setDescription('Pour les articles plus volumineux qui nécessitent des soins supplémentaires.');
+        $pressingCouette7->setImage('img16.png');
+        $pressingCouette7->setTitle('Couvertures & couvre-lits');
+        $pressingCouette7->setLaundry($laundry);
+        $manager->persist($pressingCouette7);
+
+        $pressingCouette8 = new PressingCouette();
+        $pressingCouette8->setName('Couettes & Ameublements');
+        $pressingCouette8->setDescription('Pour les articles plus volumineux qui nécessitent des soins supplémentaires.');
+        $pressingCouette8->setImage('img16.png');
+        $pressingCouette8->setTitle('Oreillers');
+        $pressingCouette8->setLaundry($laundry);
+        $manager->persist($pressingCouette8);
 
         $manager->flush();
     }

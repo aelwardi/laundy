@@ -16,6 +16,25 @@ class ServiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Service::class);
     }
 
+    public function tarifServices(): array
+    {
+        $ids = $this->createQueryBuilder('s')
+            ->select('MIN(s.id) as id')
+            ->groupBy('s.name')
+            ->getQuery()
+            ->getScalarResult();
+
+        $idList = array_column($ids, 'id');
+        if (empty($idList)) {
+            return [];
+        }
+
+        return $this->createQueryBuilder('s')
+            ->where('s.id IN (:ids)')
+            ->setParameter('ids', $idList)
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Service[] Returns an array of Service objects
     //     */

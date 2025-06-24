@@ -1,20 +1,109 @@
-{% extends 'base.html.twig' %}
+<!doctype html>
+<html lang="fr">
 
-{% block title %}Hello TarificationController!{% endblock %}
+<head>
+  <meta charset="utf-8">
+  <title>Laundry - Service de laverie & pressing en 48h</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    {% block stylesheets %}
+      {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<body class="bg-white font-sans">
+<nav id="navbar"
+  class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-blue-500 px-8 py-4 flex items-center justify-between">
+  <div id="logo" class="text-white font-bold text-2xl transition-colors duration-300">Laundry</div>
+  <div class="flex-1 flex justify-center space-x-8">
+    <a href="#" class="nav-link text-white hover:underline transition-colors duration-300">Comment ça fonctionne</a>
+    <a href="#" class="nav-link text-white hover:underline transition-colors duration-300">Prix et services</a>
+    <a href="#" class="nav-link text-white hover:underline transition-colors duration-300">À propos de nous</a>
+    <a href="#"
+      class="nav-link text-white font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
+  </div>
+  <a href="#" id="cta-btn"
+    class="ml-4 bg-white text-blue-500 font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
+    dès maintenant</a>
+</nav>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+  <section class="bg-blue-500 pb-8 text-center pt-20">
+    <h1 class="text-4xl font-bold text-white mb-3">Tarification simplifiée</h1>
+    <p class="text-lg text-white opacity-80">Pas de frais cachés.</p>
+  </section>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/app/src/Controller/TarificationController.php</code></li>
-        <li>Your template at <code>/app/templates/tarification/index.html.twig</code></li>
-    </ul>
-</div>
-{% endblock %}
+
+  <div class="bg-torea-900 text-white flex flex-col md:flex-row justify-center items-center gap-6 py-4 text-sm font-medium h-25">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-full mr-2">
+        <img src="svg3.svg" alt="icon" class="w-8 h-8" />
+      </span>
+      Livraison gratuite en 24h
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-full mr-2">
+        <img src="svg3.svg" alt="icon" class="w-8 h-8" />
+      </span>
+      Montant minimum de commande de €25
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-full mr-2">
+        <img src="svg11.svg" alt="icon" class="w-8 h-8" />
+      </span>
+      Frais de service à partir de €2,99
+    </div>
+  </div>
+
+
+  <main class="max-w-5xl mx-auto flex flex-col gap-10 mt-10">
+    <div class="flex flex-col md:flex-row justify-center gap-6">
+    {% for service in services %}
+      <div class="flex-1 bg-white border border-gray-400 rounded-xl shadow-sm flex flex-col items-center p-6 min-w-[260px] max-w-xs mx-auto">
+        <div class="w-20 h-20 rounded-full flex items-center justify-center bg-blue-100 mb-4">
+          <img src="{{service.image}}" alt="image"/>
+        </div>
+        <div class="font-bold text-lg mb-1">{{service.name}}</div>
+        <div class="text-gray-700 text-sm mb-3 text-center">{{service.description}}</div>
+        <div class="bg-gray-100 rounded px-2 py-1 text-xs font-medium mb-3">laver + sécher au sèche-linge + dans un sac</div>
+        <div class="w-full border-t border-gray-400 pt-3 mt-auto text-sm text-gray-500">PRIX PAR POIDS</div>
+        <div class="w-full text-left text-sm">à partir de <span class="text-torea-900 font-bold"> {% if service.name == "Laver" %} €24.90</span>/6kg {% elseif service.name == "Pressing" %} €3</span> {% elseif service.name == "Couettes & Ameublements" %} €14</span> {% endif %}</div>
+      </div>
+    {% endfor %}
+    </div>
+
+    <div class="bg-water-200 rounded-lg p-5 flex flex-col md:flex-row items-center justify-between  ">
+      <div>
+        <span class="font-semibold text-torea-900">Vous avez une question sur nos services et nos prix ?</span><br />
+        <span class="text-torea-900 text-sm">Demandez à notre sympathique chatbot Washy !</span>
+      </div>
+      <a href="#" class="bg-white text-blue-500 px-4 py-2 rounded font-semibold shadow hover:bg-blue-100 mt-3 md:mt-0">Démarrer le chat</a>
+    </div>
+  </main>
+
+  <footer class="bg-white py-8 border-t border-gray-400 mt-10 max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="text-xl font-bold mb-4 md:mb-0">Laundry</div>
+      <div class="flex items-center space-x-4">
+        <span class="text-gray-400 text-sm">Suivez-nous</span>
+        <a href="#" class="text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M18.896 2.003H5.104A3.108 3.108 0 0 0 2 5.11v13.783a3.108 3.108 0 0 0 3.104 3.107h13.793A3.108 3.108 0 0 0 22 18.893V5.11a3.108 3.108 0 0 0-3.104-3.107zm-7.1 15.66h-2.933V9.572h2.933v8.091zm-1.467-9.206a1.7 1.7 0 1 1 0-3.399 1.7 1.7 0 0 1 0 3.399zm10.369 9.206h-2.933v-4.067c0-.97-.017-2.217-1.352-2.217-1.352 0-1.56 1.055-1.56 2.146v4.138h-2.933V9.572h2.818v1.063h.04c.393-.744 1.355-1.528 2.79-1.528 2.984 0 3.532 1.964 3.532 4.518v4.038z" />
+          </svg>
+        </a>
+        <a href="#" class="text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 1.206.056 1.803.247 2.23.415.543.21.93.458 1.34.868.41.41.658.797.868 1.34.168.427.359 1.024.415 2.23.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.056 1.206-.247 1.803-.415 2.23-.21.543-.458.93-.868 1.34-.41.41-.797.658-1.34.868-.427.168-1.024.359-2.23.415-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.206-.056-1.803-.247-2.23-.415-.543-.21-.93-.458-1.34-.868-.41-.41-.658-.797-.868-1.34-.168-.427-.359-1.024-.415-2.23C2.175 15.797 2.163 15.417 2.163 12s.012-3.584.07-4.85c.056-1.206.247-1.803.415-2.23.21-.543.458-.93.868-1.34.41-.41.797-.658 1.34-.868.427-.168 1.024-.359 2.23-.415C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072c-1.292.06-2.18.264-2.948.528-.813.28-1.496.64-2.18 1.323-.684.684-1.043 1.367-1.323 2.18-.264.768-.468 1.656-.528 2.948C.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.06 1.292.264 2.18.528 2.948.28.813.64 1.496 1.323 2.18.684.684 1.367 1.043 2.18 1.323.768.264 1.656.468 2.948.528C8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 1.292-.06 2.18-.264 2.948-.528.813-.28 1.496-.64 2.18-1.323.684-.684 1.043-1.367 1.323-2.18.264-.768.468-1.656.528-2.948.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.06-1.292-.264-2.18-.528-2.948-.28-.813-.64-1.496-1.323-2.18-.684-.684-1.367-1.043-2.18-1.323-.768-.264-1.656-.468-2.948-.528C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.2-10.406a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="mt-4 text-gray-400 text-sm flex justify-between">
+      <span>Tous droits réservés. © Laundryheap 2025.</span>
+    </div>
+  </footer>
+  </body>
+
+</html>
