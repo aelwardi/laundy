@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Laundry - Service de laverie & pressing en 48h</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  {% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  {% endblock %}
+</head>
+
+<body class="bg-white font-sans">
+  <nav id="navbar"
+    class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-white px-8 py-4 flex items-center justify-between">
+    <div id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</div>
+    <div class="flex-1 flex justify-center space-x-8">
+      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">Comment ça fonctionne</a>
+      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">Prix et services</a>
+      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">À propos de nous</a>
+      <a href="#"
+        class="nav-link text-gray-400 font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
+    </div>
+    <a href="#" id="cta-btn"
+      class="ml-4 bg-blue-500 text-white font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
+      dès maintenant</a>
+  </nav>
+
+  <section class="bg-torea-900 py-10 mt-20">
+    <div class="max-w-5xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Vous avez une question ?</h1>
+      <p class="block text-sm text-white">Contactez-nous</p>
+    </div>
+  </section>
+
+  <div class="max-w-5xl mx-auto">
+    <section class="text-center mt-10">
+      <h2 class="text-xl md:text-2xl font-bold">Merci de l'intérêt que vous portez à Laundry. Quelle que soit votre demande, trouvez ci-dessous votre interlocuteur.</h2>
+    </section>
+
+    <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
+      <div class="flex-1 flex flex-col items-center">
+        <img src="img4.png" alt="image">
+      </div>
+      <div class="flex-1">
+        <h3 class="text-2xl font-bold mb-2">Contacter Laundry</h3>
+        <p class="text-sm mb-4">Nos conseillers, tous localisés en France, sont à votre écoute au 01 00 00 00 00 (appel non surtaxé), du lundi au vendredi de 8h à 20h et le samedi de 9h à 17h.</p>
+        <a href="tel:0100000000" class="w-full md:w-auto bg-torea-900 text-white font-semibold px-4 py-2 rounded mb-2 flex items-center hover:bg-torea-700 transition">
+          <img src="svg9.svg" alt="icon" class="w-4 h-4 mr-2" />
+          01 00 00 00 00
+        </a>
+        <a href="#" class="w-full md:w-auto bg-torea-900 text-white font-semibold px-4 py-2 rounded flex items-center hover:bg-torea-700 transition">
+          <img src="svg10.svg" alt="icon" class="w-4 h-4 mr-2" />
+          Google Maps
+        </a>
+      </div>
+    </section>
+
+    <hr class="max-w-5xl mx-auto border-gray-400 mt-10">
+
+    <section class="bg-water-900 rounded-2xl md:p-10 mt-10">
+      <form class="flex flex-col md:flex-col gap-4">
+        <h3 class="text-2xl font-bold text-torea-900 mb-2 text-center">Contactez-nous par mail</h3>
+        <div class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10">
+          <input type="text" placeholder="Prénom" class="flex-1 px-3 py-2 rounded border border-gray-200 outline-none"/>
+          <input type="text" placeholder="Nom" class="flex-1 px-3 py-2 rounded border border-gray-200 outline-none"/>
+        </div>
+        <input type="text" placeholder="Sujet" class="px-3 py-2 rounded border border-gray-200 outline-none"/>
+        <input type="email" placeholder="E-mail" class="px-3 py-2 rounded border border-gray-200 outline-none"/>
+        <textarea rows="6" placeholder="écrit votre message..." class="px-3 py-2 rounded border border-gray-200 outline-none"></textarea>
+        <button type="submit" class="bg-torea-900 text-white font-semibold py-3 rounded text-lg mt-4 hover:bg-torea-700 transition">Envoyer</button>
+      </form>
+    </section>
+
+  </div>
+
+
+
+
+  <footer class="bg-white py-8 border-t border-gray-400 mt-10 max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="text-xl font-bold mb-4 md:mb-0">Laundry</div>
+      <div class="flex items-center space-x-4">
+        <span class="text-gray-400 text-sm">Suivez-nous</span>
+        <a href="#" class="text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M18.896 2.003H5.104A3.108 3.108 0 0 0 2 5.11v13.783a3.108 3.108 0 0 0 3.104 3.107h13.793A3.108 3.108 0 0 0 22 18.893V5.11a3.108 3.108 0 0 0-3.104-3.107zm-7.1 15.66h-2.933V9.572h2.933v8.091zm-1.467-9.206a1.7 1.7 0 1 1 0-3.399 1.7 1.7 0 0 1 0 3.399zm10.369 9.206h-2.933v-4.067c0-.97-.017-2.217-1.352-2.217-1.352 0-1.56 1.055-1.56 2.146v4.138h-2.933V9.572h2.818v1.063h.04c.393-.744 1.355-1.528 2.79-1.528 2.984 0 3.532 1.964 3.532 4.518v4.038z" />
+          </svg>
+        </a>
+        <a href="#" class="text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 1.206.056 1.803.247 2.23.415.543.21.93.458 1.34.868.41.41.658.797.868 1.34.168.427.359 1.024.415 2.23.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.056 1.206-.247 1.803-.415 2.23-.21.543-.458.93-.868 1.34-.41.41-.797.658-1.34.868-.427.168-1.024.359-2.23.415-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.206-.056-1.803-.247-2.23-.415-.543-.21-.93-.458-1.34-.868-.41-.41-.658-.797-.868-1.34-.168-.427-.359-1.024-.415-2.23C2.175 15.797 2.163 15.417 2.163 12s.012-3.584.07-4.85c.056-1.206.247-1.803.415-2.23.21-.543.458-.93.868-1.34.41-.41.797-.658 1.34-.868.427-.168 1.024-.359 2.23-.415C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072c-1.292.06-2.18.264-2.948.528-.813.28-1.496.64-2.18 1.323-.684.684-1.043 1.367-1.323 2.18-.264.768-.468 1.656-.528 2.948C.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.06 1.292.264 2.18.528 2.948.28.813.64 1.496 1.323 2.18.684.684 1.367 1.043 2.18 1.323.768.264 1.656.468 2.948.528C8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 1.292-.06 2.18-.264 2.948-.528.813-.28 1.496-.64 2.18-1.323.684-.684 1.043-1.367 1.323-2.18.264-.768.468-1.656.528-2.948.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.06-1.292-.264-2.18-.528-2.948-.28-.813-.64-1.496-1.323-2.18-.684-.684-1.367-1.043-2.18-1.323-.768-.264-1.656-.468-2.948-.528C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.2-10.406a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="mt-4 text-gray-400 text-sm flex justify-between">
+      <span>Tous droits réservés. © Laundryheap 2025.</span>
+    </div>
+  </footer>
+</body>
+
+</html>
