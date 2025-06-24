@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\DiscriminatorColumn(name: 'dtype', type: 'string')]
 #[ORM\InheritanceType('JOINED')]
 #[ORM\DiscriminatorMap(['pressing_couette' => PressingCouette::class, 'wash' => Wash::class])]
-abstract class Service
+class Service
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
