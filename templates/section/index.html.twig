@@ -29,95 +29,65 @@
   </nav>
   <div class="max-w-5xl mx-auto mt-30">
     <main>
-      <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10">
-        <div class="flex-1">
-          <h1 class="text-3xl font-bold mb-2">Réinventer l'avenir de la laverie et du pressing.</h1>
-          <div class="font-semibold mb-2">
-            Laundryheap fournit le service de laverie et de pressing professionnel le plus rapide, le plus facile à
-            utiliser et le plus fiable. Notre service s'adapte parfaitement à vos besoins.
-          </div>
-          <p class="text-gray-600 text-sm mb-2">
-            Nous collectons, nettoyons et livrons votre linge à votre domicile. Nous serons là, où et quand vous en
-            aurez besoin. 98,7 % de tous les services de laverie et pressing standards sont livrés le lendemain.
-          </p>
-        </div>
-        <div class="flex-1 flex flex-col items-center">
-          <img src="img5.png" alt="Livreur Laundryheap" class="rounded-xl mb-4 object-cover" />
-        </div>
-      </section>
-
-      <hr class="border-gray-400 mt-10">
-
-      <section class="flex flex-col md:flex-row gap-10 items-center mt-10">
-        <div class="flex-1">
-          <img src="img6.png" alt="Véhicule électrique Laundryheap" class="w-full max-w-lg rounded-xl object-cover" />
-        </div>
-        <div class="flex-1">
-          <h2 class="text-3xl font-bold mb-2">Qui sommes nous ?</h2>
-          <div class="text-sm font-bold mb-1">Fondée en 2014 à Londres, Laundryheap est l'entreprise de laverie et de
-            pressing de nouvelle génération.</div>
-          <p class="text-sm mb-2">Nous proposons des services de laverie, de blanchisserie et de pressing professionnels
-            livrés à votre porte en 24 heures seulement.</p>
-          <div class="text-sm font-bold mb-1">Nous sommes disponibles dans le monde entier</div>
-          <p class="text-sm mb-2">
-            Depuis nos débuts à Londres, nous nous sommes étendus à 14 différents pays du monde entier. Nos services
-            sont disponibles dans les pays suivants : Denmark, Kuwait, Ireland, Qatar, Singapore, Sweden, UAE, United
-            States, United Kingdom, Peru, Bahrain, Netherlands, France et Saudi Arabia.
-          </p>
-          <div class="text-sm font-bold mb-1">Nous sommes disponibles dans le monde entier</div>
-          <p class="text-sm mb-2">
-            La durabilité sociale et environnementale est au cœur de nos activités. Nous construisons la plus grande
-            flotte de véhicules de livraison électriques et nous nous engageons à réduire la consommation d'eau,
-            d'électricité et la quantité des emballages.
-          </p>
-        </div>
-      </section>
-
-      <hr class="mt-10 border-gray-400">
-
-      <section class="text-center mt-10">
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">
-          Nous investissons dans l'une des plus grandes flottes de véhicules de livraison électriques au monde.
-        </h2>
-        <div class="text-xs text-torea-900 font-medium mb-2">
-          Incroyable ! Cela deviendra la plus grande flotte de trikes/quadicicycles en activité ! C'est tellement
-          positif d'assister à un passage des commandes symboliques des entreprises (et c'est déjà bien !) à un
-          déploiement commercial complet.
-        </div>
-      </section>
-
-      <hr class="border-gray-400 mt-10">
-
-      <section class="flex flex-col md:flex-row gap-10 items-center mt-10">
-        <div class="flex-1">
-          <h2 class="text-3xl font-bold mb-2">Qualité sans compromis</h2>
-          <div class="font-semibold mb-2">
-            Nous travaillons en partenariat avec des partenaires locaux de nettoyage et de livraison soigneusement
-            sélectionnés pour garantir que vos articles soient traités avec le plus grand soin.
-          </div>
-          <p class="text-gray-600 text-sm mb-2">
-            Nous ne faisons jamais de compromis en matière de qualité et de rapidité. Nous rémunérons équitablement nos
-            chauffeurs partenaires et sommes fiers de travailler avec des dizaines de services de nettoyage locaux
-            fiables afin de minimiser les transports.
-          </p>
-        </div>
-        <div class="flex-1">
-          <img src="img7.png" alt="Employé pressing" class="w-full max-w-xs rounded-xl object-cover" />
-        </div>
-      </section>
-
-      <hr class="border-gray-200 mt-10">
-
-      <section class="flex flex-col md:flex-row gap-10 items-center mt-10">
-        <div class="flex-1">
-          <img src="img8.png" alt="Interview PDG Laundryheap" class="w-full max-w-lg rounded-xl object-cover" />
-        </div>
-        <div class="flex-1">
-          <h2 class="text-3xl font-bold mb-2">La croissance, la durabilité et l'expansion font partie intégrante de
-            relations solides avec les clients</h2>
-          <div class="text-gray-600 text-sm mb-2">Deyan Dimitrov, PDG de Laundryheap</div>
-        </div>
-      </section>
+    {% for section in sections %}
+        {% if loop.index == 1 %}
+            <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10">
+                <div class="flex-1">
+                    <h1 class="text-3xl font-bold mb-2">{{ section.title }}</h1>
+                    <p class="text-sm mb-2">{{ section.description }}</p>
+                </div>
+                <div class="flex-1 flex flex-col items-center">
+                    <img src="{{ section.image }}" alt="image" class="rounded-xl mb-4 object-cover" />
+                </div>
+            </section>
+        {% elseif loop.index == 2 %}
+            <hr class="border-gray-400 mt-10">
+            <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
+                <div class="flex-1 flex flex-col items-center">
+                    <img src="{{ section.image }}" alt="image" class="rounded-xl mb-4 object-cover" />
+                </div>
+                <div class="flex-1">
+                    <h1 class="text-3xl font-bold mb-2">{{ section.title }}</h1>
+                    <p class="text-sm mb-2">{{ section.description }}</p>
+                </div>
+            </section>
+            <hr class="mt-10 border-gray-400">
+            <section class="text-center mt-10">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">
+                    Nous investissons dans l'une des plus grandes flottes de véhicules de livraison électriques au monde.
+                </h2>
+                <div class="text-xs text-torea-900 font-medium mb-2">
+                    Incroyable ! Cela deviendra la plus grande flotte de trikes/quadicicycles en activité ! C'est tellement
+                    positif d'assister à un passage des commandes symboliques des entreprises (et c'est déjà bien !) à un
+                    déploiement commercial complet.
+                </div>
+            </section>
+        {% else %}
+            {% set motif_index = (loop.index0) % 2 %}
+            <hr class="border-gray-400 mt-10">
+            {% if motif_index == 0 %}
+                <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
+                    <div class="flex-1">
+                        <h1 class="text-3xl font-bold mb-2">{{ section.title }}</h1>
+                        <p class="text-sm mb-2">{{ section.description }}</p>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center">
+                        <img src="{{ section.image }}" alt="image" class="rounded-xl mb-4 object-cover" />
+                    </div>
+                </section>
+            {% else %}
+                <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
+                    <div class="flex-1 flex flex-col items-center">
+                        <img src="{{ section.image }}" alt="image" class="rounded-xl mb-4 object-cover" />
+                    </div>
+                    <div class="flex-1">
+                        <h1 class="text-3xl font-bold mb-2">{{ section.title }}</h1>
+                        <p class="text-sm mb-2">{{ section.description }}</p>
+                    </div>
+                </section>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
 
     </main>
 
