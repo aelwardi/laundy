@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Laundry - Service de laverie & pressing en 48h</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  {% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  {% endblock %}
+</head>
+
+<body class="bg-white font-sans">
+  <!-- Navbar Sticky + Color Change on Scroll -->
+  <nav id="navbar"
+    class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-water-50 px-8 py-4 flex items-center justify-between">
+    <div id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</div>
+    <div class="flex-1 flex justify-center space-x-8">
+      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">Comment ça fonctionne</a>
+      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">Prix et services</a>
+      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">À propos de nous</a>
+      <a href="#"
+        class="nav-link text-gray-400 font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
+    </div>
+    <a href="#" id="cta-btn"
+      class="ml-4 bg-blue-500 text-white font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
+      dès maintenant</a>
+  </nav>
+  <!-- Hero / Title Section with Button perfectly tangent to the bottom of the ellipse curve -->
+  <section class="relative flex flex-col justify-center items-center overflow-hidden bg-transparent md:p-10">
+    <!-- Grand demi-cercle bleu clair en SVG, bouton au point le plus bas de la courbe -->
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <svg viewBox="0 0 1440 464" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+        <ellipse cx="720" cy="0" rx="964" ry="440" fill="#EDFAFF" />
+      </svg>
+    </div>
+    <!-- Contenu centré -->
+    <div class="relative z-10 flex flex-col items-center justify-center w-full pt-32 pb-16">
+      <h1 class="text-5xl md:text-7xl font-bold text-torea-900 text-center">Rapide. Propre. Frais.</h1>
+      <div class="text-torea-900 mb-12 text-xl md:text-2xl text-center">Votre linge livré en 24h.</div>
+    </div>
+    <!-- Bouton tangent à la courbe du bas de l'ellipse -->
+    <div class="absolute left-1/2 bottom-10 translate-x-[-50%] translate-y-[60%] z-20">
+      <a href="#"
+        class="inline-flex items-center bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-blue-600 text-base">
+        <svg class="w-5 h-5 mr-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+        Planifiez votre collecte
+      </a>
+    </div>
+  </section>
+  <div class="max-w-5xl mx-auto">
+    
+    <!-- Step 1 -->
+    <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
+      <div class="flex-1">
+        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">Souple</div>
+        <h2 class="text-2xl font-bold mb-2">1. Planifiez votre collecte</h2>
+        <p class="mb-4">Planifiez votre journée en toute simplicité. Choisissez un délai de collecte et de livraison qui
+          vous convient.</p>
+        <div class="flex flex-col gap-3 mb-2">
+          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
+            <svg class="w-5 h-5" ...></svg>
+            Réservez en ligne.
+          </div>
+          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
+            <svg class="w-5 h-5" ...></svg>
+            Créneaux disponibles le week-end et le soir
+          </div>
+        </div>
+      </div>
+      <div class="flex-1 flex flex-col items-center">
+        <img src="img10.png" alt="image" class="rounded-xl mb-4 object-cover" />
+      </div>
+    </section>
+    <hr class="border-gray-400 mt-10">
+
+    <!-- Step 2 -->
+    <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
+      <div class="flex-1 flex flex-col items-center">
+        <img src="img11.png" alt="image" class="rounded-xl mb-4 object-cover" />
+      </div>
+      <div class="flex-1">
+        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">Rapide et facile</div>
+        <h2 class="text-2xl font-bold mb-2">2. Emballez votre linge</h2>
+        <p class="mb-4">Emballez vos articles dans un sac jetable. Utilisez un sac par service. Notre chauffeur les transférera dans des sacs Laundryheap réutilisables que vous pourrez conserver pour votre prochaine commande.</p>
+        <div class="flex flex-col gap-3 mb-2">
+          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
+            <svg class="w-5 h-5" ...></svg>
+            Emballez un sac par service
+          </div>
+          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
+            <svg class="w-5 h-5" ...></svg>
+            Pas besoin de compter ou de peser vos articles
+          </div>
+        </div>
+      </div>
+    </section>
+    <hr class="border-gray-400 mt-10">
+
+    <!-- Step 3 -->
+    <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
+      <div class="flex-1">
+        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">Transparent</div>
+        <h2 class="text-2xl font-bold mb-2">3. Attendez notre livreur</h2>
+        <p class="mb-4">Vous recevrez une notification lorsque notre chauffeur sera à proximité. Il récupérera vos sacs et les apportera à votre centre de nettoyage local.</p>
+        <div class="flex flex-col gap-3 mb-2">
+          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
+            <svg class="w-5 h-5" ...></svg>
+            Mises à jour régulières des commandes
+          </div>
+          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
+            <svg class="w-5 h-5" ...></svg>
+            Suivi des conducteurs en temps réel
+          </div>
+        </div>
+      </div>
+      <div class="flex-1 flex flex-col items-center">
+        <img src="img12.png" alt="image" class="rounded-xl mb-4 object-cover" />
+      </div>
+    </section>
+    <hr class="border-gray-400 mt-10">
+
+    <!-- Step 4 -->
+    <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
+      <div class="flex-1 flex flex-col items-center">
+        <img src="img13.png" alt="image" class="rounded-xl mb-4 object-cover" />
+      </div>
+      <div class="flex-1">
+        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">Pratique</div>
+        <h2 class="text-2xl font-bold mb-2">4. Détendez-vous pendant que nous nous occupons de votre linge</h2>
+        <p class="mb-4">Votre établissement partenaire local nettoiera vos articles avec le plus grand soin. Notre chauffeur vous les ramènera ensuite quand vous le souhaitez. Vous avez le contrôle total de votre livraison et pouvez toujours la reprogrammer si vous n'êtes pas chez vous.</p>
+        <div class="flex flex-col gap-3 mb-2">
+          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
+            <svg class="w-5 h-5" ...></svg>
+            Délai d'exécution de 24 heures
+          </div>
+          <div class="flex items-center gap-2 text-sm font-semibold pl-2">
+            <svg class="w-5 h-5" ...></svg>
+                Suivi des commandes en temps réel
+            </div>
+            <div class="flex items-center gap-2 text-sm font-semibold pl-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <rect width="18" height="14" x="3" y="7" rx="2" stroke="currentColor"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3v4M8 3v4"/>
+                </svg>
+                Facile à reprogrammer
+            </div>
+        </div>
+      </div>
+    </section>
+  </div>
+    <!-- CTA Bandeau -->
+  <section class="bg-water-900 mt-10">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="flex-shrink-0">
+        <img src="img9.png" alt="image" class="w-45 h-45 md:p-4"/>
+      </div>
+      <div class="flex-1 flex flex-col items-center md:items-start justify-center text-center md:text-left">
+        <h3 class="text-2xl font-bold text-torea-900 mb-2">Ne laissez pas vos corvées définir qui vous êtes</h3>
+        <div class="text-torea-900 mb-3">Entrez votre adresse et planifiez une collecte dès aujourd'hui</div>
+        <a href="#" class="bg-white text-torea-900 px-4 py-2 rounded font-semibold shadow hover:bg-blue-100">
+          <svg class="w-5 h-5 inline mr-2 text-torea-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+          Planifiez votre collecte
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-white py-8 border-t border-gray-400 mt-10 max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="text-xl font-bold mb-4 md:mb-0">Laundry</div>
+      <div class="flex items-center space-x-4">
+        <span class="text-gray-400 text-sm">Suivez-nous</span>
+        <a href="#" class="text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M18.896 2.003H5.104A3.108 3.108 0 0 0 2 5.11v13.783a3.108 3.108 0 0 0 3.104 3.107h13.793A3.108 3.108 0 0 0 22 18.893V5.11a3.108 3.108 0 0 0-3.104-3.107zm-7.1 15.66h-2.933V9.572h2.933v8.091zm-1.467-9.206a1.7 1.7 0 1 1 0-3.399 1.7 1.7 0 0 1 0 3.399zm10.369 9.206h-2.933v-4.067c0-.97-.017-2.217-1.352-2.217-1.352 0-1.56 1.055-1.56 2.146v4.138h-2.933V9.572h2.818v1.063h.04c.393-.744 1.355-1.528 2.79-1.528 2.984 0 3.532 1.964 3.532 4.518v4.038z" />
+          </svg>
+        </a>
+        <a href="#" class="text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 1.206.056 1.803.247 2.23.415.543.21.93.458 1.34.868.41.41.658.797.868 1.34.168.427.359 1.024.415 2.23.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.056 1.206-.247 1.803-.415 2.23-.21.543-.458.93-.868 1.34-.41.41-.797.658-1.34.868-.427.168-1.024.359-2.23.415-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.206-.056-1.803-.247-2.23-.415-.543-.21-.93-.458-1.34-.868-.41-.41-.658-.797-.868-1.34-.168-.427-.359-1.024-.415-2.23C2.175 15.797 2.163 15.417 2.163 12s.012-3.584.07-4.85c.056-1.206.247-1.803.415-2.23.21-.543.458-.93.868-1.34.41-.41.797-.658 1.34-.868.427-.168 1.024-.359 2.23-.415C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072c-1.292.06-2.18.264-2.948.528-.813.28-1.496.64-2.18 1.323-.684.684-1.043 1.367-1.323 2.18-.264.768-.468 1.656-.528 2.948C.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.06 1.292.264 2.18.528 2.948.28.813.64 1.496 1.323 2.18.684.684 1.367 1.043 2.18 1.323.768.264 1.656.468 2.948.528C8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 1.292-.06 2.18-.264 2.948-.528.813-.28 1.496-.64 2.18-1.323.684-.684 1.043-1.367 1.323-2.18.264-.768.468-1.656.528-2.948.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.06-1.292-.264-2.18-.528-2.948-.28-.813-.64-1.496-1.323-2.18-.684-.684-1.367-1.043-2.18-1.323-.768-.264-1.656-.468-2.948-.528C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.2-10.406a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="mt-4 text-gray-400 text-sm flex justify-between">
+      <span>Tous droits réservés. © Laundryheap 2025.</span>
+    </div>
+  </footer>
+</body>
+
+</html>
