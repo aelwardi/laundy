@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\PressingCouette;
+use App\Entity\Pressing;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<PressingCouette>
+ * @extends ServiceEntityRepository<Pressing>
  */
-class PressingCouetteRepository extends ServiceEntityRepository
+class PressingRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, PressingCouette::class);
+        parent::__construct($registry, Pressing::class);
     }
 
     //    /**
-    //     * @return PressingCouette[] Returns an array of PressingCouette objects
+    //     * @return Pressing[] Returns an array of Pressing objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class PressingCouetteRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?PressingCouette
+    //    public function findOneBySomeField($value): ?Pressing
     //    {
     //        return $this->createQueryBuilder('p')
     //            ->andWhere('p.exampleField = :val')

@@ -20,8 +20,11 @@ class DetailsService
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $icon = null;
+
     #[ORM\ManyToOne(inversedBy: 'detailsServices')]
-    private ?PressingCouette $pressingCouette = null;
+    private ?Service $service = null;
 
     public function getId(): ?int
     {
@@ -52,14 +55,26 @@ class DetailsService
         return $this;
     }
 
-    public function getPressingCouette(): ?PressingCouette
+    public function getIcon(): ?string
     {
-        return $this->pressingCouette;
+        return $this->icon;
     }
 
-    public function setPressingCouette(?PressingCouette $pressingCouette): static
+    public function setIcon(string $icon): static
     {
-        $this->pressingCouette = $pressingCouette;
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(?Service $service): static
+    {
+        $this->service = $service;
 
         return $this;
     }

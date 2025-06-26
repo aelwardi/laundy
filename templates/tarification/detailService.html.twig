@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Laundry - Service de laverie & pressing en 48h</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    {% block stylesheets %}
+      {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function showTab(tab) {
+        document.getElementById('liste-prix-tab').classList.toggle('text-black', tab === 'prix');
+        document.getElementById('liste-prix-tab').classList.toggle('border-b-2', tab === 'prix');
+        document.getElementById('liste-prix-tab').classList.toggle('border-black', tab === 'prix');
+        document.getElementById('liste-prix-tab').classList.toggle('text-gray-500', tab !== 'prix');
+
+        document.getElementById('details-service-tab').classList.toggle('text-black', tab === 'details');
+        document.getElementById('details-service-tab').classList.toggle('border-b-2', tab === 'details');
+        document.getElementById('details-service-tab').classList.toggle('border-black', tab === 'details');
+        document.getElementById('details-service-tab').classList.toggle('text-gray-500', tab !== 'details');
+
+        document.getElementById('liste-prix-content').style.display = tab === 'prix' ? 'block' : 'none';
+        document.getElementById('details-service-content').style.display = tab === 'details' ? 'block' : 'none';
+      }
+
+      document.getElementById('liste-prix-tab').addEventListener('click', function(e) {
+        e.preventDefault();
+        showTab('prix');
+      });
+      document.getElementById('details-service-tab').addEventListener('click', function(e) {
+        e.preventDefault();
+        showTab('details');
+      });
+
+      // Default: show price list
+      showTab('prix');
+    });
+  </script>
+</head>
+<body class="bg-white font-sans">
+
+<nav id="navbar"
+  class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-blue-500 px-8 py-4 flex items-center justify-between">
+  <div id="logo" class="text-white font-bold text-2xl transition-colors duration-300">Laundry</div>
+  <div class="flex-1 flex justify-center space-x-8">
+    <a href="#" class="nav-link text-white hover:underline transition-colors duration-300">Comment ça fonctionne</a>
+    <a href="#" class="nav-link text-white hover:underline transition-colors duration-300">Prix et services</a>
+    <a href="#" class="nav-link text-white hover:underline transition-colors duration-300">À propos de nous</a>
+    <a href="#"
+      class="nav-link text-white font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
+  </div>
+  <a href="#" id="cta-btn"
+    class="ml-4 bg-white text-blue-500 font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
+    dès maintenant</a>
+</nav>
+
+<div class="max-w-5xl mx-auto mt-20">
+  <div class="text-sm text-gray-700 flex items-center">
+    <a href="#" class="flex items-center font-medium">
+      <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Liste des services
+    </a>
+  </div>
+
+  <div class="flex items-center gap-2 mt-10">
+    <button class="flex items-center gap-2 px-4 py-2 rounded bg-torea-900 text-white font-semibold">
+      <img src="icon1.png" alt="icon" class="w-7 h-7">
+      Laver
+    </button>
+    <button class="flex items-center gap-2 px-4 py-2 rounded border-gray-400">
+      <img src="icon2.png" alt="icon" class="w-7 h-7">
+      Pressing
+    </button>
+    <button class="flex items-center gap-2 px-4 py-2 rounded border-gray-400">
+      <img src="icon3.png" alt="icon" class="w-7 h-7">
+      Couettes & Ameublements
+    </button>
+  </div>
+    <div class="bg-pass-200 rounded-lg p-5 flex flex-col md:flex-row items-center justify-between mt-10">
+      <div class="flex-1">
+        <div class="text-xl font-bold text-torea-900 mb-1">Laver</div>
+        <div class="text-torea-900 text-sm">Pour le linge de tous les jours, les draps et les serviettes.</div>
+      </div>
+      <div>
+        <img src="img14.png" alt="icon" class="w-8 h-8">
+      </div>
+    </div>
+
+  <div class=" flex items-center gap-6 mb-4 mt-4">
+    <a href="#" id="liste-prix-tab" class="text-black font-semibold border-b-2 border-black pb-1">Liste de prix</a>
+    <a href="#" id="details-service-tab" class="text-gray-400 font-semibold hover:text-black pb-1">Détails du service</a>
+  </div>
+
+  <div id="liste-prix-content" class="mt-10" style="display:none">
+    <div class="font-bold text-xl mb-3 mt-2">Laver</div>
+    <div class="divide-y divide-gray-200 border-b mb-4">
+      <div class="flex justify-between items-start py-3">
+        <div>
+          <div class="font-semibold">Lavage non Trié (jusqu'à 6 kg)</div>
+          <div class="text-xs text-gray-400">Linge clair et foncé lavé ensemble à 30°C. Vous pouvez demander 45°C.</div>
+        </div>
+        <div class="font-semibold text-torea-900">€24,90</div>
+      </div>
+      <div class="flex justify-between items-start py-3">
+        <div>
+          <div class="font-semibold">Lavage Trié (jusqu'à 12 kg de vêtements clairs et foncés)</div>
+          <div class="text-xs text-gray-400">Nous séparons les articles pour vous et les laverons à 30°C. Commence avec deux charges. Vous pouvez demander 45°C à la place.</div>
+        </div>
+        <div class="font-semibold text-torea-900">€49,90</div>
+      </div>
+      <div class="flex justify-between items-center py-3">
+        <div class="font-semibold">Chaque kilo supplémentaire</div>
+        <div class="font-semibold text-torea-900">€4,15</div>
+      </div>
+    </div>
+    <div class="mt-4">
+      <div class="bg-torea-900 text-white rounded-lg px-6 py-4 flex flex-col gap-1">
+        <div class="font-semibold">Vous n'êtes pas sûr de la quantité que vous avez ?</div>
+        <a href="#" class="underline font-bold">Obtenir un devis</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="details-service-content" class="flex flex-col gap-8" style="display:none">
+    <div class="mt-10">
+      <span class="inline-block text-gray-500 px-3 py-1 rounded text-xs font-medium">laver + sécher au sèche-linge + dans un sac</span>
+    </div>
+    <div class="mt-10">
+      <div class="flex items-center gap-2 font-bold">
+        <span class="inline-flex items-center justify-center rounded-full w-7 h-7 text-sm">
+          <img src="icon4.png" alt="icon" class="w-7 h-7">
+        </span>
+        <span>Vue d'ensemble du service</span>
+      </div>
+      <div class="text-gray-400 text-sm ml-8">Vos articles sont lavés en machine à 30°C et séchés au sèche-linge. Le repassage n'est pas inclus. 45°C peuvent être demandés sans frais supplémentaires.</div>
+    </div>
+
+    <hr class="mt-10 border-gray-400">
+
+  </div>
+</div>
+  <footer class="bg-white py-8 border-t border-gray-400 mt-10 max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="text-xl font-bold mb-4 md:mb-0">Laundry</div>
+      <div class="flex items-center space-x-4">
+        <span class="text-gray-400 text-sm">Suivez-nous</span>
+        <a href="#" class="text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M18.896 2.003H5.104A3.108 3.108 0 0 0 2 5.11v13.783a3.108 3.108 0 0 0 3.104 3.107h13.793A3.108 3.108 0 0 0 22 18.893V5.11a3.108 3.108 0 0 0-3.104-3.107zm-7.1 15.66h-2.933V9.572h2.933v8.091zm-1.467-9.206a1.7 1.7 0 1 1 0-3.399 1.7 1.7 0 0 1 0 3.399zm10.369 9.206h-2.933v-4.067c0-.97-.017-2.217-1.352-2.217-1.352 0-1.56 1.055-1.56 2.146v4.138h-2.933V9.572h2.818v1.063h.04c.393-.744 1.355-1.528 2.79-1.528 2.984 0 3.532 1.964 3.532 4.518v4.038z" />
+          </svg>
+        </a>
+        <a href="#" class="text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 1.206.056 1.803.247 2.23.415.543.21.93.458 1.34.868.41.41.658.797.868 1.34.168.427.359 1.024.415 2.23.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.056 1.206-.247 1.803-.415 2.23-.21.543-.458.93-.868 1.34-.41.41-.797.658-1.34.868-.427.168-1.024.359-2.23.415-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.206-.056-1.803-.247-2.23-.415-.543-.21-.93-.458-1.34-.868-.41-.41-.658-.797-.868-1.34-.168-.427-.359-1.024-.415-2.23C2.175 15.797 2.163 15.417 2.163 12s.012-3.584.07-4.85c.056-1.206.247-1.803.415-2.23.21-.543.458-.93.868-1.34.41-.41.797-.658 1.34-.868.427-.168 1.024-.359 2.23-.415C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072c-1.292.06-2.18.264-2.948.528-.813.28-1.496.64-2.18 1.323-.684.684-1.043 1.367-1.323 2.18-.264.768-.468 1.656-.528 2.948C.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.06 1.292.264 2.18.528 2.948.28.813.64 1.496 1.323 2.18.684.684 1.367 1.043 2.18 1.323.768.264 1.656.468 2.948.528C8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 1.292-.06 2.18-.264 2.948-.528.813-.28 1.496-.64 2.18-1.323.684-.684 1.043-1.367 1.323-2.18.264-.768.468-1.656.528-2.948.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.06-1.292-.264-2.18-.528-2.948-.28-.813-.64-1.496-1.323-2.18-.684-.684-1.367-1.043-2.18-1.323-.768-.264-1.656-.468-2.948-.528C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.2-10.406a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="mt-4 text-gray-400 text-sm flex justify-between">
+      <span>Tous droits réservés. © Laundryheap 2025.</span>
+    </div>
+  </footer>
+  </body>
+
+</html>

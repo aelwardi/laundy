@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\ServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
 #[ORM\DiscriminatorColumn(name: 'dtype', type: 'string')]
 #[ORM\InheritanceType('JOINED')]
-#[ORM\DiscriminatorMap(['pressing_couette' => PressingCouette::class, 'wash' => Wash::class])]
+#[ORM\DiscriminatorMap(['pressing' => Pressing::class, 'ameublement' => Ameublement::class, 'wash' => Wash::class])]
 class Service
 {
     #[ORM\Id]
@@ -27,10 +29,28 @@ class Service
     private ?Laundry $laundry = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $title = null;
+    private ?string $image = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    private ?string $icon = null;
+
+    /**
+     * @var Collection<int, CoSevice>
+     */
+    #[ORM\OneToMany(targetEntity: CoSevice::class, mappedBy: 'service')]
+    private Collection $coSevices;
+
+    /**
+     * @var Collection<int, DetailsService>
+     */
+    #[ORM\OneToMany(targetEntity: DetailsService::class, mappedBy: 'service')]
+    private Collection $detailsServices;
+
+    public function __construct()
+    {
+        $this->coSevices = new ArrayCollection();
+        $this->detailsServices = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -73,18 +93,6 @@ class Service
         return $this;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): static
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
     public function getImage(): ?string
     {
         return $this->image;
@@ -93,6 +101,78 @@ class Service
     public function setImage(string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(string $icon): static
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CoSevice>
+     */
+    public function getCoSevices(): Collection
+    {
+        return $this->coSevices;
+    }
+
+    public function addCoSevice(CoSevice $coSevice): static
+    {
+        if (!$this->coSevices->contains($coSevice)) {
+            $this->coSevices->add($coSevice);
+            $coSevice->setService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCoSevice(CoSevice $coSevice): static
+    {
+        if ($this->coSevices->removeElement($coSevice)) {
+            // set the owning side to null (unless already changed)
+            if ($coSevice->getService() === $this) {
+                $coSevice->setService(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DetailsService>
+     */
+    public function getDetailsServices(): Collection
+    {
+        return $this->detailsServices;
+    }
+
+    public function addDetailsService(DetailsService $detailsService): static
+    {
+        if (!$this->detailsServices->contains($detailsService)) {
+            $this->detailsServices->add($detailsService);
+            $detailsService->setService($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetailsService(DetailsService $detailsService): static
+    {
+        if ($this->detailsServices->removeElement($detailsService)) {
+            // set the owning side to null (unless already changed)
+            if ($detailsService->getService() === $this) {
+                $detailsService->setService(null);
+            }
+        }
 
         return $this;
     }

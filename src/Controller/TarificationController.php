@@ -17,4 +17,10 @@ final class TarificationController extends AbstractController
             'services' => $services,
         ]);
     }
+
+    #[Route('/tarif/details', name: 'app_tarif_details')]
+    public function detail(): Response
+    {
+        return $this->render('tarification/detailService.html.twig');
+    }
 }

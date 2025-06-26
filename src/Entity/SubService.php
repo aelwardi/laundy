@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SubServiceRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SubServiceRepository::class)]
@@ -17,10 +18,13 @@ class SubService
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?float $priceArticle = null;
+    private ?float $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'subServices')]
-    private ?PressingCouette $pressingCouette = null;
+    private ?CoSevice $coservice = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
     public function getId(): ?int
     {
@@ -39,26 +43,38 @@ class SubService
         return $this;
     }
 
-    public function getPriceArticle(): ?float
+    public function getPrice(): ?float
     {
-        return $this->priceArticle;
+        return $this->price;
     }
 
-    public function setPriceArticle(float $priceArticle): static
+    public function setPrice(float $price): static
     {
-        $this->priceArticle = $priceArticle;
+        $this->price = $price;
 
         return $this;
     }
 
-    public function getPressingCouette(): ?PressingCouette
+    public function getCoservice(): ?CoSevice
     {
-        return $this->pressingCouette;
+        return $this->coservice;
     }
 
-    public function setPressingCouette(?PressingCouette $pressingCouette): static
+    public function setCoservice(?CoSevice $coservice): static
     {
-        $this->pressingCouette = $pressingCouette;
+        $this->coservice = $coservice;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

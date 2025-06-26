@@ -7,7 +7,11 @@ use App\Entity\Section;
 use App\Entity\HowWorks;
 use App\Entity\Step;
 use App\Entity\Wash;
-use App\Entity\PressingCouette;
+use App\Entity\Pressing;
+use App\Entity\Ameublement;
+use App\Entity\CoSevice;
+use App\Entity\SubService;
+use App\Entity\DetailsService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -171,91 +175,239 @@ class AppFixtures extends Fixture
         $wash->setName('Laver');
         $wash->setDescription('Pour le linge de tous les jours, les draps et les serviettes.');
         $wash->setImage('img14.png');
-        $wash->setTitle('Linge non trié');
-        $wash->setPriceKg(4.15);
+        $wash->setIcon('icon1.png');
         $wash->setLaundry($laundry);
         $manager->persist($wash);
-        
-        $wash1 = new Wash();
-        $wash1->setName('Laver');
-        $wash1->setDescription('Pour le linge de tous les jours, les draps et les serviettes.');
-        $wash1->setImage('img14.png');
-        $wash1->setTitle('Linge trié');
-        $wash1->setPriceKg(5.15);
-        $wash1->setLaundry($laundry);
-        $manager->persist($wash1);
 
-        $pressingCouette = new PressingCouette();
-        $pressingCouette->setName('Pressing');
-        $pressingCouette->setDescription('Pour vêtements et tissus délicats.');
-        $pressingCouette->setImage('img15.png');
-        $pressingCouette->setTitle('Chemises');
-        $pressingCouette->setLaundry($laundry);
-        $manager->persist($pressingCouette);
+        $coService = new CoSevice();
+        $coService->setTitle('Laver');
+        $coService->setWash($wash);
+        $manager->persist($coService);
 
-        $pressingCouette1 = new PressingCouette();
-        $pressingCouette1->setName('Pressing');
-        $pressingCouette1->setDescription('Pour vêtements et tissus délicats.');
-        $pressingCouette1->setImage('img15.png');
-        $pressingCouette1->setTitle('Chemisiers');
-        $pressingCouette1->setLaundry($laundry);
-        $manager->persist($pressingCouette1);
+        $subService = new SubService();
+        $subService->setName('Lavage non Trié');
+        $subService->setPrice(4.15);
+        $subService->setDescription('Linge clair et foncé lavé ensemble à 30°C. Vous pouvez demander 45°C.');
+        $subService->setCoService($coService);
+        $manager->persist($subService);
 
-        $pressingCouette2 = new PressingCouette();
-        $pressingCouette2->setName('Pressing');
-        $pressingCouette2->setDescription('Pour vêtements et tissus délicats.');
-        $pressingCouette2->setImage('img15.png');
-        $pressingCouette2->setTitle('Pantalons / Jupes');
-        $pressingCouette2->setLaundry($laundry);
-        $manager->persist($pressingCouette2);
+        $subService1 = new SubService();
+        $subService1->setName('Lavage Trié');
+        $subService1->setPrice(4.15);
+        $subService1->setDescription('Nous séparerons les articles pour vous et les laverons à 30°C. Commence avec deux charges. Vous pouvez demander 45°C à la place.');
+        $subService1->setCoService($coService);
+        $manager->persist($subService1);
 
-        $pressingCouette3 = new PressingCouette();
-        $pressingCouette3->setName('Pressing');
-        $pressingCouette3->setDescription('Pour vêtements et tissus délicats.');
-        $pressingCouette3->setImage('img15.png');
-        $pressingCouette3->setTitle('Chemises');
-        $pressingCouette3->setLaundry($laundry);
-        $manager->persist($pressingCouette3);
+        $pressing = new Pressing();
+        $pressing->setName('Pressing');
+        $pressing->setDescription('Pour vêtements et tissus délicats.');
+        $pressing->setImage('img15.png');
+        $pressing->setIcon('icon2.png');
+        $pressing->setLaundry($laundry);
+        $manager->persist($pressing);
 
-        $pressingCouette4 = new PressingCouette();
-        $pressingCouette4->setName('Pressing');
-        $pressingCouette4->setDescription('Pour vêtements et tissus délicats.');
-        $pressingCouette4->setImage('img15.png');
-        $pressingCouette4->setTitle('Robes');
-        $pressingCouette4->setLaundry($laundry);
-        $manager->persist($pressingCouette4);
+        $coService1 = new CoService();
+        $coService1->setTitle('Chemises');
+        $coService1->setPressing($pressing);
+        $manager->persist($coService1);
 
-        $pressingCouette5 = new PressingCouette();
-        $pressingCouette5->setName('Couettes & Ameublements');
-        $pressingCouette5->setDescription('Pour les articles plus volumineux qui nécessitent des soins supplémentaires.');
-        $pressingCouette5->setImage('img16.png');
-        $pressingCouette5->setTitle('Couettes plume');
-        $pressingCouette5->setLaundry($laundry);
-        $manager->persist($pressingCouette5);
+        $subService2 = new SubService();
+        $subService2->setName('Chemise sur Cintre');
+        $subService2->setPrice(4.20);
+        $subService2->setCoService($coService1);
+        $manager->persist($subService2);
 
-        $pressingCouette6 = new PressingCouette();
-        $pressingCouette6->setName('Couettes & Ameublements');
-        $pressingCouette6->setDescription('Pour les articles plus volumineux qui nécessitent des soins supplémentaires.');
-        $pressingCouette6->setImage('img16.png');
-        $pressingCouette6->setTitle('Couettes Synthétique');
-        $pressingCouette6->setLaundry($laundry);
-        $manager->persist($pressingCouette6);
+        $subService3 = new SubService();
+        $subService3->setName('Chemise Pliée');
+        $subService3->setPrice(4.90);
+        $subService3->setCoService($coService1);
+        $manager->persist($subService3);
 
-        $pressingCouette7 = new PressingCouette();
-        $pressingCouette7->setName('Couettes & Ameublements');
-        $pressingCouette7->setDescription('Pour les articles plus volumineux qui nécessitent des soins supplémentaires.');
-        $pressingCouette7->setImage('img16.png');
-        $pressingCouette7->setTitle('Couvertures & couvre-lits');
-        $pressingCouette7->setLaundry($laundry);
-        $manager->persist($pressingCouette7);
+        $coService2 = new CoService();
+        $coService2->setTitle('Chemisiers');
+        $coService2->setWash($pressing);
+        $manager->persist($coService2);
+       
+        $subService2 = new SubService();
+        $subService2->setName('Gilet');
+        $subService2->setPrice(9);
+        $subService2->setCoService($coService2);
+        $manager->persist($subService2);
 
-        $pressingCouette8 = new PressingCouette();
-        $pressingCouette8->setName('Couettes & Ameublements');
-        $pressingCouette8->setDescription('Pour les articles plus volumineux qui nécessitent des soins supplémentaires.');
-        $pressingCouette8->setImage('img16.png');
-        $pressingCouette8->setTitle('Oreillers');
-        $pressingCouette8->setLaundry($laundry);
-        $manager->persist($pressingCouette8);
+        $subService3 = new SubService();
+        $subService3->setName('Pull');
+        $subService3->setPrice(9);
+        $subService3->setCoService($coService2);
+        $manager->persist($subService3);
+
+        $subService4 = new SubService();
+        $subService4->setName('Polo sur Cintre');
+        $subService4->setPrice(5.90);
+        $subService4->setCoService($coService2);
+        $manager->persist($subService4);
+
+        $subService5 = new SubService();
+        $subService5->setName('Polo Pliée');
+        $subService5->setPrice(7);
+        $subService5->setCoService($coService2);
+        $manager->persist($subService5);
+
+        $subService6 = new SubService();
+        $subService6->setName('Chemisier');
+        $subService6->setPrice(8);
+        $subService6->setCoService($coService2);
+        $manager->persist($subService6);
+
+        $coService3 = new CoService();
+        $coService3->setTitle('Pantalons / Jupes');
+        $coService3->setWash($pressing);
+        $manager->persist($coService3);
+
+        $subService7 = new SubService();
+        $subService7->setName('Short');
+        $subService7->setPrice(8);
+        $subService7->setCoService($coService3);
+        $manager->persist($subService7);
+
+        $subService8 = new SubService();
+        $subService8->setName('Jupe');
+        $subService8->setPrice(9);
+        $subService8->setCoService($coService3);
+        $manager->persist($subService8);
+
+        $subService9 = new SubService();
+        $subService9->setName('Pantalon');
+        $subService9->setPrice(9);
+        $subService9->setCoService($coService3);
+        $manager->persist($subService9);
+
+        $coService4 = new CoService();
+        $coService4->setTitle('Pantalons / Jupes');
+        $coService4->setPressing($pressing);
+        $manager->persist($coService4);
+
+        $subService10 = new SubService();
+        $subService10->setName('Costume (2 pièces)');
+        $subService10->setPrice(19);
+        $subService10->setCoService($coService4);
+        $manager->persist($subService10);
+
+        $subService11 = new SubService();
+        $subService11->setName('Costume (3 pièces)');
+        $subService11->setPrice(25);
+        $subService11->setCoService($coService4);
+        $manager->persist($subService11);
+
+        $coService5 = new CoService();
+        $coService5->setTitle('Robes');
+        $coService5->setPressing($pressing);
+        $manager->persist($coService5);
+
+        $subService12 = new SubService();
+        $subService12->setName('Robe');
+        $subService12->setPrice(25);
+        $subService12->setCoService($coService5);
+        $manager->persist($subService12);
+
+        $subService13 = new SubService();
+        $subService13->setName('Robe - Soirée');
+        $subService13->setPrice(25);
+        $subService13->setCoService($coService5);
+        $manager->persist($subService13);
+
+        $subService14 = new SubService();
+        $subService14->setName('Combinaison');
+        $subService14->setPrice(19);
+        $subService14->setCoService($coService5);
+        $manager->persist($subService14);
+
+        $ameublement = new Ameublement();
+        $ameublement->setName('Couettes & Ameublements');
+        $ameublement->setDescription('Pour les articles plus volumineux qui nécessitent des soins supplémentaires.');
+        $ameublement->setImage('img16.png');
+        $ameublement->setIcon('icon3.png');
+        $ameublement->setLaundry($laundry);
+        $manager->persist($ameublement);
+
+        $coService6 = new CoService();
+        $coService6->setTitle('Couettes plume');
+        $coService6->setAmeublement($ameublement);
+        $manager->persist($coService6);
+
+        $subService15 = new SubService();
+        $subService15->setName('Couette Plume - Simple');
+        $subService15->setPrice(35.90);
+        $subService15->setCoService($coService6);
+        $manager->persist($subService15);
+
+        $subService16 = new SubService();
+        $subService16->setName('Couette Plume - Double');
+        $subService16->setPrice(38.90);
+        $subService16->setCoService($coService6);
+        $manager->persist($subService16);
+
+        $coService7 = new CoService();
+        $coService7->setTitle('Couettes Synthétique');
+        $coService7->setAmeublement($ameublement);
+        $manager->persist($coService7);
+
+        $subService17 = new SubService();
+        $subService17->setName('Couette Synthétique - Simple');
+        $subService17->setPrice(25);
+        $subService17->setCoService($coService7);
+        $manager->persist($subService17);
+
+        $subService18 = new SubService();
+        $subService18->setName('Couette Synthétique - Double');
+        $subService18->setPrice(28);
+        $subService18->setCoService($coService7);
+        $manager->persist($subService18);
+
+        $coService8 = new CoService();
+        $coService8->setTitle('Couvertures & couvre-lits');
+        $coService8->setAmeublement($ameublement);
+        $manager->persist($coService8);
+
+        $subService19 = new SubService();
+        $subService19->setName('Couvre-lit - Seul - Lavable');
+        $subService19->setPrice(21);
+        $subService19->setCoService($coService8);
+        $manager->persist($subService19);
+
+        $subService20 = new SubService();
+        $subService20->setName('Couvre-lit - Double - Lavable');
+        $subService20->setPrice(21);
+        $subService20->setCoService($coService8);
+        $manager->persist($subService20);
+
+        $subService21 = new SubService();
+        $subService21->setName('Couverture - Simple - Lavable');
+        $subService21->setPrice(21);
+        $subService21->setCoService($coService8);
+        $manager->persist($subService21);
+
+        $subService22 = new SubService();
+        $subService22->setName('Couverture - Double - Lavable');
+        $subService22->setPrice(21);
+        $subService22->setCoService($coService8);
+        $manager->persist($subService22);
+
+        $coService9 = new CoService();
+        $coService9->setTitle('Oreillers');
+        $coService9->setAmeublement($ameublement);
+        $manager->persist($coService9);
+
+        $subService23 = new SubService();
+        $subService23->setName('Pillow - Feather');
+        $subService23->setPrice(16);
+        $subService23->setCoService($coService9);
+        $manager->persist($subService23);
+
+        $subService24 = new SubService();
+        $subService24->setName('Oreiller - Synthétique');
+        $subService24->setPrice(14);
+        $subService24->setCoService($coService9);
+        $manager->persist($subService24);
 
         $manager->flush();
     }
