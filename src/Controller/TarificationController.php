@@ -18,9 +18,14 @@ final class TarificationController extends AbstractController
         ]);
     }
 
-    #[Route('/tarif/details', name: 'app_tarif_details')]
-    public function detail(): Response
+    #[Route('/tarif/details/{id}', name: 'app_tarif_details')]
+    public function detail(ServiceRepository $serviceRepository, int $id): Response
     {
-        return $this->render('tarification/detailService.html.twig');
+        $service = $serviceRepository->find($id);
+        $services = $serviceRepository->tarifServices();
+        return $this->render('tarification/detailService.html.twig', [
+            'service' => $service,
+            'services' => $services,
+        ]);
     }
 }

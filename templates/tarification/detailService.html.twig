@@ -36,8 +36,6 @@
         e.preventDefault();
         showTab('details');
       });
-
-      // Default: show price list
       showTab('prix');
     });
   </script>
@@ -70,26 +68,20 @@
   </div>
 
   <div class="flex items-center gap-2 mt-10">
+    {% for srv in services %}
     <button class="flex items-center gap-2 px-4 py-2 rounded bg-torea-900 text-white font-semibold">
-      <img src="icon1.png" alt="icon" class="w-7 h-7">
-      Laver
+      <img src="{{ srv.icon }}" alt="icon" class="w-7 h-7">
+      {{ srv.name }}
     </button>
-    <button class="flex items-center gap-2 px-4 py-2 rounded border-gray-400">
-      <img src="icon2.png" alt="icon" class="w-7 h-7">
-      Pressing
-    </button>
-    <button class="flex items-center gap-2 px-4 py-2 rounded border-gray-400">
-      <img src="icon3.png" alt="icon" class="w-7 h-7">
-      Couettes & Ameublements
-    </button>
+    {% endfor %}
   </div>
     <div class="bg-pass-200 rounded-lg p-5 flex flex-col md:flex-row items-center justify-between mt-10">
       <div class="flex-1">
-        <div class="text-xl font-bold text-torea-900 mb-1">Laver</div>
-        <div class="text-torea-900 text-sm">Pour le linge de tous les jours, les draps et les serviettes.</div>
+        <div class="text-xl font-bold text-torea-900 mb-1">{{ service.name }}</div>
+        <div class="text-torea-900 text-sm">{{ service.description }}</div>
       </div>
       <div>
-        <img src="img14.png" alt="icon" class="w-8 h-8">
+        <img src="img14.png" alt="icon" class="w-9 h-9">
       </div>
     </div>
 
@@ -99,51 +91,47 @@
   </div>
 
   <div id="liste-prix-content" class="mt-10" style="display:none">
-    <div class="font-bold text-xl mb-3 mt-2">Laver</div>
-    <div class="divide-y divide-gray-200 border-b mb-4">
+    {% for coService in service.coSevices %}
+    <div class="font-bold text-xl mt-2">{{coService.title}}</div>
+    <div class="divide-y divide-gray-200 border-b-2 border-gray-400 mb-4">
+      {% for subService in coService.subServices %}
       <div class="flex justify-between items-start py-3">
         <div>
-          <div class="font-semibold">Lavage non Trié (jusqu'à 6 kg)</div>
-          <div class="text-xs text-gray-400">Linge clair et foncé lavé ensemble à 30°C. Vous pouvez demander 45°C.</div>
+          <div class="font-semibold">{{ subService.name }}</div>
+          <div class="text-xs text-gray-400">{{ subService.description }}</div>
         </div>
-        <div class="font-semibold text-torea-900">€24,90</div>
+        <div class="font-semibold text-torea-900">{{ subService.price }}</div>
       </div>
-      <div class="flex justify-between items-start py-3">
-        <div>
-          <div class="font-semibold">Lavage Trié (jusqu'à 12 kg de vêtements clairs et foncés)</div>
-          <div class="text-xs text-gray-400">Nous séparons les articles pour vous et les laverons à 30°C. Commence avec deux charges. Vous pouvez demander 45°C à la place.</div>
-        </div>
-        <div class="font-semibold text-torea-900">€49,90</div>
-      </div>
-      <div class="flex justify-between items-center py-3">
-        <div class="font-semibold">Chaque kilo supplémentaire</div>
-        <div class="font-semibold text-torea-900">€4,15</div>
-      </div>
+      {% endfor %}
     </div>
+    {% endfor %}
     <div class="mt-4">
       <div class="bg-torea-900 text-white rounded-lg px-6 py-4 flex flex-col gap-1">
         <div class="font-semibold">Vous n'êtes pas sûr de la quantité que vous avez ?</div>
-        <a href="#" class="underline font-bold">Obtenir un devis</a>
+        <a href="#" class="font-bold">Obtenir un devis</a>
       </div>
     </div>
   </div>
 
-  <div id="details-service-content" class="flex flex-col gap-8" style="display:none">
+  <div id="details-service-content" class="flex flex-col gap-8 mt-4" style="display:none">
     <div class="mt-10">
       <span class="inline-block text-gray-500 px-3 py-1 rounded text-xs font-medium">laver + sécher au sèche-linge + dans un sac</span>
     </div>
-    <div class="mt-10">
-      <div class="flex items-center gap-2 font-bold">
-        <span class="inline-flex items-center justify-center rounded-full w-7 h-7 text-sm">
-          <img src="icon4.png" alt="icon" class="w-7 h-7">
-        </span>
-        <span>Vue d'ensemble du service</span>
+    <div class="divide-y divide-gray-200 mb-4">
+      {% for details in service.detailsServices %}
+      <div class="py-3">
+        <div>
+          <div class="flex items-center gap-2 font-bold">
+            <span class="inline-flex items-center justify-center rounded-full w-7 h-7 text-sm">
+              <img src="{{details.icon}}" alt="icon" class="w-7 h-7">
+            </span>
+            <span>{{details.name}}</span>
+          </div>
+        </div>
+        <div class="text-gray-400 text-sm ml-8">{{details.description}}</div>
       </div>
-      <div class="text-gray-400 text-sm ml-8">Vos articles sont lavés en machine à 30°C et séchés au sèche-linge. Le repassage n'est pas inclus. 45°C peuvent être demandés sans frais supplémentaires.</div>
+      {% endfor %}
     </div>
-
-    <hr class="mt-10 border-gray-400">
-
   </div>
 </div>
   <footer class="bg-white py-8 border-t border-gray-400 mt-10 max-w-5xl mx-auto">
