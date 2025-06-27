@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Form\ProfileInfoTypeForm;
 use App\Form\ProfilePasswordTypeForm;
+use App\Form\ProfileAddressTypeForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,9 +51,21 @@ final class ProfileController extends AbstractController
             }
         }
 
+        $address = new Address();
+        $addressForm = $this->createForm(ProfileAddressTypeForm::class, $address);
+        $addressForm->handleRequest($request);
+        if ($addressForm->isSubmitted() && $addressForm->isValid()) {
+            $address->addUser($user);
+            $em->persist($address);
+            $em->flush();
+            $this->addFlash('success', 'Adresse ajoutée');
+            return $this->redirectToRoute('app_profile');
+        }
+
         return $this->render('profile/index.html.twig', [
             'infoForm' => $infoForm->createView(),
             'passwordForm' => $passwordForm->createView(),
+            'addressForm' => $addressForm->createView(),
         ]);
     }
 }

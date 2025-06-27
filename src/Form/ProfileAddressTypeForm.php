@@ -14,17 +14,38 @@ class ProfileAddressTypeForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $inputClass = 'w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#189eff] text-sm';
+
         $builder
-            ->add('address', TextType::class, ['label' => 'Adresse complète'])
-            ->add('details', TextType::class, ['label' => 'Détails'])
+            ->add('address', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => "Adresse Complète, ex : 12 rue Périer, 75012 Paris, France",
+                    'class' => $inputClass,
+                ],
+            ])
+            ->add('details', TextType::class, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => "Ajoutez les détails de l'adresse (nom de l'appartement, numéro, étage...)",
+                    'class' => $inputClass,
+                ],
+            ])
             ->add('type', ChoiceType::class, [
-                'label' => 'Type d\'adresse',
+                'label' => false,
+                'expanded' => true,
+                'multiple' => false,
                 'choices' => [
                     'Accueil' => typeAddressEnum::Accueil,
                     'Bureau' => typeAddressEnum::Bureau,
                     'Hôtel' => typeAddressEnum::Hotel,
-                ]
-            ]);
+                ],
+                'choice_attr' => function($choice, $key, $value) {
+                    return ['class' => 'peer sr-only', 'autocomplete' => 'off'];
+                },
+                'row_attr' => ['class' => 'flex gap-3'],
+                'label_attr' => ['class' => 'flex-1'],
+            ])
         ;
     }
 
