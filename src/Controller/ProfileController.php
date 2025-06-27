@@ -69,4 +69,23 @@ final class ProfileController extends AbstractController
             'addresses' => $user->getAddresse(),
         ]);
     }
+    #[Route('/profile/address/{id}/delete', name: 'app_profile_address_delete', methods: ['POST'])]
+    public function deleteAddress(Address $address, EntityManagerInterface $em): Response
+    {
+        $user = $this->getUser();
+        if (!$address->getUsers()->contains($user)) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $address->removeUser($user);
+        $em->flush();
+
+        if ($address->getUsers()->isEmpty()) {
+            $em->remove($address);
+            $em->flush();
+        }
+
+        $this->addFlash('success', 'Adresse supprimée');
+        return $this->redirectToRoute('app_profile');
+    }
 }

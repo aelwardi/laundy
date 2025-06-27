@@ -115,11 +115,15 @@
           <div
             class="bg-gray-50 border border-gray-200 rounded-lg px-6 py-4 flex flex-col min-w-[250px] relative shadow-sm transition hover:shadow-lg">
             <div class="absolute top-2 right-2 flex gap-2">
-              <button class="text-red-500 hover:text-red-700" title="Supprimer">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </button>
+                <form method="post" action="{{ path('app_profile_address_delete', {id: address.id}) }}"
+                      onsubmit="return confirm('Supprimer cette adresse ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete_address_' ~ address.id) }}">
+                    <button class="text-red-500 hover:text-red-700" title="Supprimer" type="submit">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </form>
             </div>
             <div class="font-bold text-sm mt-6">{{ address.address }}</div>
             <div class="text-xs font-semibold text-gray-500 mb-1">{{ address.type.value }}</div>
