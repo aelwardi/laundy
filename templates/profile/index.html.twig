@@ -32,32 +32,22 @@
   <main class="max-w-5xl mx-auto mt-30">
     <section>
       <h2 class="text-2xl font-bold mb-4 text-gray-500 border-b-2 border-gray-300">Informations personnelles</h2>
-      <form class="space-y-4">
-        <div class="flex gap-4">
-          <div class="flex-1">
-            <label class="block text-sm text-gray-600 mb-1" for="prenom">Prénom</label>
-            <input id="prenom" type="text" placeholder="Entrez votre prénom"
-              class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-sm" />
-          </div>
-          <div class="flex-1">
-            <label class="block text-sm text-gray-600 mb-1" for="nom">Nom</label>
-            <input id="nom" type="text" placeholder="Entrez votre nom"
-              class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-sm" />
+      {{ form_start(infoForm) }}
+        <div class="space-y-4 mb-2">
+          <div class="flex gap-4">
+            <div class="flex-1">
+              {{ form_row(infoForm.firstName) }}
+            </div>
+            <div class="flex-1">
+              {{ form_row(infoForm.lastName) }}
+            </div>
           </div>
         </div>
-        <div>
-          <label class="block text-sm text-gray-600 mb-1" for="telephone">Votre numéro de téléphone</label>
-          <input id="telephone" type="tel" placeholder="Entrez votre numéro de téléphone"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-sm" />
-        </div>
-        <div>
-          <label class="block text-sm text-gray-600 mb-1" for="email">Email</label>
-          <input id="email" type="email" placeholder="Entrez votre email"
-            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-sm" />
-        </div>
-        <button type="submit"
+          {{ form_row(infoForm.phone) }}
+          {{ form_row(infoForm.email) }}
+          <button
           class="bg-blue-500 text-white font-semibold rounded px-8 py-2 hover:bg-blue-400 transition">Enregistrer</button>
-      </form>
+      {{ form_end(infoForm) }}
     </section>
 
     <section class="mt-10">
