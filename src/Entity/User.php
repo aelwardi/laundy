@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Enum\typeUserEnum;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -43,9 +42,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     private ?string $phone = null;
-
-    #[ORM\Column(enumType: typeUserEnum::class)]
-    private ?typeUserEnum $type = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Laundry $laundry = null;
@@ -187,18 +183,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhone(string $phone): static
     {
         $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getType(): ?typeUserEnum
-    {
-        return $this->type;
-    }
-
-    public function setType(typeUserEnum $type): static
-    {
-        $this->type = $type;
 
         return $this;
     }
