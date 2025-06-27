@@ -52,4 +52,10 @@ final class AuthController extends AbstractController
     {
         return $this->redirectToRoute('app_auth');
     }
+
+    #[Route('/logout', name: 'app_logout')]
+public function logout(): void
+{
+    throw new \LogicException('Logout should be handled by the firewall.');
+}
 }
