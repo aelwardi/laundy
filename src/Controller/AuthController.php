@@ -54,8 +54,8 @@ final class AuthController extends AbstractController
     }
 
     #[Route('/logout', name: 'app_logout')]
-public function logout(): void
-{
-    throw new \LogicException('Logout should be handled by the firewall.');
-}
+    public function logout(): void
+    {
+        throw new \LogicException('Logout should be handled by the firewall.');
+    }
 }
