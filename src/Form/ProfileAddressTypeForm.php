@@ -14,7 +14,7 @@ class ProfileAddressTypeForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $inputClass = 'w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-[#189eff] text-sm';
+        $inputClass = 'w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-sm';
 
         $builder
             ->add('address', TextType::class, [

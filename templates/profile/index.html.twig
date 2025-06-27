@@ -77,15 +77,14 @@
                           {% if loop.first %}
                               border-blue-500
                               bg-blue-800 text-blue-500 peer-checked:bg-blue-800 peer-checked:text-blue-500 peer-checked:border-blue-500
-                              bg-white text-gray-700 hover:bg-[#e6f6ff]
+                              bg-white text-gray-700 hover:bg-blue-100
                           {% else %}
                               border-gray-300
                               bg-white text-gray-700 peer-checked:bg-blue-800 peer-checked:text-blue-500 peer-checked:border-blue-500
-                              hover:bg-[#e6f6ff]
+                              hover:bg-blue-100
                           {% endif %}
                           transition
                       ">
-                          {# SVG selon la valeur #}
                           {% if choice.vars.value == 'accueil' %}
                               <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                   <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3" stroke-linecap="round" stroke-linejoin="round" />
@@ -110,70 +109,23 @@
           <button
               class="bg-blue-500 text-white font-semibold rounded px-8 py-2 hover:bg-blue-400 transition">Ajouter</button>
       {{ form_end(addressForm) }}
+
       <div class="flex flex-wrap gap-4">
-        <!-- Adresse 1 -->
-        <div
-          class="bg-gray-50 border border-gray-200 rounded-lg px-6 py-4 flex flex-col min-w-[250px] relative shadow-sm transition hover:shadow-lg">
-          <div class="absolute top-2 right-2 flex gap-2">
-            <button class="text-blue-500 hover:text-blue-700" title="Modifier">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path
-                  d="M15.232 5.232l3.536 3.536M16.732 3.732a2.5 2.5 0 013.536 3.536l-12 12a2 2 0 01-.878.515l-4 1a1 1 0 01-1.213-1.213l1-4a2 2 0 01.515-.878l12-12z"
-                  stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-            <button class="text-red-500 hover:text-red-700" title="Supprimer">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
+        {% for address in addresses %}
+          <div
+            class="bg-gray-50 border border-gray-200 rounded-lg px-6 py-4 flex flex-col min-w-[250px] relative shadow-sm transition hover:shadow-lg">
+            <div class="absolute top-2 right-2 flex gap-2">
+              <button class="text-red-500 hover:text-red-700" title="Supprimer">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <div class="font-bold text-sm mt-6">{{ address.address }}</div>
+            <div class="text-xs font-semibold text-gray-500 mb-1">{{ address.type.value }}</div>
+            <div class="text-xs text-gray-600">{{ address.details }}</div>
           </div>
-          <div class="font-bold text-sm mt-6">17 Rue Casimir Périer, 75007 Paris, France</div>
-          <div class="text-xs font-semibold text-gray-500 mb-1">Bureau</div>
-          <div class="text-xs text-gray-600">Site royale 2, etage 3, salle 105</div>
-        </div>
-        <!-- Adresse 2 -->
-        <div
-          class="bg-gray-50 border border-gray-200 rounded-lg px-6 py-4 flex flex-col min-w-[250px] relative shadow-sm transition hover:shadow-lg">
-          <div class="absolute top-2 right-2 flex gap-2">
-            <button class="text-blue-500 hover:text-blue-700" title="Modifier">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path
-                  d="M15.232 5.232l3.536 3.536M16.732 3.732a2.5 2.5 0 013.536 3.536l-12 12a2 2 0 01-.878.515l-4 1a1 1 0 01-1.213-1.213l1-4a2 2 0 01.515-.878l12-12z"
-                  stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-            <button class="text-red-500 hover:text-red-700" title="Supprimer">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-          <div class="font-bold text-sm mt-6">12 Rue Périer, 75012 Paris, France</div>
-          <div class="text-xs font-semibold text-gray-500 mb-1">Accueil</div>
-          <div class="text-xs text-gray-600">Résidence Starts, Apprt 3, etage 5</div>
-        </div>
-        <!-- Adresse 3 -->
-        <div
-          class="bg-gray-50 border border-gray-200 rounded-lg px-6 py-4 flex flex-col min-w-[250px] relative shadow-sm transition hover:shadow-lg">
-          <div class="absolute top-2 right-2 flex gap-2">
-            <button class="text-blue-500 hover:text-blue-700" title="Modifier">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path
-                  d="M15.232 5.232l3.536 3.536M16.732 3.732a2.5 2.5 0 013.536 3.536l-12 12a2 2 0 01-.878.515l-4 1a1 1 0 01-1.213-1.213l1-4a2 2 0 01.515-.878l12-12z"
-                  stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-            <button class="text-red-500 hover:text-red-700" title="Supprimer">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-          </div>
-          <div class="font-bold text-sm mt-6">30 Av. de la Division Leclerc, 94260 Fresnes</div>
-          <div class="text-xs font-semibold text-gray-500 mb-1">Hôtel</div>
-          <div class="text-xs text-gray-600">IBIS BUDGET FRESNES</div>
-        </div>
+        {% endfor %}
       </div>
     </section>
   </main>

@@ -66,6 +66,7 @@ final class ProfileController extends AbstractController
             'infoForm' => $infoForm->createView(),
             'passwordForm' => $passwordForm->createView(),
             'addressForm' => $addressForm->createView(),
+            'addresses' => $user->getAddresse(),
         ]);
     }
 }
