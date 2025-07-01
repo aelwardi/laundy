@@ -1,0 +1,28 @@
+{% extends '@EasyAdmin/crud/field/collection.html.twig' %}
+
+{% block collection_widget %}
+    {% if value is not empty %}
+        <div class="list-group">
+            {% for address in value %}
+                <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            {{ address.street ?? 'Adresse' }}
+                        </h6>
+                        <small class="text-muted">{{ address.city ?? '' }}</small>
+                    </div>
+                    <p class="mb-1">
+                        {{ address.postalCode ?? '' }} {{ address.city ?? '' }}
+                        {{ address.country ?? '' }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <span class="text-muted">
+            <i class="fas fa-exclamation-circle"></i>
+            Aucune adresse enregistrée
+        </span>
+    {% endif %}
+{% endblock %}

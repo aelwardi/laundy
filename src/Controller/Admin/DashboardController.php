@@ -8,6 +8,7 @@ use App\Entity\Service;
 use App\Entity\CoSevice;
 use App\Entity\SubService;
 use App\Entity\DetailsService;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -35,7 +36,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         
         yield MenuItem::section('Contenu');
-        yield MenuItem::linkToCrud('Sections', 'fas fa-list', Section::class);
+        yield MenuItem::linkToCrud('À propos de nous', 'fas fa-list', Section::class);
         yield MenuItem::linkToCrud('Comment ça fonctionne', 'fas fa-cogs', HowWorks::class);
         
         yield MenuItem::section('Services');
@@ -43,5 +44,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Catégories de Services', 'fas fa-tags', CoSevice::class);
         yield MenuItem::linkToCrud('Sous-Services', 'fas fa-list-ul', SubService::class);
         yield MenuItem::linkToCrud('Détails de Services', 'fas fa-info-circle', DetailsService::class);
+        
+        yield MenuItem::section('Utilisateurs');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
     }
 }

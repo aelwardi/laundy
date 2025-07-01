@@ -1,0 +1,34 @@
+{% extends '@EasyAdmin/crud/field/collection.html.twig' %}
+
+{% block collection_widget %}
+    {% if value is not empty %}
+        <div class="list-group">
+            {% for order in value %}
+                <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">
+                            <i class="fas fa-shopping-cart text-success"></i>
+                            Commande #{{ order.id ?? 'N/A' }}
+                        </h6>
+                        <small class="text-muted">
+                            {{ order.createdAt ? order.createdAt|date('d/m/Y H:i') : 'Date inconnue' }}
+                        </small>
+                    </div>
+                    <p class="mb-1">
+                        <span class="badge bg-{{ order.status == 'completed' ? 'success' : (order.status == 'pending' ? 'warning' : 'secondary') }}">
+                            {{ order.status ? order.status|title : 'Statut inconnu' }}
+                        </span>
+                        {% if order.totalPrice %}
+                            - {{ order.totalPrice }}€
+                        {% endif %}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <span class="text-muted">
+            <i class="fas fa-shopping-cart"></i>
+            Aucune commande passée
+        </span>
+    {% endif %}
+{% endblock %}
