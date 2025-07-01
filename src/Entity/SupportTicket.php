@@ -33,6 +33,7 @@ class SupportTicket
     public function __construct()
     {
         $this->messages = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -97,7 +98,6 @@ class SupportTicket
     public function removeMessage(Message $message): static
     {
         if ($this->messages->removeElement($message)) {
-            // set the owning side to null (unless already changed)
             if ($message->getSupportTicket() === $this) {
                 $message->setSupportTicket(null);
             }
