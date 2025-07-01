@@ -24,7 +24,7 @@ class CoSevice
     /**
      * @var Collection<int, SubService>
      */
-    #[ORM\OneToMany(targetEntity: SubService::class, mappedBy: 'coservice')]
+    #[ORM\OneToMany(targetEntity: SubService::class, mappedBy: 'coservice', cascade: ['persist', 'remove'])]
     private Collection $subServices;
 
     public function __construct()
@@ -82,12 +82,16 @@ class CoSevice
     public function removeSubService(SubService $subService): static
     {
         if ($this->subServices->removeElement($subService)) {
-            // set the owning side to null (unless already changed)
             if ($subService->getCoservice() === $this) {
                 $subService->setCoservice(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title ?? 'CoSevice';
     }
 }

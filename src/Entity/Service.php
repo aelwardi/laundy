@@ -37,13 +37,13 @@ class Service
     /**
      * @var Collection<int, CoSevice>
      */
-    #[ORM\OneToMany(targetEntity: CoSevice::class, mappedBy: 'service')]
+    #[ORM\OneToMany(targetEntity: CoSevice::class, mappedBy: 'service', cascade: ['persist', 'remove'])]
     private Collection $coSevices;
 
     /**
      * @var Collection<int, DetailsService>
      */
-    #[ORM\OneToMany(targetEntity: DetailsService::class, mappedBy: 'service')]
+    #[ORM\OneToMany(targetEntity: DetailsService::class, mappedBy: 'service', cascade: ['persist', 'remove'])]
     private Collection $detailsServices;
 
     public function __construct()
@@ -138,7 +138,6 @@ class Service
     public function removeCoSevice(CoSevice $coSevice): static
     {
         if ($this->coSevices->removeElement($coSevice)) {
-            // set the owning side to null (unless already changed)
             if ($coSevice->getService() === $this) {
                 $coSevice->setService(null);
             }
@@ -168,12 +167,16 @@ class Service
     public function removeDetailsService(DetailsService $detailsService): static
     {
         if ($this->detailsServices->removeElement($detailsService)) {
-            // set the owning side to null (unless already changed)
             if ($detailsService->getService() === $this) {
                 $detailsService->setService(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name ?? 'Service';
     }
 }
