@@ -41,6 +41,12 @@ class Message
         return $this->content;
     }
 
+    public function __toString(): string
+    {
+        $truncated = $this->content ? substr($this->content, 0, 50) : 'Message vide';
+        return strlen($this->content ?? '') > 50 ? $truncated . '...' : $truncated;
+    }
+
     public function setContent(string $content): static
     {
         $this->content = $content;

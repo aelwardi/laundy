@@ -304,12 +304,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeMessage(Message $message): static
     {
         if ($this->messages->removeElement($message)) {
-            // set the owning side to null (unless already changed)
             if ($message->getUsere() === $this) {
                 $message->setUsere(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return trim(($this->firstName ?? '') . ' ' . ($this->lastName ?? '')) ?: $this->email ?? 'Utilisateur';
     }
 }

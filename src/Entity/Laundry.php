@@ -140,7 +140,6 @@ class Laundry
     public function removeSection(Section $section): static
     {
         if ($this->sections->removeElement($section)) {
-            // set the owning side to null (unless already changed)
             if ($section->getLaundry() === $this) {
                 $section->setLaundry(null);
             }
@@ -170,7 +169,6 @@ class Laundry
     public function removeSocialMedium(SocialMedia $socialMedium): static
     {
         if ($this->socialMedia->removeElement($socialMedium)) {
-            // set the owning side to null (unless already changed)
             if ($socialMedium->getLaundry() === $this) {
                 $socialMedium->setLaundry(null);
             }
@@ -200,7 +198,6 @@ class Laundry
     public function removeHowWork(HowWorks $howWork): static
     {
         if ($this->howWorks->removeElement($howWork)) {
-            // set the owning side to null (unless already changed)
             if ($howWork->getLaundry() === $this) {
                 $howWork->setLaundry(null);
             }
@@ -230,7 +227,6 @@ class Laundry
     public function removeService(Service $service): static
     {
         if ($this->services->removeElement($service)) {
-            // set the owning side to null (unless already changed)
             if ($service->getLaundry() === $this) {
                 $service->setLaundry(null);
             }
@@ -260,12 +256,16 @@ class Laundry
     public function removeUser(User $user): static
     {
         if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
             if ($user->getLaundry() === $this) {
                 $user->setLaundry(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name ?? 'Laverie sans nom';
     }
 }

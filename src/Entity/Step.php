@@ -35,6 +35,11 @@ class Step
         return $this->title;
     }
 
+    public function __toString(): string
+    {
+        return $this->title ?? 'Étape sans titre';
+    }
+
     public function setTitle(string $title): static
     {
         $this->title = $title;

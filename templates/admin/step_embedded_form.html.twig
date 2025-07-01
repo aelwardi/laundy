@@ -1,0 +1,95 @@
+{{ form_start(form) }}
+
+<div class="step-form-container">
+    <div class="row">
+        <div class="col-md-8">
+            {{ form_row(form.title) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.rang) }}
+        </div>
+    </div>
+    
+    <div class="icon-upload-section">
+        {% if form.vars.data.icon %}
+            <div class="current-icon mb-3">
+                <label class="form-label">Icône actuelle :</label>
+                <div class="current-icon-display">
+                    <img src="/{{ form.vars.data.icon }}" alt="Icône actuelle" class="current-icon-img">
+                    <small class="text-muted">{{ form.vars.data.icon }}</small>
+                </div>
+            </div>
+        {% endif %}
+        
+        {{ form_row(form.icon) }}
+        {{ form_row(form.iconFile, {
+            'attr': {
+                'onchange': 'previewIcon(this)'
+            }
+        }) }}
+        
+        <div id="icon-preview" class="icon-preview mt-2" style="display: none;">
+            <label class="form-label">Aperçu de la nouvelle icône :</label>
+            <img id="preview-img" src="" alt="Aperçu" class="preview-icon-img">
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}
+
+<style>
+.step-form-container {
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #f8f9fa;
+}
+
+.current-icon-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.current-icon-img, .preview-icon-img {
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: contain;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    background-color: white;
+}
+
+.icon-upload-section {
+    margin-top: 1rem;
+}
+
+.icon-preview {
+    border: 1px solid #28a745;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    background-color: #d4edda;
+}
+</style>
+
+<script>
+function previewIcon(input) {
+    const preview = document.getElementById('icon-preview');
+    const previewImg = document.getElementById('preview-img');
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            preview.style.display = 'block';
+        }
+        
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.style.display = 'none';
+    }
+}
+</script>

@@ -37,7 +37,7 @@ class HowWorks
     /**
      * @var Collection<int, Step>
      */
-    #[ORM\OneToMany(targetEntity: Step::class, mappedBy: 'howWork')]
+    #[ORM\OneToMany(targetEntity: Step::class, mappedBy: 'howWork', cascade: ['persist', 'remove'])]
     private Collection $steps;
 
     public function __construct()
@@ -143,12 +143,16 @@ class HowWorks
     public function removeStep(Step $step): static
     {
         if ($this->steps->removeElement($step)) {
-            // set the owning side to null (unless already changed)
             if ($step->getHowWork() === $this) {
                 $step->setHowWork(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->title ?? 'Processus sans titre';
     }
 }
