@@ -27,7 +27,8 @@ class SupportTicket
     /**
      * @var Collection<int, Message>
      */
-    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'supportTicket')]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'supportTicket', cascade: ['persist', 'remove'])]
+    #[ORM\OrderBy(['createdAt' => 'ASC'])]
     private Collection $messages;
 
     public function __construct()

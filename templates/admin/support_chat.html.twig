@@ -1,0 +1,180 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}
+    <i class="fas fa-ticket-alt"></i> Conversation - Ticket #{{ ticket.id }}
+{% endblock %}
+
+{% block content_header_wrapper %}
+    {{ parent() }}
+    <div class="alert alert-info">
+        <div class="row">
+            <div class="col-md-6">
+                <strong>Sujet :</strong> {{ ticket.name }}
+            </div>
+            <div class="col-md-3">
+                <strong>Utilisateur :</strong> {{ ticket.usere ? ticket.usere.firstName ~ ' ' ~ ticket.usere.lastName : 'Utilisateur inconnu' }}
+            </div>
+            <div class="col-md-3">
+                <strong>Créé le :</strong> {{ ticket.createdAt ? ticket.createdAt|date('d/m/Y H:i') : 'Date inconnue' }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main %}
+    <div class="chat-container">
+        <div class="card h-100">
+            <!-- Zone de conversation -->
+            <div class="card-body p-0">
+                <div class="chat-messages" id="chatMessages">
+                    {% if messages is empty %}
+                        <div class="text-center p-4 text-muted">
+                            <i class="fas fa-comment-slash fa-3x mb-3"></i>
+                            <h5>Aucun message dans cette conversation</h5>
+                            <p>Soyez le premier à répondre à ce ticket !</p>
+                        </div>
+                    {% else %}
+                        {% for message in messages %}
+                            {% set isAdmin = message.usere and message.usere.roles and 'ROLE_ADMIN' in message.usere.roles %}
+                            <div class="message {{ isAdmin ? 'message-admin' : 'message-user' }}">
+                                <div class="message-content">
+                                    <div class="message-header">
+                                        <span class="author">
+                                            <i class="fas fa-{{ isAdmin ? 'user-shield' : 'user' }}"></i>
+                                            {{ message.usere ? message.usere.firstName ~ ' ' ~ message.usere.lastName : 'Utilisateur inconnu' }}
+                                            {% if isAdmin %}
+                                                <span class="badge bg-primary ms-1">Admin</span>
+                                            {% endif %}
+                                        </span>
+                                        <span class="timestamp">
+                                            {{ message.createdAt ? message.createdAt|date('d/m/Y H:i') : 'Date inconnue' }}
+                                        </span>
+                                    </div>
+                                    <div class="message-text">
+                                        {{ message.content|nl2br }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card-footer bg-light">
+                <form method="post" class="chat-form">
+                    <div class="input-group">
+                        <textarea 
+                            name="message_content" 
+                            class="form-control" 
+                            placeholder="Tapez votre réponse ici..." 
+                            rows="3"
+                            required></textarea>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Envoyer
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .chat-container {
+            height: 70vh;
+        }
+        
+        .chat-messages {
+            height: 100%;
+            overflow-y: auto;
+            padding: 1rem;
+            background: #f8f9fa;
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            display: flex;
+        }
+        
+        .message-user {
+            justify-content: flex-start;
+        }
+        
+        .message-admin {
+            justify-content: flex-end;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .message-user .message-content {
+            background: white;
+            border-bottom-left-radius: 0.25rem;
+        }
+        
+        .message-admin .message-content {
+            background: #007bff;
+            color: white;
+            border-bottom-right-radius: 0.25rem;
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+        
+        .message-admin .message-header {
+            color: #e3f2fd;
+        }
+        
+        .message-text {
+            line-height: 1.4;
+        }
+        
+        .author {
+            font-weight: 600;
+        }
+        
+        .timestamp {
+            font-size: 0.75rem;
+        }
+        
+        .chat-form textarea {
+            resize: none;
+            border-radius: 1rem 0 0 1rem;
+        }
+        
+        .chat-form button {
+            border-radius: 0 1rem 1rem 0;
+            min-width: 100px;
+        }
+        
+        .input-group {
+            align-items: stretch;
+        }
+        
+        .input-group textarea {
+            align-self: stretch;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+        
+        document.querySelector('textarea[name="message_content"]').addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                this.closest('form').submit();
+            }
+        });
+    </script>
+{% endblock %}

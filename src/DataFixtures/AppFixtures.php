@@ -12,6 +12,7 @@ use App\Entity\Wash;
 use App\Entity\Pressing;
 use App\Entity\Ameublement;
 use App\Entity\SubService;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -19,6 +20,18 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $user = new User();
+        $user->setEmail('elwardi@gmail.com');
+        $user->setFirstName('Abderrazzak');
+        $user->setLastName('Elwardi');
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setPassword(
+            password_hash('okokok', PASSWORD_BCRYPT)
+        );
+        $user->setPhone('1234567890');
+        $manager->persist($user);
+
+
         $laundry = new Laundry();
         $laundry->setName('Laundry');
         $laundry->setEmail('contact@laundry.com');
