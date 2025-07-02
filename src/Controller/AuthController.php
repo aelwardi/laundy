@@ -20,6 +20,13 @@ final class AuthController extends AbstractController
         UserPasswordHasherInterface $passwordHasher,
         AuthenticationUtils $authenticationUtils): Response
     {
+        if ($this->getUser()) {
+            if ($this->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('admin');
+            }
+            return $this->redirect('/');
+        }
+
         $user = new User();
         $signup = $this->createForm(RegisterUserForm::class, $user);
         $signup->handleRequest($request);

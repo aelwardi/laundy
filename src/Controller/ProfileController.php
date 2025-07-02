@@ -12,8 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-
+#[IsGranted('ROLE_USER')]
 final class ProfileController extends AbstractController
 {
     #[Route('/profile', name: 'app_profile')]
@@ -70,6 +71,7 @@ final class ProfileController extends AbstractController
         ]);
     }
     #[Route('/profile/address/{id}/delete', name: 'app_profile_address_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
     public function deleteAddress(Address $address, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
