@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Laundry - Service de laverie & pressing en 48h</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  {% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  {% endblock %}
+</head>
+<body class="bg-white font-sans">
+  <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-white px-8 py-4 flex items-center justify-between border-b-2 border-blue-500">
+    <div id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</div>
+    <div class="flex-1 flex justify-center space-x-8">
+      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">Comment ça fonctionne</a>
+      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">Prix et services</a>
+      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">À propos de nous</a>
+      <a href="#" class="nav-link text-gray-400 font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
+    </div>
+    <a href="#" id="cta-btn" class="ml-4 bg-blue-500 text-white font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez dès maintenant</a>
+  </nav>
+
+  <main class="max-w-5xl mx-auto mt-30">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Nouvelle Commande</h1>
+        <p class="text-gray-600">Suivez les étapes ci-dessous pour passer votre commande</p>
+      </div>
+      
+      <div class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10">
+        <div class="flex-1">
+            <div class="mb-6 transition-all duration-300 ease-in-out {{ orderData.address is not defined ? 'border-2 border-blue-600 rounded-lg bg-white shadow-lg' : 'opacity-70 bg-gray-50 rounded-lg border border-gray-300' }}" id="step-address">
+                <div class="p-6 border-b border-gray-100 {{ orderData.address is defined ? 'bg-green-100' : '' }}">
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h2 class="text-xl font-semibold text-gray-900">Étape 1: Adresse de collecte</h2>
+                    </div>
+                </div>
+                
+                <form method="post" class="p-6 space-y-6 {{ orderData.address is defined ? 'hidden' : '' }}">
+                    <input type="hidden" name="action" value="set_address">
+                    
+                    <div>
+                        <label for="address" class="block text-sm font-medium text-gray-700 mb-2">Adresse complète</label>
+                        <input type="text" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" 
+                               id="address" 
+                               name="address" 
+                               value="{{ (orderData.address.address ?? lastAddress.address ?? '') }}" 
+                               placeholder="123 Rue de la République, 75001 Paris" 
+                               required>
+                    </div>
+                    
+                    <div>
+                        <label for="address_details" class="block text-sm font-medium text-gray-700 mb-2">Détails complémentaires</label>
+                        <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors" 
+                                  id="address_details" 
+                                  name="address_details" 
+                                  rows="3"
+                                  placeholder="Étage, code d'accès, instructions particulières...">{{ (orderData.address.details ?? lastAddress.details ?? '') }}</textarea>
+                    </div>
+                    
+                    {% if lastAddress %}
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <div class="flex items-start">
+                            <svg class="w-5 h-5 text-blue-600 mt-0.5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <div>
+                                <h4 class="font-medium text-blue-900 mb-1">Dernière adresse utilisée</h4>
+                                <p class="text-blue-800">{{ lastAddress.address }}</p>
+                                {% if lastAddress.details %}
+                                <p class="text-blue-700 text-sm mt-1">{{ lastAddress.details }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="flex justify-end pt-4">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors flex items-center space-x-2">
+                            <span>Suivant - Collecte & Livraison</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+          {% if orderData.address is defined %}
+          <div class="mb-6 transition-all duration-300 ease-in-out {{ orderData.delivery is not defined and orderData.address is defined ? 'border-2 border-blue-600 rounded-lg bg-white shadow-lg' : (orderData.delivery is defined ? 'opacity-70 bg-gray-50 rounded-lg border border-gray-300' : 'hidden') }}" id="step-delivery">
+            <div class="flex items-center mb-6 pb-4 border-b border-gray-100 {{ orderData.delivery is defined ? 'bg-green-100' : '' }}">
+              <div class="flex items-center justify-center w-10 h-10 bg-green-100 rounded-full mr-4">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                </svg>
+              </div>
+              <h2 class="text-xl font-semibold text-gray-900">Étape 2: Collecte et livraison</h2>
+            </div>
+            
+            <form method="post" class="space-y-6 {{ orderData.delivery is defined ? 'hidden' : '' }}">
+              <input type="hidden" name="action" value="set_delivery">
+              
+              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-blue-50 rounded-lg p-6">
+                  <div class="flex items-center mb-4">
+                    <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4"></path>
+                    </svg>
+                    <h3 class="text-lg font-semibold text-blue-900">Collecte</h3>
+                  </div>
+                  
+                  <div class="space-y-4">
+                    <div>
+                      <label for="collect_date" class="block text-sm font-medium text-gray-700 mb-2">Date de collecte</label>
+                      <input type="date" 
+                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+                             id="collect_date" 
+                             name="collect_date" 
+                             value="{{ (orderData.delivery.collect_date ?? '') }}" 
+                             min="{{ 'now'|date('Y-m-d') }}" 
+                             required>
+                    </div>
+                    
+                    <div>
+                      <label for="collect_time" class="block text-sm font-medium text-gray-700 mb-2">Heure de collecte</label>
+                      <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+                              id="collect_time" 
+                              name="collect_time" 
+                              required>
+                        <option value="">Sélectionner une heure</option>
+                        <option value="08:00-10:00" {% if orderData.delivery is defined and orderData.delivery.collect_time == '08:00-10:00' %}selected{% endif %}>08:00 - 10:00</option>
+                        <option value="10:00-12:00" {% if orderData.delivery is defined and orderData.delivery.collect_time == '10:00-12:00' %}selected{% endif %}>10:00 - 12:00</option>
+                        <option value="14:00-16:00" {% if orderData.delivery is defined and orderData.delivery.collect_time == '14:00-16:00' %}selected{% endif %}>14:00 - 16:00</option>
+                        <option value="16:00-18:00" {% if orderData.delivery is defined and orderData.delivery.collect_time == '16:00-18:00' %}selected{% endif %}>16:00 - 18:00</option>
+                      </select>
+                    </div>
+                    
+                    <div>
+                      <label for="collect_instructions" class="block text-sm font-medium text-gray-700 mb-2">Instructions de collecte</label>
+                      <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+                                id="collect_instructions" 
+                                name="collect_instructions" 
+                                rows="3"
+                                placeholder="Instructions spéciales...">{{ (orderData.delivery.collect_instructions ?? '') }}</textarea>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="bg-green-50 rounded-lg p-6">
+                  <div class="flex items-center mb-4">
+                    <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                    </svg>
+                    <h3 class="text-lg font-semibold text-green-900">Livraison</h3>
+                  </div>
+                  
+                  <div class="space-y-4">
+                    <div>
+                      <label for="delivery_date" class="block text-sm font-medium text-gray-700 mb-2">Date de livraison</label>
+                      <input type="date" 
+                             class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors" 
+                             id="delivery_date" 
+                             name="delivery_date" 
+                             value="{{ (orderData.delivery.delivery_date ?? '') }}" 
+                             min="{{ 'now'|date('Y-m-d') }}" 
+                             required>
+                    </div>
+                    
+                    <div>
+                      <label for="delivery_time" class="block text-sm font-medium text-gray-700 mb-2">Heure de livraison</label>
+                      <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors" 
+                              id="delivery_time" 
+                              name="delivery_time" 
+                              required>
+                        <option value="">Sélectionner une heure</option>
+                        <option value="08:00-10:00" {% if (orderData.delivery.delivery_time ?? '') == '08:00-10:00' %}selected{% endif %}>08:00 - 10:00</option>
+                        <option value="10:00-12:00" {% if (orderData.delivery.delivery_time ?? '') == '10:00-12:00' %}selected{% endif %}>10:00 - 12:00</option>
+                        <option value="14:00-16:00" {% if (orderData.delivery.delivery_time ?? '') == '14:00-16:00' %}selected{% endif %}>14:00 - 16:00</option>
+                        <option value="16:00-18:00" {% if (orderData.delivery.delivery_time ?? '') == '16:00-18:00' %}selected{% endif %}>16:00 - 18:00</option>
+                      </select>
+                    </div>
+                    
+                    <div>
+                      <label for="delivery_instructions" class="block text-sm font-medium text-gray-700 mb-2">Instructions de livraison</label>
+                      <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-colors" 
+                                id="delivery_instructions" 
+                                name="delivery_instructions" 
+                                rows="3"
+                                placeholder="Instructions spéciales...">{{ (orderData.delivery.delivery_instructions ?? '') }}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="flex justify-end pt-4">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors flex items-center space-x-2">
+                  <span>Suivant - Services</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+          {% endif %}
+
+          {% if orderData.delivery is defined %}
+          <div class="mb-6 transition-all duration-300 ease-in-out {{ orderData.services is not defined and orderData.delivery is defined ? 'border-2 border-blue-600 rounded-lg bg-white shadow-lg' : (orderData.services is defined and orderData.services|length > 0 ? 'opacity-70 bg-gray-50 rounded-lg border border-gray-300' : 'hidden') }}" id="step-services">
+            <div class="flex items-center mb-6 pb-4 border-b border-gray-100 {{ orderData.services is defined and orderData.services|length > 0 ? 'bg-green-100' : '' }}">
+              <div class="flex items-center justify-center w-10 h-10 bg-purple-100 rounded-full mr-4">
+                <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+              </div>
+              <h2 class="text-xl font-semibold text-gray-900">Étape 3: Sélection des services</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {% for service in services %}
+              <div class="bg-gray-50 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                <div class="p-4 border-b border-gray-200 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-100" data-service-id="{{ service.id }}">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center mb-3">
+                      <img src="{{ service.image }}" alt="{{ service.name }}" class="w-12 h-12 rounded-lg object-cover mr-3">
+                      <div>
+                        <h3 class="font-semibold text-gray-900">{{ service.name }}</h3>
+                        <p class="text-sm text-gray-600">{{ service.description }}</p>
+                      </div>
+                    </div>
+                    <div class="flex items-center">
+                      <span class="text-xs text-gray-500 mr-2">{{ service.coSevices|length }} catégorie{{ service.coSevices|length > 1 ? 's' : '' }}</span>
+                      <button type="button" class="p-2 rounded-full hover:bg-gray-200 transition-colors" data-service-id="{{ service.id }}">
+                        <svg class="w-5 h-5 text-gray-600 transform transition-transform duration-200 ease-in-out" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="overflow-hidden transition-all duration-300 ease-in-out opacity-0 max-h-0" id="service-content-{{ service.id }}">
+                  <div class="p-4">
+                  {% for coService in service.coSevices %}
+                  <div class="mb-4 last:mb-0">
+                    <h4 class="font-medium text-gray-800 mb-3 text-sm uppercase tracking-wide">{{ coService.title }}</h4>
+                    <div class="space-y-2">
+                      {% for subService in coService.subServices %}
+                      <div class="bg-white rounded-lg p-3 border border-gray-200">
+                        <form method="post" class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                          <input type="hidden" name="action" value="add_service">
+                          <input type="hidden" name="service_id" value="{{ service.id }}">
+                          <input type="hidden" name="sub_service_id" value="{{ subService.id }}">
+                          
+                          <div class="flex-1">
+                            <div class="font-medium text-gray-900 text-sm">{{ subService.name }}</div>
+                            <div class="text-lg font-bold text-blue-600">{{ subService.price }}€</div>
+                          </div>
+                          
+                          <div class="flex items-center gap-2">
+                            <input type="number" 
+                                   name="quantity" 
+                                   value="1" 
+                                   min="1" 
+                                   class="w-16 px-2 py-1 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <button type="submit" 
+                                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm font-medium transition-colors flex items-center">
+                              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                              </svg>
+                              Ajouter
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  {% endfor %}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            
+            <div class="flex justify-end pt-6">
+              <div class="text-center">
+                <p class="text-sm text-gray-600 mb-4">
+                  Ajoutez tous les services souhaités, puis passez à l'étape suivante
+                </p>
+                <a href="#step-contact" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors inline-flex items-center space-x-2">
+                  <span>Suivant - Contact</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if orderData.services is defined and orderData.services|length > 0 %}
+          <div class="mb-6 transition-all duration-300 ease-in-out {{ orderData.contact is not defined and orderData.services is defined and orderData.services|length > 0 ? 'border-2 border-blue-600 rounded-lg bg-white shadow-lg' : (orderData.contact is defined ? 'opacity-70 bg-gray-50 rounded-lg border border-gray-300' : 'hidden') }}" id="step-contact">
+            <div class="flex items-center mb-6 pb-4 border-b border-gray-100 {{ orderData.contact is defined ? 'bg-green-100' : '' }}">
+              <div class="flex items-center justify-center w-10 h-10 bg-indigo-100 rounded-full mr-4">
+                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+              </div>
+              <h2 class="text-xl font-semibold text-gray-900">Étape 4: Informations de contact</h2>
+            </div>
+            
+            <form method="post" class="space-y-6 {{ orderData.contact is defined ? 'hidden' : '' }}">
+              <input type="hidden" name="action" value="set_contact">
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="first_name" class="block text-sm font-medium text-gray-700 mb-2">Prénom</label>
+                  <input type="text" 
+                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors" 
+                         id="first_name" 
+                         name="first_name" 
+                         value="{{ orderData.contact.first_name ?? user.firstName }}" 
+                         placeholder="Votre prénom"
+                         required>
+                </div>
+                
+                <div>
+                  <label for="last_name" class="block text-sm font-medium text-gray-700 mb-2">Nom</label>
+                  <input type="text" 
+                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors" 
+                         id="last_name" 
+                         name="last_name" 
+                         value="{{ orderData.contact.last_name ?? user.lastName }}" 
+                         placeholder="Votre nom"
+                         required>
+                </div>
+                
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">Téléphone</label>
+                  <input type="tel" 
+                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors" 
+                         id="phone" 
+                         name="phone" 
+                         value="{{ orderData.contact.phone ?? user.phone }}" 
+                         placeholder="Votre numéro de téléphone"
+                         required>
+                </div>
+                
+                <div>
+                  <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                  <input type="email" 
+                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors" 
+                         id="email" 
+                         name="email" 
+                         value="{{ orderData.contact.email ?? user.email }}" 
+                         placeholder="votre@email.com"
+                         required>
+                </div>
+              </div>
+              
+              <div class="flex justify-end pt-4">
+                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors flex items-center space-x-2">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span>Confirmer la commande</span>
+                </button>
+              </div>
+            </form>
+          </div>
+          {% endif %}
+
+          {% if orderData.contact is defined %}
+          <div class="mb-6 transition-all duration-300 ease-in-out {{ orderData.contact is defined ? 'border-2 border-blue-600 rounded-lg bg-white shadow-lg' : 'hidden' }}" id="step-confirm">
+            <div class="flex items-center mb-6 pb-4 border-b border-gray-100">
+              <div class="flex items-center justify-center w-10 h-10 bg-green-100 rounded-full mr-4">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <h2 class="text-xl font-semibold text-gray-900">Étape 5: Confirmation</h2>
+            </div>
+            
+            <div class="space-y-6">
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Récapitulatif de votre commande</h3>
+                
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border border-gray-200">
+                    <div class="flex-shrink-0">
+                      <svg class="w-5 h-5 text-blue-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-900">Adresse de collecte</h4>
+                      <p class="text-gray-600">{{ orderData.address.address }}</p>
+                      {% if orderData.address.details %}
+                      <p class="text-gray-500 text-sm">{{ orderData.address.details }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border border-gray-200">
+                    <div class="flex-shrink-0">
+                      <svg class="w-5 h-5 text-green-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-900">Collecte et livraison</h4>
+                      <div class="space-y-1 text-gray-600">
+                        <p><span class="font-medium">Collecte:</span> {{ (orderData.delivery.collect_date ?? '') }} à {{ (orderData.delivery.collect_time ?? '') }}</p>
+                        <p><span class="font-medium">Livraison:</span> {{ (orderData.delivery.delivery_date ?? '') }} à {{ (orderData.delivery.delivery_time ?? '') }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="flex items-start space-x-3 p-4 bg-white rounded-lg border border-gray-200">
+                    <div class="flex-shrink-0">
+                      <svg class="w-5 h-5 text-indigo-600 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="font-medium text-gray-900">Informations de contact</h4>
+                      <div class="space-y-1 text-gray-600">
+                        <p>{{ orderData.contact.first_name }} {{ orderData.contact.last_name }}</p>
+                        <p>{{ orderData.contact.phone }} • {{ orderData.contact.email }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <form method="post" class="flex justify-center">
+                <input type="hidden" name="action" value="confirm_order">
+                <button type="submit" 
+                        class="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-lg transition-colors flex items-center space-x-3 text-lg">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                  <span>Confirmer la commande</span>
+                </button>
+              </form>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        
+        <div class="flex-[2]">
+          <div class="space-y-6 rounded-xl shadow-sm border border-gray-200">
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+              <h3 class="text-lg font-semibold text-gray-900 mb-6">Progression</h3>
+              <div class="space-y-4">
+                <div class="flex items-center {{ orderData.address is defined ? 'text-green-600' : 'text-blue-600' }}">
+                  <div class="flex items-center justify-center w-8 h-8 {{ orderData.address is defined ? 'bg-green-100' : 'bg-blue-100' }} rounded-full mr-3">
+                    {% if orderData.address is defined %}
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                    {% else %}
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      </svg>
+                    {% endif %}
+                  </div>
+                  <span class="font-medium">Adresse</span>
+                </div>
+                
+                <div class="flex items-center {{ orderData.delivery is defined ? 'text-green-600' : (orderData.address is defined ? 'text-blue-600' : 'text-gray-400') }}">
+                  <div class="flex items-center justify-center w-8 h-8 {{ orderData.delivery is defined ? 'bg-green-100' : (orderData.address is defined ? 'bg-blue-100' : 'bg-gray-100') }} rounded-full mr-3">
+                    {% if orderData.delivery is defined %}
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                    {% else %}
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                      </svg>
+                    {% endif %}
+                  </div>
+                  <span class="font-medium">Collecte & Livraison</span>
+                </div>
+                
+                <div class="flex items-center {{ orderData.services is defined and orderData.services|length > 0 ? 'text-green-600' : (orderData.delivery is defined ? 'text-blue-600' : 'text-gray-400') }}">
+                  <div class="flex items-center justify-center w-8 h-8 {{ orderData.services is defined and orderData.services|length > 0 ? 'bg-green-100' : (orderData.delivery is defined ? 'bg-blue-100' : 'bg-gray-100') }} rounded-full mr-3">
+                    {% if orderData.services is defined and orderData.services|length > 0 %}
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                    {% else %}
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                      </svg>
+                    {% endif %}
+                  </div>
+                  <span class="font-medium">Services</span>
+                </div>
+                
+                <div class="flex items-center {{ orderData.contact is defined ? 'text-green-600' : (orderData.services is defined and orderData.services|length > 0 ? 'text-blue-600' : 'text-gray-400') }}">
+                  <div class="flex items-center justify-center w-8 h-8 {{ orderData.contact is defined ? 'bg-green-100' : (orderData.services is defined and orderData.services|length > 0 ? 'bg-blue-100' : 'bg-gray-100') }} rounded-full mr-3">
+                    {% if orderData.contact is defined %}
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                      </svg>
+                    {% else %}
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                      </svg>
+                    {% endif %}
+                  </div>
+                  <span class="font-medium">Contact</span>
+                </div>
+                
+                <div class="flex items-center {{ orderData.contact is defined ? 'text-blue-600' : 'text-gray-400' }}">
+                  <div class="flex items-center justify-center w-8 h-8 {{ orderData.contact is defined ? 'bg-blue-100' : 'bg-gray-100' }} rounded-full mr-3">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                  <span class="font-medium">Confirmation</span>
+                </div>
+              </div>
+            </div>
+            
+            {% if orderData.services is defined and orderData.services|length > 0 %}
+            <div class="bg-white rounded-2xl shadow-lg p-6">
+              <h3 class="text-lg font-semibold text-gray-900 mb-4">Services sélectionnés</h3>
+              <div class="space-y-3">
+                {% set total = 0 %}
+                {% for key, service in orderData.services %}
+                  {% set serviceTotal = service.price * service.quantity %}
+                  {% set total = total + serviceTotal %}
+                  <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div class="flex-1">
+                      <div class="font-medium text-gray-900 text-sm">{{ service.service_name }}</div>
+                      <div class="text-xs text-gray-600">{{ service.sub_service_name }}</div>
+                      <div class="text-xs text-gray-500">Quantité: {{ service.quantity }}</div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <span class="font-bold text-blue-600">{{ serviceTotal }}€</span>
+                      <form method="post" class="inline">
+                        <input type="hidden" name="action" value="remove_service">
+                        <input type="hidden" name="service_key" value="{{ key }}">
+                        <button type="submit" class="text-red-500 hover:text-red-700 p-1">
+                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                          </svg>
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                {% endfor %}
+                
+                <div class="border-t border-gray-200 pt-3 mt-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-lg font-semibold text-gray-900">Total</span>
+                    <span class="text-xl font-bold text-blue-600">{{ total }}€</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+  </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    initStepNavigation();
+    
+    initServiceAccordion();
+    
+    const collectDateInput = document.getElementById('collect_date');
+    const deliveryDateInput = document.getElementById('delivery_date');
+    
+    if (collectDateInput && deliveryDateInput) {
+        collectDateInput.addEventListener('change', function() {
+            const collectDate = new Date(this.value);
+            const nextDay = new Date(collectDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+            
+            deliveryDateInput.min = nextDay.toISOString().split('T')[0];
+            
+            if (deliveryDateInput.value && new Date(deliveryDateInput.value) <= collectDate) {
+                deliveryDateInput.value = nextDay.toISOString().split('T')[0];
+            }
+        });
+    }
+    
+    document.querySelectorAll('form[action*="remove_service"]').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            if (!confirm('Êtes-vous sûr de vouloir supprimer ce service ?')) {
+                e.preventDefault();
+            }
+        });
+    });
+    
+    const confirmForm = document.querySelector('form input[value="confirm_order"]');
+    if (confirmForm) {
+        confirmForm.closest('form').addEventListener('submit', function(e) {
+            if (!confirm('Êtes-vous sûr de vouloir confirmer cette commande ?')) {
+                e.preventDefault();
+            }
+        });
+    }
+});
+
+function initStepNavigation() {
+    addStepSummaries();
+    
+    addEditButtons();
+}
+
+function addStepSummaries() {
+    const addressStep = document.getElementById('step-address');
+    if (addressStep && addressStep.classList.contains('opacity-70')) {
+        const addressValue = addressStep.querySelector('input[name="address"]')?.value || '';
+        const detailsValue = addressStep.querySelector('textarea[name="address_details"]')?.value || '';
+        
+        if (addressValue) {
+            const summary = createStepSummary('Adresse de collecte', [
+                addressValue,
+                detailsValue ? `Détails: ${detailsValue}` : ''
+            ].filter(item => item), 'step-address');
+            
+            addressStep.appendChild(summary);
+        }
+    }
+    
+    const deliveryStep = document.getElementById('step-delivery');
+    if (deliveryStep && deliveryStep.classList.contains('opacity-70')) {
+        const collectDate = deliveryStep.querySelector('input[name="collect_date"]')?.value || '';
+        const collectTime = deliveryStep.querySelector('select[name="collect_time"]')?.value || '';
+        const deliveryDate = deliveryStep.querySelector('input[name="delivery_date"]')?.value || '';
+        const deliveryTime = deliveryStep.querySelector('select[name="delivery_time"]')?.value || '';
+        
+        if (collectDate && collectTime && deliveryDate && deliveryTime) {
+            const summary = createStepSummary('Collecte & Livraison', [
+                `Collecte: ${formatDate(collectDate)} à ${collectTime}`,
+                `Livraison: ${formatDate(deliveryDate)} à ${deliveryTime}`
+            ], 'step-delivery');
+            
+            deliveryStep.appendChild(summary);
+        }
+    }
+    
+    const servicesStep = document.getElementById('step-services');
+    if (servicesStep && servicesStep.classList.contains('opacity-70')) {
+        const summary = createStepSummary('Services sélectionnés', [
+            'Voir la liste des services dans le résumé à droite'
+        ], 'step-services');
+        
+        servicesStep.appendChild(summary);
+    }
+    
+    const contactStep = document.getElementById('step-contact');
+    if (contactStep && contactStep.classList.contains('opacity-70')) {
+        const firstName = contactStep.querySelector('input[name="first_name"]')?.value || '';
+        const lastName = contactStep.querySelector('input[name="last_name"]')?.value || '';
+        const phone = contactStep.querySelector('input[name="phone"]')?.value || '';
+        const email = contactStep.querySelector('input[name="email"]')?.value || '';
+        
+        if (firstName && lastName && phone && email) {
+            const summary = createStepSummary('Informations de contact', [
+                `${firstName} ${lastName}`,
+                `${phone} • ${email}`
+            ], 'step-contact');
+            
+            contactStep.appendChild(summary);
+        }
+    }
+}
+
+function createStepSummary(title, items, stepId) {
+    const summaryDiv = document.createElement('div');
+    summaryDiv.className = 'hidden p-4 bg-gray-100 rounded-lg mt-4';
+    summaryDiv.id = `summary-${stepId}`;
+    
+    summaryDiv.innerHTML = `
+        <div class="flex items-center justify-between">
+            <div>
+                <h4 class="font-medium text-gray-900 mb-2">${title}</h4>
+                ${items.map(item => `<p class="text-sm text-gray-600">${item}</p>`).join('')}
+            </div>
+            <button class="bg-blue-600 text-white px-3 py-1 rounded text-xs font-medium hover:bg-blue-700 transition-colors" data-step="${stepId}" onclick="editStep('${stepId}')">Modifier</button>
+        </div>
+    `;
+    
+    return summaryDiv;
+}
+
+function addEditButtons() {
+    const completedSteps = document.querySelectorAll('[id^="step-"]:not(.hidden)');
+    completedSteps.forEach(step => {
+        if (step.classList.contains('opacity-70') && !step.querySelector('[data-step]')) {
+            const summary = step.querySelector(`#summary-${step.id}`);
+            if (summary) {
+                summary.classList.remove('hidden');
+            }
+        }
+    });
+}
+
+function editStep(stepId) {
+    const step = document.getElementById(stepId);
+    if (step) {
+        document.querySelectorAll('[id^="step-"]').forEach(s => {
+            s.classList.add('hidden');
+            s.classList.remove('border-2', 'border-blue-600', 'shadow-lg');
+        });
+        
+        step.classList.remove('hidden', 'opacity-70', 'bg-gray-50', 'border-gray-300');
+        step.classList.add('border-2', 'border-blue-600', 'bg-white', 'shadow-lg');
+        
+        const form = step.querySelector('form');
+        if (form) {
+            form.classList.remove('hidden');
+        }
+        
+        const summary = step.querySelector(`#summary-${stepId}`);
+        if (summary) {
+            summary.classList.add('hidden');
+        }
+        
+        step.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fr-FR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+function initServiceAccordion() {
+    document.querySelectorAll('[data-service-id]').forEach(element => {
+        element.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const serviceId = this.dataset.serviceId;
+            const serviceContent = document.getElementById(`service-content-${serviceId}`);
+            const toggleBtn = document.querySelector(`button[data-service-id="${serviceId}"]`);
+            const icon = toggleBtn.querySelector('svg');
+            
+            if (serviceContent) {
+                if (serviceContent.classList.contains('opacity-100')) {
+                    serviceContent.classList.remove('opacity-100', 'max-h-screen');
+                    serviceContent.classList.add('opacity-0', 'max-h-0');
+                    icon.classList.remove('rotate-180');
+                } else {
+                    serviceContent.classList.remove('opacity-0', 'max-h-0');
+                    serviceContent.classList.add('opacity-100', 'max-h-screen');
+                    icon.classList.add('rotate-180');
+                }
+            }
+        });
+    });
+}
+</script>
+
+  <!-- Footer -->
+  <footer class="bg-white py-8 border-t border-gray-400 mt-10 max-w-5xl mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-center">
+      <div class="text-xl font-bold mb-4 md:mb-0">Laundry</div>
+      <div class="flex items-center space-x-4">
+        <span class="text-gray-400 text-sm">Suivez-nous</span>
+        <a href="#" class="text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M18.896 2.003H5.104A3.108 3.108 0 0 0 2 5.11v13.783a3.108 3.108 0 0 0 3.104 3.107h13.793A3.108 3.108 0 0 0 22 18.893V5.11a3.108 3.108 0 0 0-3.104-3.107zm-7.1 15.66h-2.933V9.572h2.933v8.091zm-1.467-9.206a1.7 1.7 0 1 1 0-3.399 1.7 1.7 0 0 1 0 3.399zm10.369 9.206h-2.933v-4.067c0-.97-.017-2.217-1.352-2.217-1.352 0-1.56 1.055-1.56 2.146v4.138h-2.933V9.572h2.818v1.063h.04c.393-.744 1.355-1.528 2.79-1.528 2.984 0 3.532 1.964 3.532 4.518v4.038z" />
+          </svg>
+        </a>
+        <a href="#" class="text-gray-600 hover:text-gray-900">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 1.206.056 1.803.247 2.23.415.543.21.93.458 1.34.868.41.41.658.797.868 1.34.168.427.359 1.024.415 2.23.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.056 1.206-.247 1.803-.415 2.23-.21.543-.458.93-.868 1.34-.41.41-.797.658-1.34.868-.427.168-1.024.359-2.23.415-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.206-.056-1.803-.247-2.23-.415-.543-.21-.93-.458-1.34-.868-.41-.41-.658-.797-.868-1.34-.168-.427-.359-1.024-.415-2.23C2.175 15.797 2.163 15.417 2.163 12s.012-3.584.07-4.85c.056-1.206.247-1.803.415-2.23.21-.543.458-.93.868-1.34.41-.41.797-.658 1.34-.868.427-.168 1.024-.359 2.23-.415C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072c-1.292.06-2.18.264-2.948.528-.813.28-1.496.64-2.18 1.323-.684.684-1.043 1.367-1.323 2.18-.264.768-.468 1.656-.528 2.948C.014 8.332 0 8.741 0 12c0 3.259.014 3.668.072 4.948.06 1.292.264 2.18.528 2.948.28.813.64 1.496 1.323 2.18.684.684 1.367 1.043 2.18 1.323.768.264 1.656.468 2.948.528C8.332 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 1.292-.06 2.18-.264 2.948-.528.813-.28 1.496-.64 2.18-1.323.684-.684 1.043-1.367 1.323-2.18.264-.768.468-1.656.528-2.948.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.06-1.292-.264-2.18-.528-2.948-.28-.813-.64-1.496-1.323-2.18-.684-.684-1.367-1.043-2.18-1.323-.768-.264-1.656-.468-2.948-.528C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zm0 10.162a3.999 3.999 0 1 1 0-7.998 3.999 3.999 0 0 1 0 7.998zm7.2-10.406a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="mt-4 text-gray-400 text-sm flex justify-between">
+      <span>Tous droits réservés. © Laundryheap 2025.</span>
+    </div>
+  </footer>
+</body>
+</html>
