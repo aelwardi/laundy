@@ -13,35 +13,31 @@
 </head>
 
 <body class="bg-white font-sans">
-  <nav id="navbar"
-    class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-water-50 px-8 py-4 flex items-center justify-between">
-    <div id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</div>
-    <div class="flex-1 flex justify-center space-x-8">
-      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">Comment ça fonctionne</a>
-      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">Prix et services</a>
-      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">À propos de nous</a>
-      <a href="#"
-        class="nav-link text-gray-400 font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
-    </div>
-    <a href="#" id="cta-btn"
-      class="ml-4 bg-blue-500 text-white font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
-      dès maintenant</a>
+   <nav id="navbar"
+      class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-transparent px-8 py-4 flex items-center justify-between">
+      <div id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</div>
+      <div class="flex-1 flex justify-center space-x-8">
+        <a href="{{ path('app_how_works') }}" class="nav-link text-black hover:underline transition-colors duration-300">Comment ça fonctionne</a>
+        <a href="{{ path('app_tarification') }}" class="nav-link text-black hover:underline transition-colors duration-300">Prix et services</a>
+        <a href="{{ path('app_contact_us') }}" class="nav-link text-black hover:underline transition-colors duration-300">À propos de nous</a>
+        <a href="{{ path('app_auth') }}" class="nav-link text-gray-400 font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
+      </div>
+      <a href="{{ path('app_order') }}" id="cta-btn"
+        class="ml-4 bg-blue-500 text-white font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
+        dès maintenant</a>
   </nav>
   <section class="relative flex flex-col justify-center items-center overflow-hidden bg-transparent md:p-10">
-    <!-- Grand demi-cercle bleu clair en SVG, bouton au point le plus bas de la courbe -->
     <div class="absolute inset-0 z-0 pointer-events-none">
       <svg viewBox="0 0 1440 464" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
         <ellipse cx="720" cy="0" rx="964" ry="440" fill="#EDFAFF" />
       </svg>
     </div>
-    <!-- Contenu centré -->
     <div class="relative z-10 flex flex-col items-center justify-center w-full pt-32 pb-16">
       <h1 class="text-5xl md:text-7xl font-bold text-torea-900 text-center">Rapide. Propre. Frais.</h1>
       <div class="text-torea-900 mb-12 text-xl md:text-2xl text-center">Votre linge livré en 24h.</div>
     </div>
-    <!-- Bouton tangent à la courbe du bas de l'ellipse -->
     <div class="absolute left-1/2 bottom-10 translate-x-[-50%] translate-y-[60%] z-20">
-      <a href="#"
+      <a href="{{ path('app_order') }}"
         class="inline-flex items-center bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-blue-600 text-base">
         <svg class="w-5 h-5 mr-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -105,7 +101,7 @@
       <div class="flex-1 flex flex-col items-center md:items-start justify-center text-center md:text-left">
         <h3 class="text-2xl font-bold text-torea-900 mb-2">Ne laissez pas vos corvées définir qui vous êtes</h3>
         <div class="text-torea-900 mb-3">Entrez votre adresse et planifiez une collecte dès aujourd'hui</div>
-        <a href="#" class="bg-white text-torea-900 px-4 py-2 rounded font-semibold shadow hover:bg-blue-100">
+        <a href="{{ path('app_order') }}" class="bg-white text-torea-900 px-4 py-2 rounded font-semibold shadow hover:bg-blue-100">
           <svg class="w-5 h-5 inline mr-2 text-torea-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
           </svg>
@@ -138,6 +134,17 @@
       <span>Tous droits réservés. © Laundryheap 2025.</span>
     </div>
   </footer>
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 10) {
+        navbar.classList.remove('bg-transparent');
+        navbar.classList.add('bg-white', 'shadow-md');
+      } else {
+        navbar.classList.add('bg-transparent');
+        navbar.classList.remove('bg-white', 'shadow-md');
+      }
+    });
+  </script>
 </body>
-
 </html>

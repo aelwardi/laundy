@@ -13,19 +13,18 @@
 </head>
 
 <body class="bg-white font-sans">
-    <nav id="navbar"
-    class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-white px-8 py-4 flex items-center justify-between">
-    <div id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</div>
-    <div class="flex-1 flex justify-center space-x-8">
-      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">Comment ça fonctionne</a>
-      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">Prix et services</a>
-      <a href="#" class="nav-link text-black hover:underline transition-colors duration-300">À propos de nous</a>
-      <a href="#"
-        class="nav-link text-gray-400 font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
-    </div>
-    <a href="#" id="cta-btn"
-      class="ml-4 bg-blue-500 text-white font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
-      dès maintenant</a>
+<nav id="navbar"
+      class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-transparent px-8 py-4 flex items-center justify-between">
+      <div id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</div>
+      <div class="flex-1 flex justify-center space-x-8">
+        <a href="{{ path('app_how_works') }}" class="nav-link text-black hover:underline transition-colors duration-300">Comment ça fonctionne</a>
+        <a href="{{ path('app_tarification') }}" class="nav-link text-black hover:underline transition-colors duration-300">Prix et services</a>
+        <a href="{{ path('app_contact_us') }}" class="nav-link text-black hover:underline transition-colors duration-300">À propos de nous</a>
+        <a href="{{ path('app_auth') }}" class="nav-link text-gray-400 font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
+      </div>
+      <a href="{{ path('app_order') }}" id="cta-btn"
+        class="ml-4 bg-blue-500 text-white font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
+        dès maintenant</a>
   </nav>
   
   <main class="max-w-5xl mx-auto mt-30">
@@ -133,7 +132,6 @@
       <!-- End Right Panel -->
     </div>
   </main>
-    <!-- Footer -->
   <footer class="bg-white py-8 border-t border-gray-400 mt-10 max-w-5xl mx-auto">
     <div class="flex flex-col md:flex-row justify-between items-center">
       <div class="text-xl font-bold mb-4 md:mb-0">Laundry</div>
@@ -158,6 +156,18 @@
     </div>
   </footer>
   <script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 10) {
+      navbar.classList.remove('bg-transparent');
+      navbar.classList.add('bg-white', 'shadow-md');
+    } else {
+      navbar.classList.add('bg-transparent');
+      navbar.classList.remove('bg-white', 'shadow-md');
+    }
+  });
+</script>
+  <script>
     document.getElementById('btn-nouveau-ticket').onclick = function() {
       showPanel('panel-nouveau-ticket');
     };
@@ -167,20 +177,17 @@
     }
 
     function showPanel(panelId) {
-      // Masquer tous les panels
       const panels = document.querySelectorAll('[id^="panel-"]');
       panels.forEach(panel => {
         panel.classList.add('hidden');
       });
       
-      // Afficher le panel sélectionné
       const targetPanel = document.getElementById(panelId);
       if (targetPanel) {
         targetPanel.classList.remove('hidden');
       }
     }
 
-    // Afficher le panel nouveau ticket par défaut
     showPanel('panel-nouveau-ticket');
   </script>
 </body>

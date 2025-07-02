@@ -14,19 +14,18 @@
 
 <body class="bg-white font-sans">
 <nav id="navbar"
-  class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-blue-500 px-8 py-4 flex items-center justify-between">
-  <div id="logo" class="text-white font-bold text-2xl transition-colors duration-300">Laundry</div>
-  <div class="flex-1 flex justify-center space-x-8">
-    <a href="#" class="nav-link text-white hover:underline transition-colors duration-300">Comment ça fonctionne</a>
-    <a href="#" class="nav-link text-white hover:underline transition-colors duration-300">Prix et services</a>
-    <a href="#" class="nav-link text-white hover:underline transition-colors duration-300">À propos de nous</a>
-    <a href="#"
-      class="nav-link text-white font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
-  </div>
-  <a href="#" id="cta-btn"
-    class="ml-4 bg-white text-blue-500 font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
-    dès maintenant</a>
-</nav>
+      class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-transparent px-8 py-4 flex items-center justify-between">
+      <div id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</div>
+      <div class="flex-1 flex justify-center space-x-8">
+        <a href="{{ path('app_how_works') }}" class="nav-link text-black hover:underline transition-colors duration-300">Comment ça fonctionne</a>
+        <a href="{{ path('app_tarification') }}" class="nav-link text-black hover:underline transition-colors duration-300">Prix et services</a>
+        <a href="{{ path('app_contact_us') }}" class="nav-link text-black hover:underline transition-colors duration-300">À propos de nous</a>
+        <a href="{{ path('app_auth') }}" class="nav-link text-gray-400 font-semibold hover:underline transition-colors duration-300">Connectez-vous</a>
+      </div>
+      <a href="{{ path('app_order') }}" id="cta-btn"
+        class="ml-4 bg-blue-500 text-white font-semibold px-4 py-2 rounded shadow hover:bg-blue-100 transition-colors duration-300">Réservez
+        dès maintenant</a>
+  </nav>
 
   <section class="bg-blue-500 pb-8 text-center pt-20">
     <h1 class="text-4xl font-bold text-white mb-3">Tarification simplifiée</h1>
@@ -58,26 +57,38 @@
 
   <main class="max-w-5xl mx-auto flex flex-col gap-10 mt-10">
     <div class="flex flex-col md:flex-row justify-center gap-6">
-    {% for service in services %}
-      <div class="flex-1 bg-white border border-gray-400 rounded-xl shadow-sm flex flex-col items-center p-6 min-w-[260px] max-w-xs mx-auto">
-        <div class="w-20 h-20 rounded-full flex items-center justify-center bg-blue-100 mb-4">
-          <img src="{{service.image}}" alt="image"/>
+      {% for service in services %}
+      <a href="{{ path('app_tarif_details', {'id': service.id}) }}" 
+         class="flex-1 bg-white border border-gray-400 rounded-xl shadow-sm flex flex-col items-center p-6 min-w-[260px] max-w-xs mx-auto hover:bg-blue-50 hover:shadow-md transform hover:scale-105 transition-all duration-300 group">
+        <div class="w-20 h-20 rounded-full flex items-center justify-center bg-blue-100 mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+          <img src="{{ service.image }}" alt="{{ service.name }}" class="w-12 h-12 object-contain"/>
         </div>
-        <div class="font-bold text-lg mb-1">{{service.name}}</div>
-        <div class="text-gray-700 text-sm mb-3 text-center">{{service.description}}</div>
-        <div class="bg-gray-100 rounded px-2 py-1 text-xs font-medium mb-3">laver + sécher au sèche-linge + dans un sac</div>
-        <div class="w-full border-t border-gray-400 pt-3 mt-auto text-sm text-gray-500">PRIX PAR POIDS</div>
-        <div class="w-full text-left text-sm">à partir de <span class="text-torea-900 font-bold"> {% if service.name == "Laver" %} €24.90</span>/6kg {% elseif service.name == "Pressing" %} €3</span> {% elseif service.name == "Couettes & Ameublements" %} €14</span> {% endif %}</div>
-      </div>
-    {% endfor %}
+        <div class="font-bold text-lg mb-1 text-gray-800 group-hover:text-blue-600 transition-colors duration-300">{{ service.name }}</div>
+        <div class="text-gray-600 text-sm mb-4 text-center leading-relaxed">{{ service.description }}</div>
+        <div class="w-full border-t border-gray-300 pt-4 mt-auto">
+          <div class="text-xs text-gray-500 font-medium uppercase tracking-wide mb-2">Prix par poids</div>
+          <div class="text-sm text-gray-700">
+            à partir de 
+            <span class="text-blue-600 font-bold text-lg">
+              {% if service.name == "Laver" %}
+                €24.90</span><span class="text-gray-500 text-sm">/6kg
+              {% elseif service.name == "Pressing" %}
+                €3</span><span class="text-gray-500 text-sm">/pièce
+              {% elseif service.name == "Couettes & Ameublements" %}
+                €14</span><span class="text-gray-500 text-sm">/pièce
+              {% endif %}
+            </span>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
     </div>
-
     <div class="bg-water-200 rounded-lg p-5 flex flex-col md:flex-row items-center justify-between  ">
       <div>
         <span class="font-semibold text-torea-900">Vous avez une question sur nos services et nos prix ?</span><br />
         <span class="text-torea-900 text-sm">Demandez à notre sympathique chatbot Washy !</span>
       </div>
-      <a href="#" class="bg-white text-blue-500 px-4 py-2 rounded font-semibold shadow hover:bg-blue-100 mt-3 md:mt-0">Démarrer le chat</a>
+      <a href="{{ path('app_ticket') }}" class="bg-white text-blue-500 px-4 py-2 rounded font-semibold shadow hover:bg-blue-100 mt-3 md:mt-0">Démarrer le chat</a>
     </div>
   </main>
 
@@ -104,6 +115,18 @@
       <span>Tous droits réservés. © Laundryheap 2025.</span>
     </div>
   </footer>
+  <script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 10) {
+      navbar.classList.remove('bg-transparent');
+      navbar.classList.add('bg-white', 'shadow-md');
+    } else {
+      navbar.classList.add('bg-transparent');
+      navbar.classList.remove('bg-white', 'shadow-md');
+    }
+  });
+</script>
   </body>
 
 </html>
