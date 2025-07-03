@@ -38,6 +38,9 @@ class Order
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'ordere')]
     private Collection $comments;
 
+    #[ORM\OneToOne(mappedBy: 'ordere', cascade: ['persist', 'remove'])]
+    private ?Livraison $livraison = null;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
@@ -106,7 +109,6 @@ class Order
     public function removeItem(Item $item): static
     {
         if ($this->items->removeElement($item)) {
-            // set the owning side to null (unless already changed)
             if ($item->getOrdere() === $this) {
                 $item->setOrdere(null);
             }
@@ -136,12 +138,36 @@ class Order
     public function removeComment(Comment $comment): static
     {
         if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
             if ($comment->getOrdere() === $this) {
                 $comment->setOrdere(null);
             }
         }
 
         return $this;
+    }
+
+    public function getLivraison(): ?Livraison
+    {
+        return $this->livraison;
+    }
+
+    public function setLivraison(?Livraison $livraison): static
+    {
+        if ($livraison === null && $this->livraison !== null) {
+            $this->livraison->setOrdere(null);
+        }
+
+        if ($livraison !== null && $livraison->getOrdere() !== $this) {
+            $livraison->setOrdere($this);
+        }
+
+        $this->livraison = $livraison;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return 'Commande #' . $this->id . ' (' . number_format($this->priceTotal ?? 0, 2) . ' €)';
     }
 }

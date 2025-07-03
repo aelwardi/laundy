@@ -62,3 +62,175 @@
     --color-water-950: #08272b;
 
 }
+
+.step-card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 transition-all duration-300;
+}
+
+.step-card.active {
+    @apply ring-2 ring-blue-500 shadow-lg;
+}
+
+.step-card.completed {
+    @apply bg-gray-50 border-green-200;
+}
+
+.step-header {
+    @apply p-6 border-b border-gray-100 flex items-center space-x-4;
+}
+
+.step-card.completed .step-header {
+    @apply bg-green-50;
+}
+
+.step-card.active .step-header {
+    @apply bg-white;
+}
+
+.step-icon {
+    @apply flex items-center justify-center w-12 h-12 rounded-full flex-shrink-0;
+}
+
+.step-card.completed .step-icon {
+    @apply bg-green-100 text-green-600;
+}
+
+.step-card.active .step-icon {
+    @apply bg-blue-100 text-blue-600;
+}
+
+.step-card:not(.active):not(.completed) .step-icon {
+    @apply bg-gray-100 text-gray-400;
+}
+
+.step-content {
+    @apply flex-1;
+}
+
+.step-title {
+    @apply text-xl font-semibold text-gray-900;
+}
+
+.step-description {
+    @apply text-sm text-gray-600;
+}
+
+.btn-edit {
+    @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center;
+}
+
+.step-summary {
+    @apply p-6 bg-gray-50 border-b border-gray-200;
+}
+
+.step-form {
+    @apply p-6 space-y-6;
+}
+
+.form-group {
+    @apply space-y-2;
+}
+
+.form-label {
+    @apply block text-sm font-medium text-gray-700;
+}
+
+.form-input {
+    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors;
+}
+
+.form-actions {
+    @apply flex justify-end pt-6;
+}
+
+.btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 transform hover:scale-105 flex items-center space-x-2 shadow-lg;
+}
+
+.info-box {
+    @apply bg-blue-50 border border-blue-200 rounded-lg p-4;
+}
+
+.delivery-section {
+    @apply rounded-lg p-6;
+}
+
+.delivery-section.collect {
+    @apply bg-blue-50;
+}
+
+.delivery-section.delivery {
+    @apply bg-green-50;
+}
+
+.delivery-header {
+    @apply flex items-center mb-4;
+}
+
+.summary-item {
+    @apply mb-2 last:mb-0;
+}
+
+.summary-card {
+    @apply bg-white rounded-lg p-4 border border-gray-200;
+}
+
+.summary-card-title {
+    @apply font-medium text-gray-900 mb-2;
+}
+
+.service-card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200;
+}
+
+.service-header {
+    @apply p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors;
+}
+
+.service-content {
+    @apply overflow-hidden transition-all duration-300 ease-in-out;
+}
+
+.service-content.expanded {
+    @apply opacity-100;
+}
+
+.service-content:not(.expanded) {
+    @apply opacity-0 max-h-0;
+}
+
+.service-content.expanded {
+    @apply max-h-screen;
+}
+
+.btn-secondary {
+    @apply bg-gray-600 hover:bg-gray-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors flex items-center space-x-2;
+}
+
+.btn-success {
+    @apply bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-lg transition-colors flex items-center space-x-3 text-lg shadow-lg;
+}
+
+
+@media (max-width: 768px) {
+    .step-header {
+        @apply flex-col space-x-0 space-y-4 text-center;
+    }
+    
+    .btn-edit {
+        @apply w-full justify-center;
+    }
+    
+    .delivery-section {
+        @apply mb-6;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

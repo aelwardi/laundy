@@ -9,6 +9,8 @@ use App\Entity\CoSevice;
 use App\Entity\SubService;
 use App\Entity\DetailsService;
 use App\Entity\User;
+use App\Entity\Order;
+use App\Entity\Livraison;
 use App\Entity\SupportTicket;
 use App\Entity\Message;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
@@ -52,6 +54,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Support Client');
         yield MenuItem::linkToCrud('Tickets de Support', 'fas fa-ticket-alt', SupportTicket::class);
         yield MenuItem::linkToCrud('Messages', 'fas fa-comments', Message::class);
+        
+        yield MenuItem::section('Commandes');
+        yield MenuItem::linkToCrud('Gestion des Commandes', 'fas fa-shopping-cart', Order::class);
+        yield MenuItem::linkToCrud('Livraisons', 'fas fa-truck', Livraison::class);
         
         yield MenuItem::section('Utilisateurs');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);

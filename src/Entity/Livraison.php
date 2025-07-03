@@ -108,4 +108,9 @@ class Livraison
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return 'Livraison pour ' . ($this->fullName ?? 'Client inconnu') . ' - ' . ($this->fullAddress ?? 'Adresse inconnue');
+    }
 }

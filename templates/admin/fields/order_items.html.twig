@@ -1,0 +1,35 @@
+{% if field.value %}
+<div class="order-items">
+    {% for item in field.value %}
+    <div class="item-card mb-3 p-3 border rounded">
+        <div class="row align-items-center">
+            {% if item.image %}
+            <div class="col-md-2">
+                <img src="{{ item.image }}" alt="{{ item.name }}" class="img-fluid rounded" style="max-height: 80px; object-fit: cover;">
+            </div>
+            {% endif %}
+            <div class="col-md-{{ item.image ? '10' : '12' }}">
+                <h6 class="mb-1">{{ item.name }}</h6>
+                <p class="mb-2 text-muted small">{{ item.description }}</p>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <small class="text-muted">Quantité:</small><br>
+                        <strong>{{ item.quantity }}</strong>
+                    </div>
+                    <div class="col-sm-4">
+                        <small class="text-muted">Prix unitaire:</small><br>
+                        <strong>{{ item.price|number_format(2, ',', ' ') }} €</strong>
+                    </div>
+                    <div class="col-sm-4">
+                        <small class="text-muted">Total:</small><br>
+                        <strong class="text-primary">{{ (item.price * item.quantity)|number_format(2, ',', ' ') }} €</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-muted">Aucun article dans cette commande</p>
+{% endif %}

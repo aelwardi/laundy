@@ -63,4 +63,13 @@ class Comment
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        $preview = substr($this->content ?? '', 0, 50);
+        if (strlen($this->content ?? '') > 50) {
+            $preview .= '...';
+        }
+        return $preview . ' (' . $this->rating . '/5)';
+    }
 }
