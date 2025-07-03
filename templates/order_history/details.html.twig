@@ -1,0 +1,286 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de la commande #{{ order.id }} - Laundry{% endblock %}
+
+{% block content %}
+<section class="py-20 bg-gray-50 min-h-screen">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto">
+      
+      <div class="mb-8">
+        <a href="{{ path('app_order_history') }}" 
+           class="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium transition-colors duration-300">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Retour à l'historique
+        </a>
+      </div>
+
+      <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+          <div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Commande #{{ order.id }}</h1>
+            <p class="text-gray-600">Total : <span class="font-semibold text-2xl text-blue-600">{{ order.priceTotal|number_format(2, ',', ' ') }} €</span></p>
+          </div>
+          
+          {% set statusConfig = {
+            'created': { 'class': 'bg-yellow-100 text-yellow-800 border-yellow-200', 'icon': 'clock', 'label': 'Créée', 'description': 'Votre commande a été créée et est en attente de confirmation' },
+            'confirmed': { 'class': 'bg-blue-100 text-blue-800 border-blue-200', 'icon': 'check', 'label': 'Confirmée', 'description': 'Votre commande a été confirmée et sera bientôt collectée' },
+            'collected': { 'class': 'bg-purple-100 text-purple-800 border-purple-200', 'icon': 'truck', 'label': 'Collectée', 'description': 'Vos vêtements ont été collectés et sont en cours de traitement' },
+            'paid': { 'class': 'bg-teal-100 text-teal-800 border-teal-200', 'icon': 'credit-card', 'label': 'Payée', 'description': 'Le paiement a été effectué avec succès' },
+            'delivered': { 'class': 'bg-indigo-100 text-indigo-800 border-indigo-200', 'icon': 'home', 'label': 'Livrée', 'description': 'Votre commande a été livrée à votre adresse' },
+            'completed': { 'class': 'bg-green-100 text-green-800 border-green-200', 'icon': 'check-circle', 'label': 'Terminée', 'description': 'Votre commande a été livrée avec succès' },
+            'canceled': { 'class': 'bg-red-100 text-red-800 border-red-200', 'icon': 'x-circle', 'label': 'Annulée', 'description': 'Cette commande a été annulée' }
+          } %}
+          
+          {% set status = statusConfig[order.status.value] ?? statusConfig['created'] %}
+          
+          <div class="text-center lg:text-right">
+            <div class="inline-flex items-center px-4 py-2 rounded-full text-lg font-medium border-2 {{ status.class }} mb-2">
+              {% if status.icon == 'clock' %}
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              {% elseif status.icon == 'check' %}
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              {% elseif status.icon == 'truck' %}
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"/>
+                </svg>
+              {% elseif status.icon == 'credit-card' %}
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                </svg>
+              {% elseif status.icon == 'home' %}
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                </svg>
+              {% elseif status.icon == 'check-circle' %}
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              {% else %}
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              {% endif %}
+              {{ status.label }}
+            </div>
+            <p class="text-sm text-gray-600 max-w-xs">{{ status.description }}</p>
+          </div>
+        </div>
+
+        <div class="relative">
+          <div class="flex items-center justify-between mb-2">
+            {% set steps = ['created', 'confirmed', 'collected', 'delivered', 'completed'] %}
+            {% set currentStepIndex = -1 %}
+            {% for step in steps %}
+              {% if step == order.status.value %}
+                {% set currentStepIndex = loop.index0 %}
+              {% endif %}
+            {% endfor %}
+            
+            {% for stepValue in steps %}
+              {% set stepIndex = loop.index0 %}
+              {% set stepActive = stepIndex <= currentStepIndex %}
+              {% set stepLabels = {
+                'created': 'Commande créée',
+                'confirmed': 'Confirmée',
+                'collected': 'Collectée',
+                'delivered': 'Livrée',
+                'completed': 'Terminée'
+              } %}
+              
+              <div class="flex flex-col items-center">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center {{ stepActive ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-400' }} mb-2">
+                  {% if stepActive %}
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                  {% else %}
+                    {{ stepIndex + 1 }}
+                  {% endif %}
+                </div>
+                <span class="text-xs text-center {{ stepActive ? 'text-blue-600 font-medium' : 'text-gray-400' }}">
+                  {{ stepLabels[stepValue] }}
+                </span>
+              </div>
+              
+              {% if not loop.last %}
+                <div class="flex-1 h-0.5 {{ stepActive and stepIndex < currentStepIndex ? 'bg-blue-600' : 'bg-gray-200' }} mt-4 mx-2"></div>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="bg-white rounded-xl shadow-lg p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Articles commandés</h2>
+          
+          {% if order.items|length > 0 %}
+            <div class="space-y-4">
+              {% for item in order.items %}
+                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors duration-300">
+                  <div class="flex items-center space-x-4">
+                    {% if item.image %}
+                      <img src="{{ item.image }}" alt="{{ item.name }}" class="w-16 h-16 object-cover rounded-lg">
+                    {% else %}
+                      <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
+                        <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                      </div>
+                    {% endif %}
+                    <div>
+                      <h3 class="font-semibold text-gray-900">{{ item.name }}</h3>
+                      <p class="text-sm text-gray-600">{{ item.description }}</p>
+                      <p class="text-sm font-medium text-blue-600">Quantité : {{ item.quantity }}</p>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <p class="font-semibold text-gray-900">{{ item.price|number_format(2, ',', ' ') }} €</p>
+                    <p class="text-sm text-gray-600">{{ (item.price * item.quantity)|number_format(2, ',', ' ') }} € total</p>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="text-gray-600 text-center py-8">Aucun article dans cette commande.</p>
+          {% endif %}
+        </div>
+
+        <div class="space-y-6">
+          {% if order.livraison %}
+            <div class="bg-white rounded-xl shadow-lg p-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6">Informations de livraison</h2>
+              
+              <div class="space-y-4">
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Destinataire</p>
+                  <p class="font-semibold text-gray-900">{{ order.livraison.fullName }}</p>
+                </div>
+                
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Adresse</p>
+                  <p class="font-semibold text-gray-900">{{ order.livraison.fullAddress }}</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <p class="text-sm text-gray-500 mb-1">Collecte prévue</p>
+                    <p class="font-semibold text-gray-900">{{ order.livraison.collectedAt|date('d/m/Y à H:i') }}</p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-gray-500 mb-1">Livraison prévue</p>
+                    <p class="font-semibold text-gray-900">{{ order.livraison.livredAt|date('d/m/Y à H:i') }}</p>
+                  </div>
+                </div>
+                
+                {% if order.livraison.instructions %}
+                  <div>
+                    <p class="text-sm text-gray-500 mb-1">Instructions spéciales</p>
+                    <p class="text-gray-700 bg-gray-50 p-3 rounded-lg">{{ order.livraison.instructions }}</p>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+
+          {% if order.comments|length > 0 %}
+            <div class="bg-white rounded-xl shadow-lg p-6">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6">Votre avis</h2>
+              
+              {% for comment in order.comments %}
+                <div class="border border-gray-200 rounded-lg p-4">
+                  <div class="flex items-center mb-3">
+                    <div class="flex text-yellow-400 mr-3">
+                      {% for i in 1..5 %}
+                        {% if i <= comment.rating %}
+                          ⭐
+                        {% else %}
+                          ☆
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    <span class="text-sm text-gray-600">{{ comment.rating }}/5</span>
+                  </div>
+                  <p class="text-gray-700">{{ comment.content }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if order.status.value == 'completed' and order.comments|length == 0 %}
+        <div id="comment-form" class="bg-white rounded-xl shadow-lg p-8 mt-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Laissez votre avis</h2>
+          <p class="text-gray-600 mb-6">
+            Votre commande est terminée ! Partagez votre expérience pour aider d'autres clients.
+          </p>
+          
+          {{ form_start(comment_form, {'attr': {'class': 'space-y-6'}}) }}
+            
+            <div>
+              {{ form_label(comment_form.rating, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-3'}}) }}
+              <div class="space-y-2">
+                {% for choice in comment_form.rating %}
+                  <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors duration-300">
+                    {{ form_widget(choice, {'attr': {'class': 'mr-3'}}) }}
+                    <span class="text-lg">{{ choice.vars.label }}</span>
+                  </label>
+                {% endfor %}
+              </div>
+              {{ form_errors(comment_form.rating) }}
+            </div>
+
+            <div>
+              {{ form_label(comment_form.content, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-2'}}) }}
+              {{ form_widget(comment_form.content, {'attr': {'class': 'w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none'}}) }}
+              {{ form_errors(comment_form.content) }}
+            </div>
+
+            <div class="flex justify-end">
+              {{ form_widget(comment_form.submit, {'attr': {'class': 'bg-blue-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-300'}}) }}
+            </div>
+
+          {{ form_end(comment_form) }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+.rating-choice input[type="radio"] {
+  accent-color: #3b82f6;
+}
+
+.progress-step.active {
+  animation: pulse 2s infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.order-section {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.order-section:nth-child(2) { animation-delay: 0.1s; }
+.order-section:nth-child(3) { animation-delay: 0.2s; }
+.order-section:nth-child(4) { animation-delay: 0.3s; }
+</style>
+{% endblock %}

@@ -35,6 +35,7 @@
               </button>
               <div id="profile-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 z-50">
                 <a href="{{ path('app_profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                <a href="{{ path('app_order_history') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mes commandes</a>
                 <a href="{{ path('app_logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Déconnexion</a>
               </div>
             {% else %}
@@ -90,17 +91,16 @@
       }
     });
 
-    // Profile dropdown functionality
     const profileDropdownBtn = document.getElementById('profile-dropdown-btn');
     const profileDropdown = document.getElementById('profile-dropdown');
     
     if (profileDropdownBtn && profileDropdown) {
       profileDropdownBtn.addEventListener('click', function(e) {
         e.preventDefault();
+        e.stopPropagation();
         profileDropdown.classList.toggle('hidden');
       });
 
-      // Close dropdown when clicking outside
       document.addEventListener('click', function(e) {
         if (!profileDropdownBtn.contains(e.target) && !profileDropdown.contains(e.target)) {
           profileDropdown.classList.add('hidden');
