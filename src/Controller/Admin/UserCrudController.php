@@ -21,6 +21,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Doctrine\ORM\EntityManagerInterface;
 
 #[IsGranted('ROLE_ADMIN')]
 class UserCrudController extends AbstractCrudController
@@ -45,7 +46,10 @@ class UserCrudController extends AbstractCrudController
     {
         return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            ->disable(Action::NEW, Action::EDIT, Action::DELETE);
+            ->disable(Action::NEW, Action::DELETE)
+            ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
+                return $action->setLabel('Modifier statut')->setIcon('fas fa-user-edit');
+            });
     }
 
     public function createIndexQueryBuilder(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters): QueryBuilder
@@ -61,9 +65,13 @@ class UserCrudController extends AbstractCrudController
         return $queryBuilder;
     }
 
-    public function edit(AdminContext $context): Response
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
-        throw $this->createAccessDeniedException('Modification des utilisateurs non autorisée via l\'admin.');
+        if ($entityInstance instanceof User && $entityInstance->getId() === $this->getUser()->getId()) {
+            throw $this->createAccessDeniedException('Vous ne pouvez pas modifier votre propre compte.');
+        }
+        
+        parent::updateEntity($entityManager, $entityInstance);
     }
 
     public function new(AdminContext $context): Response
@@ -80,25 +88,33 @@ class UserCrudController extends AbstractCrudController
     {
         $fields = [
             TextField::new('firstName', 'Prénom')
-                ->setColumns(6),
+                ->setColumns(6)
+                ->setFormTypeOption('disabled', $pageName === Crud::PAGE_EDIT),
             TextField::new('lastName', 'Nom')
-                ->setColumns(6),
+                ->setColumns(6)
+                ->setFormTypeOption('disabled', $pageName === Crud::PAGE_EDIT),
             EmailField::new('email', 'Email')
-                ->setColumns(8),
+                ->setColumns(8)
+                ->setFormTypeOption('disabled', $pageName === Crud::PAGE_EDIT),
             TextField::new('phone', 'Téléphone')
-                ->setColumns(4),
+                ->setColumns(4)
+                ->setFormTypeOption('disabled', $pageName === Crud::PAGE_EDIT),
             ChoiceField::new('roles', 'Rôles')
                 ->setChoices([
                     'Utilisateur' => 'ROLE_USER',
                     'Administrateur' => 'ROLE_ADMIN',
+                    'Banni' => 'ROLE_BANNED'
                 ])
                 ->renderAsBadges([
                     'ROLE_USER' => 'success',
-                    'ROLE_ADMIN' => 'danger'
+                    'ROLE_ADMIN' => 'danger',
+                    'ROLE_BANNED' => 'dark'
                 ])
-                ->hideOnIndex(),
+                ->allowMultipleChoices()
+                ->setColumns(6),
             AssociationField::new('laundry', 'Laverie associée')
-                ->hideOnIndex(),
+                ->hideOnIndex()
+                ->setFormTypeOption('disabled', $pageName === Crud::PAGE_EDIT),
         ];
 
         if (Crud::PAGE_DETAIL === $pageName) {
