@@ -3,87 +3,199 @@
 {% block title %}Comment ça fonctionne - {{ parent() }}{% endblock %}
 
 {% block content %}
-  <section class="relative flex flex-col justify-center items-center overflow-hidden bg-transparent md:p-10">
+<style>
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .animate-bounce {
+    animation: bounce 2s infinite;
+  }
+  
+  .group:hover .group-hover\:scale-105 {
+    transform: scale(1.05);
+  }
+  
+  .transition-all {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .bg-gradient-to-r {
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+  }
+  
+  .badge-blue {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  }
+  
+  .badge-green {
+    background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  }
+  
+  .shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+  
+  @media (max-width: 768px) {
+    .text-4xl {
+      font-size: 2.5rem;
+    }
+    
+    .text-6xl {
+      font-size: 3.5rem;
+    }
+  }
+</style>
+
+  <section class="hero-full-height relative flex flex-col justify-center items-center overflow-hidden bg-transparent">
     <div class="absolute inset-0 z-0 pointer-events-none">
       <svg viewBox="0 0 1440 464" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
         <ellipse cx="720" cy="0" rx="964" ry="440" fill="#EDFAFF" />
       </svg>
     </div>
-    <div class="relative z-10 flex flex-col items-center justify-center w-full pt-32 pb-16">
-      <h1 class="text-5xl md:text-7xl font-bold text-torea-900 text-center">Rapide. Propre. Frais.</h1>
-      <div class="text-torea-900 mb-12 text-xl md:text-2xl text-center">Votre linge livré en 24h.</div>
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <div class="absolute top-20 left-10 w-4 h-4 bg-blue-200 rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+      <div class="absolute top-32 right-16 w-3 h-3 bg-blue-300 rounded-full animate-bounce" style="animation-delay: 1s;"></div>
+      <div class="absolute bottom-40 left-20 w-2 h-2 bg-blue-400 rounded-full animate-bounce" style="animation-delay: 2s;"></div>
     </div>
-    <div class="absolute left-1/2 bottom-10 translate-x-[-50%] translate-y-[60%] z-20">
-      <a href="{{ path('app_order') }}"
-        class="inline-flex items-center bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-blue-600 text-base">
-        <svg class="w-5 h-5 mr-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-        Planifiez votre collecte
-      </a>
+    
+    <div class="relative z-10 flex flex-col items-center justify-center w-full pt-32 pb-24 px-4">
+      <div class="text-center max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-torea-900 mb-6 leading-tight animate-fade-in-up">
+          Rapide. Propre. <span class="text-blue-600">Frais.</span>
+        </h1>
+        <div class="text-torea-900 mb-12 text-lg md:text-xl lg:text-2xl leading-relaxed animate-fade-in-up" style="animation-delay: 0.3s;">
+          Votre linge livré en 24h avec un service professionnel
+        </div>
+        
+        <div class="mt-8 animate-fade-in-up" style="animation-delay: 0.6s;">
+          <a href="{{ path('app_order') }}"
+            class="inline-flex items-center bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 text-base">
+            <svg class="w-5 h-5 mr-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+            Planifiez votre collecte
+          </a>
+        </div>
+      </div>
     </div>
   </section>
-  <div class="max-w-5xl mx-auto">
+  
+  <div class="h-16"></div>
+  <div class="max-w-6xl mx-auto px-4 py-16">
     {% for work in howWorks %}
         {% if loop.index is odd %}
-        <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
-      <div class="flex-1">
-        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">{{work.indice}}</div>
-        <h2 class="text-2xl font-bold mb-2">{{work.rang}}. {{work.title}}</h2>
-        <p class="mb-4">{{work.description}}</p>
-        <div class="flex flex-col gap-3 mb-2">
-            {% for step in work.steps %}
-          <div class="flex items-center gap-2 text-sm font-semibold py-2">
-            <img src="{{ step.icon }}" alt="icon" class="w-7 h-7 mr-2" />
-            {{step.title}}
+        <section class="flex flex-col lg:flex-row mb-16 items-center gap-12 group">
+          <div class="flex-1 lg:pr-8">
+            <div class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full mb-4 uppercase tracking-wide">
+              {{work.indice}}
+            </div>
+            <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-gray-900 leading-tight">
+              <span class="text-blue-600">{{work.rang}}.</span> {{work.title}}
+            </h2>
+            <p class="text-lg text-gray-600 mb-6 leading-relaxed">{{work.description}}</p>
+            <div class="space-y-4">
+                {% for step in work.steps %}
+              <div class="flex items-center gap-4 p-3 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
+                <div class="flex-shrink-0">
+                  <img src="{{ step.icon }}" alt="icon" class="w-8 h-8" />
+                </div>
+                <span class="text-gray-800 font-medium">{{step.title}}</span>
+              </div>
+                {% endfor %}
+            </div>
           </div>
-            {% endfor %}
+          <div class="flex-1 flex justify-center lg:justify-end">
+            <div class="relative group-hover:scale-105 transition-transform duration-500">
+              <img src="{{work.image}}" alt="{{work.title}}" class="rounded-2xl shadow-2xl object-cover max-w-md w-full" />
+              <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-transparent rounded-2xl"></div>
+            </div>
+          </div>
+        </section>
+        <div class="flex justify-center my-12">
+          <div class="w-16 h-0.5 bg-gradient-to-r from-blue-200 via-blue-400 to-blue-200"></div>
         </div>
-      </div>
-      <div class="flex-1 flex flex-col items-center">
-        <img src="{{work.image}}" alt="image" class="rounded-xl mb-4 object-cover" />
-      </div>
-    </section>
-    <hr class="border-gray-400 mt-10">
         {% else %}
-        <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
-      <div class="flex-1 flex flex-col items-center">
-        <img src="{{work.image}}" alt="image" class="rounded-xl mb-4 object-cover" />
-      </div>
-      <div class="flex-1">
-        <div class="uppercase text-xs text-gray-400 font-semibold mb-2">{{work.indice}}</div>
-        <h2 class="text-2xl font-bold mb-2">{{work.rang}}. {{work.title}}</h2>
-        <p class="mb-4">{{work.description}}</p>
-        <div class="flex flex-col gap-3 mb-2">
-            {% for step in work.steps %}
-          <div class="flex items-center gap-2 text-sm font-semibold py-2">
-            <img src="{{ step.icon }}" alt="icon" class="w-7 h-7 mr-2" />
-            {{step.title}}
+        <section class="flex flex-col lg:flex-row-reverse mb-16 items-center gap-12 group">
+          <div class="flex-1 lg:pl-8">
+            <div class="inline-block px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full mb-4 uppercase tracking-wide">
+              {{work.indice}}
+            </div>
+            <h2 class="text-3xl lg:text-4xl font-bold mb-4 text-gray-900 leading-tight">
+              <span class="text-green-600">{{work.rang}}.</span> {{work.title}}
+            </h2>
+            <p class="text-lg text-gray-600 mb-6 leading-relaxed">{{work.description}}</p>
+            <div class="space-y-4">
+                {% for step in work.steps %}
+              <div class="flex items-center gap-4 p-3 bg-white rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
+                <div class="flex-shrink-0">
+                  <img src="{{ step.icon }}" alt="icon" class="w-8 h-8" />
+                </div>
+                <span class="text-gray-800 font-medium">{{step.title}}</span>
+              </div>
+               {% endfor %}
+            </div>
           </div>
-           {% endfor %}
+          <div class="flex-1 flex justify-center lg:justify-start">
+            <div class="relative group-hover:scale-105 transition-transform duration-500">
+              <img src="{{work.image}}" alt="{{work.title}}" class="rounded-2xl shadow-2xl object-cover max-w-md w-full" />
+              <div class="absolute inset-0 bg-gradient-to-tr from-green-500/10 to-transparent rounded-2xl"></div>
+            </div>
+          </div>
+        </section>
+        {% if not loop.last %}
+        <div class="flex justify-center my-12">
+          <div class="w-16 h-0.5 bg-gradient-to-r from-green-200 via-green-400 to-green-200"></div>
         </div>
-      </div>
-    </section>
-    <hr class="border-gray-400 mt-10">
+        {% endif %}
         {% endif %}
     {% endfor %}
 
   </div>
   
-  <section class="bg-water-900 mt-10">
-    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-      <div class="flex-shrink-0">
-        <img src="img9.png" alt="image" class="w-45 h-45 md:p-4"/>
-      </div>
-      <div class="flex-1 flex flex-col items-center md:items-start justify-center text-center md:text-left">
-        <h3 class="text-2xl font-bold text-torea-900 mb-2">Ne laissez pas vos corvées définir qui vous êtes</h3>
-        <div class="text-torea-900 mb-3">Entrez votre adresse et planifiez une collecte dès aujourd'hui</div>
-        <a href="{{ path('app_order') }}" class="bg-white text-torea-900 px-4 py-2 rounded font-semibold shadow hover:bg-blue-100">
-          <svg class="w-5 h-5 inline mr-2 text-torea-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-          </svg>
-          Planifiez votre collecte
-        </a>
+  <section class="bg-gradient-to-br from-blue-50 via-white to-blue-50 py-20 mt-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+        <div class="flex flex-col lg:flex-row items-center">
+          <div class="flex-shrink-0 lg:w-1/3">
+            <img src="img9.png" alt="Service de laverie professionnel" class="w-full h-full object-cover lg:h-80"/>
+          </div>
+          <div class="flex-1 p-8 lg:p-12 text-center lg:text-left">
+            <h3 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+              Ne laissez pas vos corvées 
+              <span class="text-blue-600">définir qui vous êtes</span>
+            </h3>
+            <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+              Entrez votre adresse et planifiez une collecte dès aujourd'hui. 
+              Profitez de plus de temps libre pour ce qui compte vraiment.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <a href="{{ path('app_order') }}" 
+                 class="inline-flex items-center justify-center bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+                Planifiez votre collecte
+              </a>
+              <a href="{{ path('app_tarification') }}" 
+                 class="inline-flex items-center justify-center border-2 border-blue-500 text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-xl font-semibold transition-all duration-300">
+                Voir nos tarifs
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>

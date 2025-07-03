@@ -3,62 +3,248 @@
 {% block title %}À propos de nous - {{ parent() }}{% endblock %}
 
 {% block content %}
-  <div class="max-w-5xl mx-auto mt-30">
+<style>
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fade-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fade-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-fade-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .animate-fade-left {
+    animation: fade-in-left 0.8s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .animate-fade-right {
+    animation: fade-in-right 0.8s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .section-enhanced {
+    transition: all 0.3s ease;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    margin-bottom: 2rem;
+  }
+  
+  .section-enhanced:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+  
+  .image-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+  
+  .image-container:hover::before {
+    opacity: 1;
+  }
+  
+  .image-container img {
+    transition: transform 0.3s ease;
+  }
+  
+  .image-container:hover img {
+    transform: scale(1.05);
+  }
+  
+  .title-enhanced {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+  }
+  
+  .description-enhanced {
+    color: #64748b;
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+  
+  .separator-enhanced {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+    border: none;
+    margin: 3rem 0;
+    opacity: 0.3;
+  }
+  
+  .highlight-section {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .highlight-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%233b82f6" fill-opacity="0.05"><circle cx="30" cy="30" r="3"/></g></svg>');
+    pointer-events: none;
+  }
+  
+  .cta-section {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  .cta-button {
+    background: white;
+    color: #1e40af;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .cta-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
+    background: #f8fafc;
+  }
+</style>
+
+  <div class="max-w-6xl mx-auto mt-24 px-4">
     <main>
     {% for section in sections %}
         {% if loop.index == 1 %}
-            <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10">
-                <div class="flex-1">
-                    <h1 class="text-3xl font-bold mb-2">{{ section.title }}</h1>
-                    <p class="text-sm mb-2">{{ section.description }}</p>
-                </div>
-                <div class="flex-1 flex flex-col items-center">
-                    <img src="{{ section.image }}" alt="image" class="rounded-xl mb-4 object-cover" />
+            <section class="section-enhanced animate-fade-up" style="animation-delay: 0.2s;">
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="flex-1 animate-fade-left" style="animation-delay: 0.4s;">
+                        <h1 class="title-enhanced text-4xl lg:text-5xl mb-6">{{ section.title }}</h1>
+                        <p class="description-enhanced text-lg">{{ section.description }}</p>
+                    </div>
+                    <div class="flex-1 flex justify-center animate-fade-right" style="animation-delay: 0.6s;">
+                        <div class="image-container max-w-md w-full">
+                            <img src="{{ section.image }}" alt="image" class="w-full h-auto object-cover" />
+                        </div>
+                    </div>
                 </div>
             </section>
         {% elseif loop.index == 2 %}
-            <hr class="border-gray-400 mt-10">
-            <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
-                <div class="flex-1 flex flex-col items-center">
-                    <img src="{{ section.image }}" alt="image" class="rounded-xl mb-4 object-cover" />
-                </div>
-                <div class="flex-1">
-                    <h1 class="text-3xl font-bold mb-2">{{ section.title }}</h1>
-                    <p class="text-sm mb-2">{{ section.description }}</p>
+            <hr class="separator-enhanced">
+            <section class="section-enhanced animate-fade-up" style="animation-delay: 0.8s;">
+                <div class="flex flex-col lg:flex-row-reverse items-center gap-12">
+                    <div class="flex-1 animate-fade-right" style="animation-delay: 1s;">
+                        <h2 class="title-enhanced text-4xl lg:text-5xl mb-6">{{ section.title }}</h2>
+                        <p class="description-enhanced text-lg">{{ section.description }}</p>
+                    </div>
+                    <div class="flex-1 flex justify-center animate-fade-left" style="animation-delay: 1.2s;">
+                        <div class="image-container max-w-md w-full">
+                            <img src="{{ section.image }}" alt="image" class="w-full h-auto object-cover" />
+                        </div>
+                    </div>
                 </div>
             </section>
-            <hr class="mt-10 border-gray-400">
-            <section class="text-center mt-10">
-                <h2 class="text-2xl md:text-3xl font-bold mb-4">
-                    Nous investissons dans l'une des plus grandes flottes de véhicules de livraison électriques au monde.
-                </h2>
-                <div class="text-xs text-torea-900 font-medium mb-2">
-                    Incroyable ! Cela deviendra la plus grande flotte de trikes/quadicicycles en activité ! C'est tellement
-                    positif d'assister à un passage des commandes symboliques des entreprises (et c'est déjà bien !) à un
-                    déploiement commercial complet.
+            <hr class="separator-enhanced">
+            <section class="highlight-section section-enhanced text-center animate-fade-up" style="animation-delay: 1.4s;">
+                <div class="relative z-10">
+                    <h2 class="title-enhanced text-3xl lg:text-4xl mb-6 leading-tight">
+                        Nous investissons dans l'une des plus grandes flottes de véhicules de livraison électriques au monde.
+                    </h2>
+                    <div class="description-enhanced text-base max-w-4xl mx-auto leading-relaxed">
+                        Incroyable ! Cela deviendra la plus grande flotte de trikes/quadicicycles en activité ! C'est tellement
+                        positif d'assister à un passage des commandes symboliques des entreprises (et c'est déjà bien !) à un
+                        déploiement commercial complet.
+                    </div>
                 </div>
             </section>
         {% else %}
             {% set motif_index = (loop.index0) % 2 %}
-            <hr class="border-gray-400 mt-10">
+            <hr class="separator-enhanced">
             {% if motif_index == 0 %}
-                <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
-                    <div class="flex-1">
-                        <h1 class="text-3xl font-bold mb-2">{{ section.title }}</h1>
-                        <p class="text-sm mb-2">{{ section.description }}</p>
-                    </div>
-                    <div class="flex-1 flex flex-col items-center">
-                        <img src="{{ section.image }}" alt="image" class="rounded-xl mb-4 object-cover" />
+                <section class="section-enhanced animate-fade-up" style="animation-delay: {{ loop.index0 * 0.2 + 1.6 }}s;">
+                    <div class="flex flex-col lg:flex-row items-center gap-12">
+                        <div class="flex-1 animate-fade-left" style="animation-delay: {{ loop.index0 * 0.2 + 1.8 }}s;">
+                            <h3 class="title-enhanced text-3xl lg:text-4xl mb-6">{{ section.title }}</h3>
+                            <p class="description-enhanced text-lg">{{ section.description }}</p>
+                        </div>
+                        <div class="flex-1 flex justify-center animate-fade-right" style="animation-delay: {{ loop.index0 * 0.2 + 2 }}s;">
+                            <div class="image-container max-w-md w-full">
+                                <img src="{{ section.image }}" alt="image" class="w-full h-auto object-cover" />
+                            </div>
+                        </div>
                     </div>
                 </section>
             {% else %}
-                <section class="flex flex-col md:flex-row mb-10 md:mb-0 items-center gap-10 mt-10">
-                    <div class="flex-1 flex flex-col items-center">
-                        <img src="{{ section.image }}" alt="image" class="rounded-xl mb-4 object-cover" />
-                    </div>
-                    <div class="flex-1">
-                        <h1 class="text-3xl font-bold mb-2">{{ section.title }}</h1>
-                        <p class="text-sm mb-2">{{ section.description }}</p>
+                <section class="section-enhanced animate-fade-up" style="animation-delay: {{ loop.index0 * 0.2 + 1.6 }}s;">
+                    <div class="flex flex-col lg:flex-row-reverse items-center gap-12">
+                        <div class="flex-1 animate-fade-right" style="animation-delay: {{ loop.index0 * 0.2 + 1.8 }}s;">
+                            <h3 class="title-enhanced text-3xl lg:text-4xl mb-6">{{ section.title }}</h3>
+                            <p class="description-enhanced text-lg">{{ section.description }}</p>
+                        </div>
+                        <div class="flex-1 flex justify-center animate-fade-left" style="animation-delay: {{ loop.index0 * 0.2 + 2 }}s;">
+                            <div class="image-container max-w-md w-full">
+                                <img src="{{ section.image }}" alt="image" class="w-full h-auto object-cover" />
+                            </div>
+                        </div>
                     </div>
                 </section>
             {% endif %}
@@ -67,16 +253,16 @@
 
     </main>
 
-    <section class="bg-water-900 mt-10 rounded-2xl">
-      <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-        <div class="flex-shrink-0">
-          <img src="img9.png" alt="Linge jaune" class="w-40 h-40 md:p-4" />
+    <section class="cta-section mt-16 rounded-3xl shadow-2xl animate-fade-up" style="animation-delay: 2.5s;">
+      <div class="relative z-10 max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 p-8 lg:p-12">
+        <div class="flex-shrink-0 animate-fade-left" style="animation-delay: 2.7s;">
+          <img src="img9.png" alt="Linge jaune" class="w-32 h-32 lg:w-48 lg:h-48 object-contain" />
         </div>
-        <div class="flex-1 flex flex-col items-center md:items-start justify-center text-center md:text-left">
-          <h3 class="text-2xl font-bold text-torea-900 mb-2">Ne laissez pas vos corvées définir qui vous êtes</h3>
-          <div class="text-torea-900 mb-3">Entrez votre adresse et planifiez une collecte dès aujourd'hui</div>
-          <a href="{{ path('app_section') }}" class="bg-white text-torea-900 px-4 py-2 rounded font-semibold shadow hover:bg-blue-100">
-            <svg class="w-5 h-5 inline mr-2 text-torea-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="flex-1 flex flex-col items-center lg:items-start justify-center text-center lg:text-left animate-fade-up" style="animation-delay: 2.9s;">
+          <h3 class="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">Ne laissez pas vos corvées définir qui vous êtes</h3>
+          <div class="text-white/90 mb-6 text-lg">Entrez votre adresse et planifiez une collecte dès aujourd'hui</div>
+          <a href="{{ path('app_section') }}" class="cta-button inline-flex items-center px-8 py-4 rounded-2xl font-semibold text-lg">
+            <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
             </svg>
             Planifiez votre collecte
@@ -85,4 +271,149 @@
       </div>
     </section>
   </div>
+
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0) translateX(0)';
+        
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.animate-fade-up, .animate-fade-left, .animate-fade-right').forEach(el => {
+
+    el.style.opacity = '0';
+    
+    if (el.classList.contains('animate-fade-left')) {
+      el.style.transform = 'translateX(-30px)';
+    } else if (el.classList.contains('animate-fade-right')) {
+      el.style.transform = 'translateX(30px)';
+    } else {
+      el.style.transform = 'translateY(30px)';
+    }
+    
+    el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+    
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.image-container').forEach(container => {
+    const img = container.querySelector('img');
+    
+    container.addEventListener('mouseenter', function() {
+      this.style.filter = 'brightness(1.05) contrast(1.05)';
+    });
+    
+    container.addEventListener('mouseleave', function() {
+      this.style.filter = 'brightness(1) contrast(1)';
+    });
+  });
+
+  let ticking = false;
+  
+  function updateParallax() {
+    const scrolled = window.pageYOffset;
+    const parallaxElements = document.querySelectorAll('.section-enhanced');
+    
+    parallaxElements.forEach((element, index) => {
+      const rate = scrolled * -0.02 * (index % 2 === 0 ? 1 : -1);
+      element.style.transform = `translateY(${rate}px)`;
+    });
+    
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  });
+
+  document.querySelector('.cta-button')?.addEventListener('click', function(e) {
+    const button = this;
+    const rect = button.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    
+    ripple.style.cssText = `
+      position: absolute;
+      width: ${size}px;
+      height: ${size}px;
+      left: ${x}px;
+      top: ${y}px;
+      background: rgba(59, 130, 246, 0.3);
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple-effect 0.6s ease-out;
+      pointer-events: none;
+    `;
+    
+    button.style.position = 'relative';
+    button.style.overflow = 'hidden';
+    button.appendChild(ripple);
+    
+    setTimeout(() => ripple.remove(), 600);
+  });
+
+  if (!document.querySelector('#ripple-styles')) {
+    const style = document.createElement('style');
+    style.id = 'ripple-styles';
+    style.textContent = `
+      @keyframes ripple-effect {
+        to {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  const firstTitle = document.querySelector('.title-enhanced');
+  if (firstTitle) {
+    const text = firstTitle.textContent;
+    firstTitle.textContent = '';
+    firstTitle.style.opacity = '1';
+    
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        firstTitle.textContent += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+      }
+    }
+    
+    setTimeout(typeWriter, 500);
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  console.log('✨ Page "À propos" améliorée avec succès !');
+});
+</script>
 {% endblock %}

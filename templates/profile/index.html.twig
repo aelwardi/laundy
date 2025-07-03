@@ -4,108 +4,363 @@
 
 {% block content %}
 
-  <main class="max-w-5xl mx-auto mt-30">
-    <section>
-      <h2 class="text-2xl font-bold mb-4 text-gray-500 border-b-2 border-gray-300">Informations personnelles</h2>
-      {{ form_start(infoForm) }}
-        <div class="space-y-4 mb-2">
-          <div class="flex gap-4">
-            <div class="flex-1">
-              {{ form_row(infoForm.firstName) }}
+  <main class="max-w-6xl mx-auto px-4 py-8 mt-30">
+    <div class="mb-8">
+      <div class="flex items-center space-x-4">
+        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-3xl font-bold text-gray-900">Mon Profil</h1>
+          <p class="text-gray-600 mt-1">Gérez vos informations personnelles et préférences</p>
+        </div>
+      </div>
+    </div>
+
+    {% for message in app.flashes('success') %}
+      <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 px-6 py-4 rounded-lg mb-6 flex items-center shadow-sm">
+        <svg class="w-5 h-5 mr-3 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+        </svg>
+        {{ message }}
+      </div>
+    {% endfor %}
+    
+    {% for message in app.flashes('error') %}
+      <div class="bg-red-50 border border-red-200 text-red-800 px-6 py-4 rounded-lg mb-6 flex items-center shadow-sm">
+        <svg class="w-5 h-5 mr-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+        </svg>
+        {{ message }}
+      </div>
+    {% endfor %}
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <section class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 border-b border-gray-200">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
             </div>
-            <div class="flex-1">
-              {{ form_row(infoForm.lastName) }}
+            <div>
+              <h2 class="text-xl font-bold text-gray-900">Informations personnelles</h2>
+              <p class="text-sm text-gray-600">Mettez à jour vos données personnelles</p>
             </div>
           </div>
         </div>
-          {{ form_row(infoForm.phone) }}
-          {{ form_row(infoForm.email) }}
-          <button
-          class="bg-blue-500 text-white font-semibold rounded px-8 py-2 hover:bg-blue-400 transition">Enregistrer</button>
-      {{ form_end(infoForm) }}
-    </section>
-
-    <section class="mt-10">
-      <h2 class="text-2xl font-bold text-gray-500 border-b-2 border-gray-300 mb-4">Changer de mot de passe</h2>
-      {{ form_start(passwordForm) }}
-        <div class="space-y-3">
-          {{ form_row(passwordForm.current_password) }}
-          {{ form_row(passwordForm.plainPassword) }}
-          {{ form_row(passwordForm.confirmPassword) }}
-          <button type="submit"
-            class="bg-blue-500 text-white font-semibold rounded px-8 py-2 hover:bg-blue-400 transition">Valider</button>
+        
+        <div class="p-6">
+          {{ form_start(infoForm, {'attr': {'class': 'space-y-6'}}) }}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">Prénom</label>
+                {{ form_widget(infoForm.firstName, {'attr': {'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'}}) }}
+                {{ form_errors(infoForm.firstName) }}
+              </div>
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-700">Nom</label>
+                {{ form_widget(infoForm.lastName, {'attr': {'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'}}) }}
+                {{ form_errors(infoForm.lastName) }}
+              </div>
+            </div>
+            
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-gray-700">Téléphone</label>
+              {{ form_widget(infoForm.phone, {'attr': {'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'}}) }}
+              {{ form_errors(infoForm.phone) }}
+            </div>
+            
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-gray-700">Email</label>
+              {{ form_widget(infoForm.email, {'attr': {'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200'}}) }}
+              {{ form_errors(infoForm.email) }}
+            </div>
+            
+            <div class="flex justify-end pt-4">
+              <button type="submit" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg flex items-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span>Enregistrer</span>
+              </button>
+            </div>
+          {{ form_end(infoForm) }}
         </div>
-      {{ form_end(passwordForm) }}
-    </section>
+      </section>
 
-    <section class="mt-10">
-      <h2 class="text-2xl font-bold mb-4 text-gray-500 border-b-2 border-gray-300">Adresses</h2>
-      {{ form_start(addressForm, {'attr': {'class': 'space-y-4 mb-6'}}) }}
-          {{ form_widget(addressForm.address) }}
+      <section class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+        <div class="bg-gradient-to-r from-orange-50 to-red-50 px-6 py-4 border-b border-gray-200">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-gray-900">Sécurité</h2>
+              <p class="text-sm text-gray-600">Modifiez votre mot de passe</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p-6">
+          {{ form_start(passwordForm, {'attr': {'class': 'space-y-6'}}) }}
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-gray-700">Mot de passe actuel</label>
+              {{ form_widget(passwordForm.current_password, {'attr': {'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200'}}) }}
+              {{ form_errors(passwordForm.current_password) }}
+            </div>
+            
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-gray-700">Nouveau mot de passe</label>
+              {{ form_widget(passwordForm.plainPassword, {'attr': {'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200'}}) }}
+              {{ form_errors(passwordForm.plainPassword) }}
+            </div>
+            
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-gray-700">Confirmer le mot de passe</label>
+              {{ form_widget(passwordForm.confirmPassword, {'attr': {'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200'}}) }}
+              {{ form_errors(passwordForm.confirmPassword) }}
+            </div>
+            
+            <div class="flex justify-end pt-4">
+              <button type="submit" class="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg flex items-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+                <span>Mettre à jour</span>
+              </button>
+            </div>
+          {{ form_end(passwordForm) }}
+        </div>
+      </section>
+    </div>
+
+    <section class="mt-8 bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+      <div class="bg-gradient-to-r from-green-50 to-emerald-50 px-6 py-4 border-b border-gray-200">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-gray-900">Mes Adresses</h2>
+              <p class="text-sm text-gray-600">Gérez vos adresses de livraison</p>
+            </div>
+          </div>
+          <div class="hidden sm:flex items-center space-x-2 text-sm text-gray-600">
+            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">{{ addresses|length }} adresse{{ addresses|length > 1 ? 's' : '' }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <div class="bg-gray-50 rounded-xl p-6 mb-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Ajouter une nouvelle adresse
+          </h3>
           
-          <div class="flex gap-3">
-              {% for choice in addressForm.type %}
-                  <label class="flex-1">
-                      {{ form_widget(choice, {'attr': {'class': 'peer sr-only'}}) }}
-                      <div class="
-                          flex items-center justify-center gap-2 rounded px-0 py-2 border font-semibold shadow-sm cursor-pointer
-                          {% if loop.first %}
-                              border-blue-500
-                              bg-blue-800 text-blue-500 peer-checked:bg-blue-800 peer-checked:text-blue-500 peer-checked:border-blue-500
-                              bg-white text-gray-700 hover:bg-blue-100
-                          {% else %}
-                              border-gray-300
-                              bg-white text-gray-700 peer-checked:bg-blue-800 peer-checked:text-blue-500 peer-checked:border-blue-500
-                              hover:bg-blue-100
-                          {% endif %}
-                          transition
-                      ">
-                          {% if choice.vars.value == 'accueil' %}
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                  <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg>
-                          {% elseif choice.vars.value == 'bureau' %}
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                  <path d="M4 7V4a1 1 0 011-1h14a1 1 0 011 1v3m-2 7v4a1 1 0 01-1 1H7a1 1 0 01-1-1v-4m4-6h4v4h-4V8z" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg>
-                          {% elseif choice.vars.value == 'hotel' %}
-                              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                  <path d="M8 21V19a4 4 0 014-4h0a4 4 0 014 4v2M12 3v1m0 4v10" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg>
-                          {% endif %}
-                          {{ choice.vars.label }}
-                      </div>
-                  </label>
-              {% endfor %}
-          </div>
-
-          {{ form_widget(addressForm.details) }}
-
-          <button
-              class="bg-blue-500 text-white font-semibold rounded px-8 py-2 hover:bg-blue-400 transition">Ajouter</button>
-      {{ form_end(addressForm) }}
-
-      <div class="flex flex-wrap gap-4">
-        {% for address in addresses %}
-          <div
-            class="bg-gray-50 border border-gray-200 rounded-lg px-6 py-4 flex flex-col min-w-[250px] relative shadow-sm transition hover:shadow-lg">
-            <div class="absolute top-2 right-2 flex gap-2">
-                <form method="post" action="{{ path('app_profile_address_delete', {id: address.id}) }}"
-                      onsubmit="return confirm('Supprimer cette adresse ?');">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete_address_' ~ address.id) }}">
-                    <button class="text-red-500 hover:text-red-700" title="Supprimer" type="submit">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </form>
+          {{ form_start(addressForm, {'attr': {'class': 'space-y-6'}}) }}
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-gray-700">Adresse complète</label>
+              {{ form_widget(addressForm.address, {'attr': {'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200', 'placeholder': 'Ex: 123 Rue de la République, 75001 Paris'}}) }}
+              {{ form_errors(addressForm.address) }}
             </div>
-            <div class="font-bold text-sm mt-6">{{ address.address }}</div>
-            <div class="text-xs font-semibold text-gray-500 mb-1">{{ address.type.value }}</div>
-            <div class="text-xs text-gray-600">{{ address.details }}</div>
+            
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-gray-700">Type d'adresse</label>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {% for choice in addressForm.type %}
+                  <label class="relative">
+                    {{ form_widget(choice, {'attr': {'class': 'peer sr-only'}}) }}
+                    <div class="flex items-center justify-center gap-3 rounded-xl px-4 py-3 border-2 border-gray-200 bg-white cursor-pointer transition-all duration-200 peer-checked:border-green-500 peer-checked:bg-green-50 peer-checked:text-green-700 hover:border-green-300 hover:bg-green-25">
+                      {% if choice.vars.value == 'accueil' %}
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                          <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      {% elseif choice.vars.value == 'bureau' %}
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                          <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      {% elseif choice.vars.value == 'hotel' %}
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                          <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8h4m-4 4h4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      {% endif %}
+                      <span class="font-semibold">{{ choice.vars.label }}</span>
+                    </div>
+                  </label>
+                {% endfor %}
+              </div>
+              {{ form_errors(addressForm.type) }}
+            </div>
+            
+            <div class="space-y-2">
+              <label class="block text-sm font-semibold text-gray-700">Détails complémentaires</label>
+              {{ form_widget(addressForm.details, {'attr': {'class': 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 resize-none', 'rows': '3', 'placeholder': 'Ex: Bâtiment A, 3ème étage, Porte droite, Code: 1234'}}) }}
+              {{ form_errors(addressForm.details) }}
+            </div>
+            
+            <div class="flex justify-end">
+              <button type="submit" class="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg flex items-center space-x-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                <span>Ajouter l'adresse</span>
+              </button>
+            </div>
+          {{ form_end(addressForm) }}
+        </div>
+
+        {% if addresses is not empty %}
+          <div class="space-y-4">
+            <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+              <svg class="w-5 h-5 mr-2 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+              </svg>
+              Adresses enregistrées
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {% for address in addresses %}
+                <div class="group bg-gradient-to-br from-white to-gray-50 border border-gray-200 rounded-xl p-6 shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+                  <div class="absolute top-4 left-4">
+                    {% if address.type.value == 'accueil' %}
+                      <div class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span>Domicile</span>
+                      </div>
+                    {% elseif address.type.value == 'bureau' %}
+                      <div class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span>Bureau</span>
+                      </div>
+                    {% elseif address.type.value == 'hotel' %}
+                      <div class="bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-semibold flex items-center space-x-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8h4m-4 4h4" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <span>Hôtel</span>
+                      </div>
+                    {% endif %}
+                  </div>
+                  
+                  <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <form method="post" action="{{ path('app_profile_address_delete', {id: address.id}) }}"
+                          onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette adresse ?');">
+                      <input type="hidden" name="_token" value="{{ csrf_token('delete_address_' ~ address.id) }}">
+                      <button type="submit" class="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg transition-colors duration-200 shadow-lg" title="Supprimer cette adresse">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                          <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </button>
+                    </form>
+                  </div>
+                  
+                  <div class="mt-8">
+                    <div class="flex items-start space-x-3">
+                      <div class="flex-shrink-0 w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center mt-1">
+                        <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                      </div>
+                      <div class="flex-1 min-w-0">
+                        <h4 class="font-semibold text-gray-900 mb-2 leading-tight">{{ address.address }}</h4>
+                        {% if address.details %}
+                          <p class="text-sm text-gray-600 leading-relaxed">{{ address.details }}</p>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
           </div>
-        {% endfor %}
+        {% else %}
+          <div class="text-center py-12">
+            <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Aucune adresse enregistrée</h3>
+            <p class="text-gray-600">Ajoutez votre première adresse de livraison ci-dessus.</p>
+          </div>
+        {% endif %}
       </div>
     </section>
   </main>
+
+{% endblock %}
+
+{% block javascripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const mainContainer = document.querySelector('.max-w-6xl');
+    if (mainContainer) {
+      mainContainer.style.opacity = '0';
+      mainContainer.style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        mainContainer.style.transition = 'all 0.6s ease-out';
+        mainContainer.style.opacity = '1';
+        mainContainer.style.transform = 'translateY(0)';
+      }, 100);
+    }
+
+    document.querySelectorAll('textarea').forEach(textarea => {
+      textarea.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = this.scrollHeight + 'px';
+      });
+    });
+
+    const passwordForm = document.querySelector('form[name*="password"]');
+    if (passwordForm) {
+      passwordForm.addEventListener('submit', function(e) {
+        const newPassword = this.querySelector('input[name*="plainPassword"]').value;
+        const confirmPassword = this.querySelector('input[name*="confirmPassword"]').value;
+        
+        if (newPassword !== confirmPassword) {
+          e.preventDefault();
+          alert('Les mots de passe ne correspondent pas.');
+        }
+      });
+    }
+
+    const addressCards = document.querySelectorAll('.grid .group');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, index * 100);
+        }
+      });
+    });
+
+    addressCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'all 0.5s ease-out';
+      observer.observe(card);
+    });
+  });
+</script>
 {% endblock %}

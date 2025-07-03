@@ -229,7 +229,7 @@ final class OrderController extends AbstractController
             $session->remove('order_data');
             
             $this->addFlash('success', 'Votre commande a été créée avec succès !');
-            return $this->redirectToRoute('app_profile');
+            return $this->redirectToRoute('app_order_history');
             
         } catch (\Exception $e) {
             $this->addFlash('error', 'Une erreur est survenue lors de la création de la commande.');
