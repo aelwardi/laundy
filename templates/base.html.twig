@@ -15,7 +15,7 @@
 <body class="bg-white font-sans">
   <nav id="navbar"
         class="fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-transparent px-8 py-4 flex items-center justify-between">
-        <div id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</div>
+        <a href="{{ path('app_home') }}" id="logo" class="text-black font-bold text-2xl transition-colors duration-300">Laundry</a>
         <div class="flex-1 flex justify-center space-x-8">
           <a href="{{ path('app_how_works') }}" class="nav-link text-black hover:underline transition-colors duration-300">Comment ça fonctionne</a>
           <a href="{{ path('app_tarification') }}" class="nav-link text-black hover:underline transition-colors duration-300">Prix et services</a>
