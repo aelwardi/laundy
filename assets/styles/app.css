@@ -63,182 +63,164 @@
 
 }
 
-.step-card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-200 transition-all duration-300;
-}
-
-.step-card.active {
-    @apply ring-2 ring-blue-500 shadow-lg;
-}
-
-.step-card.completed {
-    @apply bg-gray-50 border-green-200;
-}
-
-.step-header {
-    @apply p-6 border-b border-gray-100 flex items-center space-x-4;
-}
-
-.step-card.completed .step-header {
-    @apply bg-green-50;
-}
-
-.step-card.active .step-header {
-    @apply bg-white;
-}
-
-.step-icon {
-    @apply flex items-center justify-center w-12 h-12 rounded-full flex-shrink-0;
-}
-
-.step-card.completed .step-icon {
-    @apply bg-green-100 text-green-600;
-}
-
-.step-card.active .step-icon {
-    @apply bg-blue-100 text-blue-600;
-}
-
-.step-card:not(.active):not(.completed) .step-icon {
-    @apply bg-gray-100 text-gray-400;
-}
-
-.step-content {
-    @apply flex-1;
-}
-
-.step-title {
-    @apply text-xl font-semibold text-gray-900;
-}
-
-.step-description {
-    @apply text-sm text-gray-600;
-}
-
-.btn-edit {
-    @apply bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center;
-}
-
-.step-summary {
-    @apply p-6 bg-gray-50 border-b border-gray-200;
-}
-
-.step-form {
-    @apply p-6 space-y-6;
-}
-
-.form-group {
-    @apply space-y-2;
-}
-
-.form-label {
-    @apply block text-sm font-medium text-gray-700;
-}
-
-.form-input {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors;
-}
-
-.form-actions {
-    @apply flex justify-end pt-6;
-}
-
-.btn-primary {
-    @apply bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-8 py-3 rounded-lg transition-all duration-200 transform hover:scale-105 flex items-center space-x-2 shadow-lg;
-}
-
-.info-box {
-    @apply bg-blue-50 border border-blue-200 rounded-lg p-4;
-}
-
-.delivery-section {
-    @apply rounded-lg p-6;
-}
-
-.delivery-section.collect {
-    @apply bg-blue-50;
-}
-
-.delivery-section.delivery {
-    @apply bg-green-50;
-}
-
-.delivery-header {
-    @apply flex items-center mb-4;
-}
-
-.summary-item {
-    @apply mb-2 last:mb-0;
-}
-
-.summary-card {
-    @apply bg-white rounded-lg p-4 border border-gray-200;
-}
-
-.summary-card-title {
-    @apply font-medium text-gray-900 mb-2;
-}
-
-.service-card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all duration-200;
-}
-
-.service-header {
-    @apply p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors;
-}
-
-.service-content {
-    @apply overflow-hidden transition-all duration-300 ease-in-out;
-}
-
-.service-content.expanded {
-    @apply opacity-100;
-}
-
-.service-content:not(.expanded) {
-    @apply opacity-0 max-h-0;
-}
-
-.service-content.expanded {
-    @apply max-h-screen;
-}
-
-.btn-secondary {
-    @apply bg-gray-600 hover:bg-gray-700 text-white font-semibold px-6 py-2 rounded-lg transition-colors flex items-center space-x-2;
-}
-
-.btn-success {
-    @apply bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-lg transition-colors flex items-center space-x-3 text-lg shadow-lg;
-}
-
-
-@media (max-width: 768px) {
-    .step-header {
-        @apply flex-col space-x-0 space-y-4 text-center;
+@layer components {
+      .auth-main-container {
+        @apply bg-white min-h-screen flex flex-col lg:flex-row items-stretch;
+      }
+      
+      .auth-left-section {
+        @apply flex-1 flex flex-col justify-between px-4 sm:px-8 lg:px-12 py-6 lg:py-8 min-h-screen order-2 lg:order-1;
+      }
+      
+      .logo-brand {
+        @apply text-xl sm:text-2xl lg:text-2xl font-bold text-blue-800 hover:text-blue-900 transition-colors duration-300;
+      }
+      
+      .form-wrapper {
+        @apply max-w-sm sm:max-w-md w-full mx-auto;
+      }
+      
+      .tabs-container {
+        @apply flex items-center justify-between mb-6 gap-2;
+      }
+      
+      .tab-button {
+        @apply text-lg sm:text-xl lg:text-2xl mr-2 focus:outline-none transition-all duration-300 hover:text-blue-600 focus:ring-2 focus:ring-blue-300 rounded px-2 py-1;
+      }
+      
+      .tab-active {
+        @apply text-blue-500 font-semibold;
+      }
+      
+      .form-section {
+        @apply space-y-4 sm:space-y-5;
+      }
+      
+      .input-responsive {
+        @apply w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 text-sm sm:text-base placeholder-gray-500;
+      }
+      
+      .btn-submit {
+        @apply w-full bg-blue-500 hover:bg-blue-600 active:bg-blue-700 text-white font-semibold rounded py-2 sm:py-3 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300 text-sm sm:text-base;
+      }
+      
+      .error-message {
+        @apply text-red-500 text-sm bg-red-50 border border-red-200 rounded p-3 flex items-center;
+      }
+      
+      .forgot-password {
+        @apply mt-4 text-sm flex flex-col sm:flex-row items-center gap-1;
+      }
+      
+      .link-primary {
+        @apply text-blue-500 font-medium hover:underline transition-colors duration-300;
+      }
+      
+      .footer-responsive {
+        @apply mt-8 lg:mt-12 text-gray-400 text-xs sm:text-sm text-center;
+      }
+      
+      .auth-right-section {
+        @apply hidden md:flex lg:flex flex-1 bg-blue-800/90 rounded-none sm:rounded-b-3xl lg:rounded-3xl m-0 sm:m-2 items-center justify-center relative order-1 lg:order-2 min-h-64 sm:min-h-80 lg:min-h-0;
+      }
+      
+      .hero-inner {
+        @apply w-[90%] h-[90%] bg-blue-800 rounded-none sm:rounded-2xl flex items-center justify-center relative;
+      }
+      
+      .hero-border {
+        @apply absolute inset-0 rounded-none sm:rounded-2xl border border-white/50 pointer-events-none;
+      }
+      
+      .hero-content {
+        @apply relative z-10 flex flex-col justify-center w-full h-full px-6 sm:px-8 lg:px-10;
+      }
+      
+      .hero-title {
+        @apply text-white text-xl sm:text-2xl lg:text-3xl font-bold leading-snug mb-4 lg:mb-0;
+      }
+      
+      .hero-image {
+        @apply w-full max-w-xs sm:max-w-sm lg:max-w-none;
+      }
+      
+      @media (min-width: 768px) and (max-width: 1023px) {
+        .auth-main-container {
+          @apply flex-col;
+        }
+        
+        .auth-right-section {
+          @apply flex order-1 min-h-72;
+        }
+        
+        .auth-left-section {
+          @apply order-2 py-8;
+        }
+        
+        .hero-title {
+          @apply text-2xl;
+        }
+      }
+      
+      @media (max-width: 640px) {
+        .tabs-container {
+          @apply flex-col gap-3;
+        }
+        
+        .tab-button {
+          @apply w-full text-center py-2 px-4 border border-gray-200 rounded-lg;
+        }
+        
+        .tab-active {
+          @apply bg-blue-50 border-blue-300;
+        }
+        
+        .auth-left-section {
+          @apply px-4 py-6;
+        }
+        
+        .form-wrapper {
+          @apply max-w-full;
+        }
+      }
     }
     
-    .btn-edit {
-        @apply w-full justify-center;
+    @media (hover: none) and (pointer: coarse) {
+      .btn-submit:hover,
+      .logo-brand:hover {
+        @apply transform-none bg-blue-500 text-blue-800;
+      }
+      
+      .tab-button:hover {
+        @apply text-current;
+      }
     }
     
-    .delivery-section {
-        @apply mb-6;
+    .focus-visible,
+    *:focus-visible {
+      @apply focus:ring-4 focus:ring-blue-300 focus:outline-none;
     }
-}
-
-.fade-in {
-    animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+    
+    * {
+      @apply scroll-smooth;
     }
-.animate-float {
-      animation: float 3s ease-in-out infinite;
+    
+    @media (prefers-contrast: high) {
+      .input-responsive {
+        @apply border-2 border-gray-600;
+      }
+      
+      .btn-submit {
+        @apply border-2 border-blue-800;
+      }
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }

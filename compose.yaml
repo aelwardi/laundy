@@ -1,14 +1,4 @@
 services:
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-        PGADMIN_DEFAULT_EMAIL: a.elwardi98@admin.com
-        PGADMIN_DEFAULT_PASSWORD: Aa77441100
-    ports:
-        - "5050:80" # Le port 5050 de ta machine est mappé au port 80 du conteneur
-    volumes:
-        - pgadmin_data:/var/lib/pgadmin
-    restart: unless-stopped
   php:
     image: ${IMAGES_PREFIX:-}app-php
     restart: unless-stopped
