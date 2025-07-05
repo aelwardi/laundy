@@ -13,6 +13,15 @@ use App\Entity\Pressing;
 use App\Entity\Ameublement;
 use App\Entity\SubService;
 use App\Entity\User;
+use App\Entity\SupportTicket;
+use App\Entity\Message;
+use App\Entity\Address;
+use App\Entity\Order;
+use App\Entity\Livraison;
+use App\Entity\Comment;
+use App\Entity\Item;
+use App\Enum\typeAddressEnum;
+use App\Enum\statusOrderEnum;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -20,8 +29,15 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $laundry = new Laundry();
+        $laundry->setName('Laundry');
+        $laundry->setEmail('contact@laundry.com');
+        $laundry->setPhone('1234567890');
+        $laundry->setCreatedAt(new \DateTime());
+        $manager->persist($laundry);
+
         $user = new User();
-        $user->setEmail('elwardi@gmail.com');
+        $user->setEmail('aelwardi@hotmail.com');
         $user->setFirstName('Abderrazzak');
         $user->setLastName('Elwardi');
         $user->setRoles(['ROLE_ADMIN']);
@@ -29,15 +45,197 @@ class AppFixtures extends Fixture
             password_hash('okokok', PASSWORD_BCRYPT)
         );
         $user->setPhone('1234567890');
+        $user->setLaundry($laundry);
         $manager->persist($user);
 
+        $user1 = new User();
+        $user1->setEmail('marine@gmail.com');
+        $user1->setFirstName('Marine');
+        $user1->setLastName('Dupont');
+        $user1->setRoles(['ROLE_USER']);
+        $user1->setPassword(
+            password_hash('okokok', PASSWORD_BCRYPT)
+        );
+        $user1->setPhone('1234567890');
+        $user1->setLaundry($laundry);
+        $manager->persist($user1);
 
-        $laundry = new Laundry();
-        $laundry->setName('Laundry');
-        $laundry->setEmail('contact@laundry.com');
-        $laundry->setPhone('1234567890');
-        $laundry->setCreatedAt(new \DateTime());
-        $manager->persist($laundry);
+        $user2 = new User();
+        $user2->setEmail('james@gmail.com');
+        $user2->setFirstName('James');
+        $user2->setLastName('Smith');
+        $user2->setRoles(['ROLE_USER', 'ROLE_BANNED']);
+        $user2->setPassword(
+            password_hash('okokok', PASSWORD_BCRYPT)
+        );
+        $user2->setPhone('1234567890');
+        $user2->setLaundry($laundry);
+        $manager->persist($user2);
+
+        $address = new Address();
+        $address->setAddress('123 Rue de Paris');
+        $address->setDetails('Appartement 4B');
+        $address->setType(typeAddressEnum::Accueil);
+        $address->addUser($user1);
+        $manager->persist($address);
+
+        $order = new Order();
+        $order->setPriceTotal(80.00);
+        $order->setStatus(statusOrderEnum::CREATED);
+        $order->setUsere($user1);
+        $manager->persist($order);
+
+        $item = new Item();
+        $item->setName('Chemise');
+        $item->setDescription('Chemise en coton');
+        $item->setPrice(25.00);
+        $item->setQuantity(2);
+        $item->setImage('');
+        $item->setOrdere($order);
+        $manager->persist($item);
+
+        $item1 = new Item();
+        $item1->setName('Pantalon');
+        $item1->setDescription('Pantalon en jean');
+        $item1->setPrice(40.00);
+        $item1->setQuantity(1);
+        $item1->setImage('');
+        $item1->setOrdere($order);
+        $manager->persist($item1);
+
+        $livraison = new Livraison();
+        $livraison->setFullName('Marine Dupont');
+        $livraison->setFullAddress('123 Rue de Paris, Appartement 4B');
+        $livraison->setCollectedAt(new \DateTime());
+        $livraison->setLivredAt(new \DateTime('+1 day'));
+        $livraison->setInstructions('Veuillez laisser le linge à la porte.');
+        $livraison->setOrdere($order);
+        $manager->persist($livraison);
+        
+        $order1 = new Order();
+        $order1->setPriceTotal(50.00);
+        $order1->setStatus(statusOrderEnum::COLLECTED);
+        $order1->setUsere($user1);
+        $manager->persist($order1);
+
+        $item2 = new Item();
+        $item2->setName('T-shirt');
+        $item2->setDescription('T-shirt en coton');
+        $item2->setPrice(20.00);
+        $item2->setQuantity(1);
+        $item2->setImage('');
+        $item2->setOrdere($order1);
+        $manager->persist($item2);
+
+        $item3 = new Item();
+        $item3->setName('Short');
+        $item3->setDescription('Short en jean');
+        $item3->setPrice(30.00);
+        $item3->setQuantity(1);
+        $item3->setImage('');
+        $item3->setOrdere($order1);
+        $manager->persist($item3);
+
+        $livraison = new Livraison();
+        $livraison->setFullName('Marine Dupont');
+        $livraison->setFullAddress('123 Rue de Paris, Appartement 4B');
+        $livraison->setCollectedAt(new \DateTime());
+        $livraison->setLivredAt(new \DateTime('+1 day'));
+        $livraison->setInstructions('Veuillez laisser le linge à la porte.');
+        $livraison->setOrdere($order1);
+        $manager->persist($livraison);
+
+        $order2 = new Order();
+        $order2->setPriceTotal(70.00);
+        $order2->setStatus(statusOrderEnum::COMPLETED);
+        $order2->setUsere($user1);
+        $manager->persist($order2);
+
+        $item4 = new Item();
+        $item4->setName('Veste');
+        $item4->setDescription('Veste en cuir');
+        $item4->setPrice(50.00);
+        $item4->setQuantity(1);
+        $item4->setImage('');
+        $item4->setOrdere($order2);
+        $manager->persist($item4);
+        
+        $item5 = new Item();
+        $item5->setName('Chapeau');
+        $item5->setDescription('Chapeau en feutre');
+        $item5->setPrice(20.00);
+        $item5->setQuantity(1);
+        $item5->setImage('');
+        $item5->setOrdere($order2);
+        $manager->persist($item5);
+        
+        $comment = new Comment();
+        $comment->setContent('Super service, je recommande !');
+        $comment->setRating(5);
+        $comment->setOrdere($order2);
+        $manager->persist($comment);
+
+        $livraison = new Livraison();
+        $livraison->setFullName('Marine Dupont');
+        $livraison->setFullAddress('123 Rue de Paris, Appartement 4B');
+        $livraison->setCollectedAt(new \DateTime());
+        $livraison->setLivredAt(new \DateTime('+1 day'));
+        $livraison->setInstructions('Veuillez laisser le linge à la porte.');
+        $livraison->setOrdere($order2);
+        $manager->persist($livraison);
+
+        $order3 = new Order();
+        $order3->setPriceTotal(50.00);
+        $order3->setStatus(statusOrderEnum::COMPLETED);
+        $order3->setUsere($user1);
+        $manager->persist($order3);
+
+        $item6 = new Item();
+        $item6->setName('Robe');
+        $item6->setDescription('Robe d\'été');
+        $item6->setPrice(30.00);
+        $item6->setQuantity(1);
+        $item6->setImage('');
+        $item6->setOrdere($order3);
+        $manager->persist($item6);
+
+        $item7 = new Item();
+        $item7->setName('Jupe');
+        $item7->setDescription('Jupe en jean');
+        $item7->setPrice(20.00);
+        $item7->setQuantity(1);
+        $item7->setImage('');
+        $item7->setOrdere($order3);
+        $manager->persist($item7);
+
+        $livraison = new Livraison();
+        $livraison->setFullName('Marine Dupont');
+        $livraison->setFullAddress('123 Rue de Paris, Appartement 4B');
+        $livraison->setCollectedAt(new \DateTime());
+        $livraison->setLivredAt(new \DateTime('+1 day'));
+        $livraison->setInstructions('Veuillez laisser le linge à la porte.');
+        $livraison->setOrdere($order3);
+        $manager->persist($livraison);
+
+        $supportTicket = new SupportTicket();
+        $supportTicket->setName('Problème de collecte');
+        $supportTicket->setCreatedAt(new \DateTime());
+        $supportTicket->setUsere($user1);
+        $manager->persist($supportTicket);
+
+        $message = new Message();
+        $message->setContent('Bonjour, j\'ai un problème avec la collecte de mon linge.');
+        $message->setCreatedAt(new \DateTime());
+        $message->setSupportTicket($supportTicket);
+        $message->setUsere($user1);
+        $manager->persist($message);
+
+        $message = new Message();
+        $message->setContent('Bonjour Marine, nous sommes désolés d\'apprendre que vous avez un problème avec la collecte de votre linge. Pouvez-vous nous donner plus de détails ?');
+        $message->setCreatedAt(new \DateTime());
+        $message->setSupportTicket($supportTicket);
+        $message->setUsere($user);
+        $manager->persist($message);
 
         $section = new Section();
         $section->setTitle('Réinventer l\'avenir de la laverie et du pressing.');
