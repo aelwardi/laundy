@@ -12,59 +12,32 @@
   {% endblock %}
   
   <style>
+    /* Animations personnalisées (non disponibles en Tailwind par défaut) */
     @keyframes fade-in-up {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { @apply opacity-0 translate-y-8; }
+      to { @apply opacity-100 translate-y-0; }
     }
     
     @keyframes slide-in-right {
-      from {
-        opacity: 0;
-        transform: translateX(100px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
+      from { @apply opacity-0 translate-x-24; }
+      to { @apply opacity-100 translate-x-0; }
     }
     
     @keyframes fade-in {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from { @apply opacity-0; }
+      to { @apply opacity-100; }
     }
     
     @keyframes bounce-in {
-      0% {
-        transform: scale(0.3);
-        opacity: 0;
-      }
-      50% {
-        transform: scale(1.05);
-        opacity: 1;
-      }
-      70% {
-        transform: scale(0.9);
-      }
-      100% {
-        transform: scale(1);
-      }
+      0% { @apply scale-[0.3] opacity-0; }
+      50% { @apply scale-105 opacity-100; }
+      70% { @apply scale-90; }
+      100% { @apply scale-100; }
     }
     
     @keyframes pulse-soft {
-      0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.8;
-        transform: scale(1.02);
-      }
+      0%, 100% { @apply opacity-100 scale-100; }
+      50% { @apply opacity-80 scale-[1.02]; }
     }
     
     @keyframes gradient-shift {
@@ -73,231 +46,143 @@
       100% { background-position: 0% 50%; }
     }
     
-    @keyframes spin {
-      to { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-    
     @keyframes slide-in-mobile {
-      from {
-        transform: translateX(-20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
+      from { @apply -translate-x-5 opacity-0; }
+      to { @apply translate-x-0 opacity-100; }
     }
     
-    .animate-fade-in-up {
-      animation: fade-in-up 0.6s ease-out forwards;
-    }
+    /* Classes d'animation utilisant Tailwind */
+    .animate-fade-in-up { animation: fade-in-up 0.6s ease-out forwards; }
+    .animate-slide-in-right { animation: slide-in-right 0.4s ease-out forwards; }
+    .animate-fade-in { animation: fade-in 0.3s ease-out forwards; }
+    .animate-bounce-in { animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards; }
+    .animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
     
-    .animate-slide-in-right {
-      animation: slide-in-right 0.4s ease-out forwards;
-    }
+    /* Animation delay utilities */
+    .animate-delay-100 { animation-delay: 0.1s; }
+    .animate-delay-200 { animation-delay: 0.2s; }
+    .animate-delay-300 { animation-delay: 0.3s; }
+    .animate-delay-400 { animation-delay: 0.4s; }
+    .animate-delay-500 { animation-delay: 0.5s; }
+    .animate-delay-600 { animation-delay: 0.6s; }
+    .animate-delay-700 { animation-delay: 0.7s; }
+    .animate-delay-800 { animation-delay: 0.8s; }
+    .animate-delay-1000 { animation-delay: 1s; }
+    .animate-delay-1200 { animation-delay: 1.2s; }
+    .animate-delay-1400 { animation-delay: 1.4s; }
+    .animate-delay-1600 { animation-delay: 1.6s; }
+    .animate-delay-1800 { animation-delay: 1.8s; }
+    .animate-delay-2000 { animation-delay: 2s; }
     
-    .animate-fade-in {
-      animation: fade-in 0.3s ease-out forwards;
-    }
-    
-    .animate-bounce-in {
-      animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-    }
-    
-    .animate-pulse-soft {
-      animation: pulse-soft 2s ease-in-out infinite;
-    }
-    
+    /* Classes utilitaires converties en Tailwind */
     .gradient-animated {
-      background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #6366f1, #3b82f6);
+      @apply bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-500;
       background-size: 400% 400%;
       animation: gradient-shift 4s ease infinite;
     }
     
-    .smooth-transition {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    .smooth-transition { @apply transition-all duration-300 ease-out; }
+    .smooth-transition-fast { @apply transition-all duration-200 ease-out; }
     
-    .smooth-transition-fast {
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
+    .btn-glow { @apply shadow-[0_0_20px_rgba(59,130,246,0.3)]; }
+    .btn-glow:hover { @apply shadow-[0_0_30px_rgba(59,130,246,0.5)]; }
     
-    .btn-glow {
-      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
-    }
-    
-    .btn-glow:hover {
-      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
+    html { @apply scroll-smooth; }
     
     .dropdown-shadow {
-      box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(255, 255, 255, 0.05);
+      @apply shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25),0_0_0_1px_rgba(255,255,255,0.05)];
     }
     
-    .parallax-element {
-      transform-style: preserve-3d;
-      backface-visibility: hidden;
+    .parallax-element { @apply transform-gpu backface-hidden; }
+    
+    /* Éléments spécifiques avec IDs */
+    body { @apply pt-20; }
+    
+    .hero-full-height {
+      @apply -mt-20 pt-20 min-h-screen relative overflow-hidden;
     }
     
+    #navbar {
+      @apply z-[1000] fixed top-0 left-0 right-0 transition-all duration-300 ease-out;
+      will-change: transform, background-color;
+    }
+    
+    #logo {
+      @apply min-w-fit whitespace-nowrap transition-all duration-300 ease-out;
+      will-change: color;
+    }
+    
+    #logo-icon {
+      @apply flex-shrink-0 transition-all duration-300 ease-out;
+      will-change: transform;
+    }
+    
+    #navbar .container,
+    #navbar > div {
+      @apply min-h-[60px] flex items-center;
+    }
+    
+    .nav-link {
+      @apply whitespace-nowrap relative;
+    }
+    
+    .nav-link::after {
+      @apply content-[''] absolute -bottom-px left-0 w-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300;
+    }
+    
+    .nav-link:hover::after {
+      @apply w-full;
+    }
+    
+    /* Responsive breakpoints */
     @media (max-width: 768px) {
+      body { @apply pt-[70px]; }
+      .hero-full-height { @apply -mt-[70px] pt-[70px]; }
+      #navbar { @apply p-3; }
+      #navbar .container,
+      #navbar > div { @apply min-h-[50px]; }
+      
       .mobile-nav-link {
-        transform: translateX(-20px);
-        opacity: 0;
+        @apply -translate-x-5 opacity-0;
         animation: slide-in-mobile 0.3s ease-out forwards;
       }
       
-      .mobile-nav-link:nth-child(1) { animation-delay: 0.1s; }
-      .mobile-nav-link:nth-child(2) { animation-delay: 0.2s; }
-      .mobile-nav-link:nth-child(3) { animation-delay: 0.3s; }
-      .mobile-nav-link:nth-child(4) { animation-delay: 0.4s; }
-      .mobile-nav-link:nth-child(5) { animation-delay: 0.5s; }
-      .mobile-nav-link:nth-child(6) { animation-delay: 0.6s; }
-      .mobile-nav-link:nth-child(7) { animation-delay: 0.7s; }
-      .mobile-nav-link:nth-child(8) { animation-delay: 0.8s; }
+      .mobile-nav-link:nth-child(1) { @apply delay-[0.1s]; }
+      .mobile-nav-link:nth-child(2) { @apply delay-[0.2s]; }
+      .mobile-nav-link:nth-child(3) { @apply delay-[0.3s]; }
+      .mobile-nav-link:nth-child(4) { @apply delay-[0.4s]; }
+      .mobile-nav-link:nth-child(5) { @apply delay-[0.5s]; }
+      .mobile-nav-link:nth-child(6) { @apply delay-[0.6s]; }
+      .mobile-nav-link:nth-child(7) { @apply delay-[0.7s]; }
+      .mobile-nav-link:nth-child(8) { @apply delay-[0.8s]; }
     }
     
+    /* Styles pour les éléments avec gestion des états */
     .btn-loading {
-      position: relative;
-      pointer-events: none;
+      @apply relative pointer-events-none;
     }
     
     .btn-loading::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 20px;
-      height: 20px;
-      border: 2px solid transparent;
-      border-top: 2px solid currentColor;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
+      @apply content-[''] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 border-2 border-transparent border-t-current rounded-full animate-spin;
     }
     
-    .custom-scrollbar::-webkit-scrollbar {
-      width: 4px;
-    }
-    
-    .custom-scrollbar::-webkit-scrollbar-track {
-      background: #f1f5f9;
-    }
-    
-    .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 2px;
-    }
-    
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
+    /* Scrollbar personnalisé */
+    .custom-scrollbar::-webkit-scrollbar { @apply w-1; }
+    .custom-scrollbar::-webkit-scrollbar-track { @apply bg-slate-100; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { @apply bg-slate-300 rounded-sm; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { @apply bg-slate-400; }
     
     .focus-visible:focus-visible {
-      outline: 2px solid #3b82f6;
-      outline-offset: 2px;
-      border-radius: 0.5rem;
+      @apply outline-2 outline-blue-500 outline-offset-2 rounded-lg;
     }
     
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
       }
     }
-    
-    
-    body {
-      padding-top: 80px;
-    }
-    
-    .hero-full-height {
-      margin-top: -80px;
-      padding-top: 80px;
-      min-height: 100vh;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    #navbar {
-      z-index: 1000;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      will-change: transform, background-color;
-    }
-    
-    #logo {
-      min-width: fit-content;
-      white-space: nowrap;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      will-change: color;
-    }
-    
-    #logo-icon {
-      flex-shrink: 0;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      will-change: transform;
-    }
-    
-    #navbar {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    #navbar .container,
-    #navbar > div {
-      min-height: 60px;
-      display: flex;
-      align-items: center;
-    }
-    
-    .nav-link {
-      white-space: nowrap;
-      position: relative;
-    }
-    
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(to right, #3b82f6, #8b5cf6);
-      transition: width 0.3s ease;
-    }
-    
-    .nav-link:hover::after {
-      width: 100%;
-    }
-    
-    @media (max-width: 768px) {
-      body {
-        padding-top: 70px;
-      }
-      
-      .hero-full-height {
-        margin-top: -70px;
-        padding-top: 70px;
-      }
-      
-      #navbar {
-        padding: 12px 16px;
-      }
-      
-      #navbar .container,
-      #navbar > div {
-        min-height: 50px;
-      }
     }
     
     #navbar,
@@ -316,7 +201,6 @@
       overflow-x: hidden;
     }
     
-    /* Styles pour la navigation responsive */
     #mobile-menu {
       box-shadow: -10px 0 25px -5px rgba(0, 0, 0, 0.1);
     }
@@ -336,38 +220,24 @@
     .mobile-nav-link:nth-child(7) { animation-delay: 0.7s; }
     .mobile-nav-link:nth-child(8) { animation-delay: 0.8s; }
     
-    /* Animation pour les lignes du hamburger */
     #hamburger-line-1,
     #hamburger-line-2,
     #hamburger-line-3 {
-      transform-origin: center;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      @apply origin-center transition-all duration-300 ease-out;
     }
     
-    /* Amélioration du backdrop blur pour le dropdown */
     #profile-dropdown {
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      @apply backdrop-blur-[10px];
     }
     
-    /* Styles pour les états de focus améliorés */
-    .nav-link:focus-visible,
-    .mobile-nav-link:focus-visible,
-    #mobile-menu-btn:focus-visible,
-    #profile-dropdown-btn:focus-visible {
-      outline: 2px solid #3b82f6;
-      outline-offset: 2px;
-      border-radius: 8px;
-    }
+    /* ...existing code... */
     
     #mobile-menu-overlay {
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
+      @apply backdrop-blur-sm;
     }
     
     nav.bg-white\/95 {
-      background: rgba(255, 255, 255, 0.95);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      @apply bg-white/95 border-b border-white/20;
     }
     
     @keyframes slide-in-mobile {
@@ -435,40 +305,29 @@
     }
     
     @keyframes dropdown-appear {
-      from {
-        opacity: 0;
-        transform: scale(0.95) translateY(-10px);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }    
+      from { @apply opacity-0 scale-95 -translate-y-2.5; }
+      to { @apply opacity-100 scale-100 translate-y-0; }
+    }
 
+    /* Styles pour le bouton mobile menu avec Tailwind */
     #mobile-menu-btn {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      @apply bg-white/10 backdrop-blur-[10px] border border-white/20 transition-all duration-300 ease-out;
     }
     
     #mobile-menu-btn:hover {
-      background: rgba(59, 130, 246, 0.1);
-      border-color: rgba(59, 130, 246, 0.3);
-      transform: scale(1.05);
+      @apply bg-blue-500/10 border-blue-500/30 scale-105;
     }
     
     #mobile-menu-btn:active {
-      transform: scale(0.95);
+      @apply scale-95;
     }
     
     #mobile-menu-btn span {
-      background: linear-gradient(45deg, #3b82f6, #8b5cf6);
-      border-radius: 2px;
+      @apply bg-gradient-to-r from-blue-500 to-purple-500 rounded-sm;
     }
     
     #mobile-menu-btn:hover span {
-      background: linear-gradient(45deg, #2563eb, #7c3aed);
+      @apply bg-gradient-to-r from-blue-600 to-purple-600;
     }
   </style>
 </head>

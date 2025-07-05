@@ -6,168 +6,105 @@
 <style>
   @keyframes fade-in-up {
     from {
-      opacity: 0;
-      transform: translateY(30px);
+      @apply opacity-0 translate-y-[30px];
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+      @apply opacity-100 translate-y-0;
     }
   }
   
   @keyframes fade-in-left {
     from {
-      opacity: 0;
-      transform: translateX(-30px);
+      @apply opacity-0 -translate-x-[30px];
     }
     to {
-      opacity: 1;
-      transform: translateX(0);
+      @apply opacity-100 translate-x-0;
     }
   }
   
   @keyframes fade-in-right {
     from {
-      opacity: 0;
-      transform: translateX(30px);
+      @apply opacity-0 translate-x-[30px];
     }
     to {
-      opacity: 1;
-      transform: translateX(0);
+      @apply opacity-100 translate-x-0;
     }
   }
   
   .animate-fade-up {
-    animation: fade-in-up 0.8s ease-out forwards;
-    opacity: 0;
+    @apply animate-[fade-in-up_0.8s_ease-out_forwards] opacity-0;
   }
   
   .animate-fade-left {
-    animation: fade-in-left 0.8s ease-out forwards;
-    opacity: 0;
+    @apply animate-[fade-in-left_0.8s_ease-out_forwards] opacity-0;
   }
   
   .animate-fade-right {
-    animation: fade-in-right 0.8s ease-out forwards;
-    opacity: 0;
+    @apply animate-[fade-in-right_0.8s_ease-out_forwards] opacity-0;
   }
   
   .section-enhanced {
-    transition: all 0.3s ease;
-    padding: 2rem;
-    border-radius: 1.5rem;
-    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
-    border: 1px solid rgba(59, 130, 246, 0.1);
-    margin-bottom: 2rem;
+    @apply transition-all duration-300 ease-in-out p-8 rounded-3xl bg-[linear-gradient(135deg,_#f8fafc,_#f1f5f9)] border border-[rgba(59,_130,_246,_0.1)] mb-8;
   }
   
   .section-enhanced:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.15);
-    border-color: rgba(59, 130, 246, 0.2);
+    @apply -translate-y-[5px] shadow-[0_20px_40px_-10px_rgba(59,_130,_246,_0.15)] border-[rgba(59,_130,_246,_0.2)];
   }
   
   .image-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 1rem;
-    transition: all 0.3s ease;
+    @apply relative overflow-hidden rounded-2xl transition-all duration-300 ease-in-out;
   }
   
   .image-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 1;
+    @apply content-[''] absolute inset-0 bg-[linear-gradient(135deg,_rgba(59,_130,_246,_0.1),_rgba(147,_51,_234,_0.1))] opacity-0 transition-opacity duration-300 ease-in-out z-[1];
   }
   
   .image-container:hover::before {
-    opacity: 1;
+    @apply opacity-100;
   }
   
   .image-container img {
-    transition: transform 0.3s ease;
+    @apply transition-transform duration-300 ease-in-out;
   }
   
   .image-container:hover img {
-    transform: scale(1.05);
+    @apply scale-105;
   }
   
   .title-enhanced {
-    background: linear-gradient(135deg, #1e40af, #3b82f6);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 800;
+    @apply bg-[linear-gradient(135deg,_#1e40af,_#3b82f6)] bg-clip-text text-transparent font-extrabold;
   }
   
   .description-enhanced {
-    color: #64748b;
-    line-height: 1.7;
-    font-size: 1rem;
+    @apply text-slate-500 leading-[1.7] text-base;
   }
   
   .separator-enhanced {
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #3b82f6, transparent);
-    border: none;
-    margin: 3rem 0;
-    opacity: 0.3;
+    @apply h-0.5 bg-[linear-gradient(90deg,_transparent,_#3b82f6,_transparent)] border-none my-12 opacity-30;
   }
   
   .highlight-section {
-    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    position: relative;
-    overflow: hidden;
+    @apply bg-[linear-gradient(135deg,_#dbeafe,_#bfdbfe)] border border-[rgba(59,_130,_246,_0.2)] relative overflow-hidden;
   }
   
   .highlight-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%233b82f6" fill-opacity="0.05"><circle cx="30" cy="30" r="3"/></g></svg>');
-    pointer-events: none;
+    @apply content-[''] absolute inset-0 bg-[url('data:image/svg+xml,<svg_width="60"_height="60"_viewBox="0_0_60_60"_xmlns="http://www.w3.org/2000/svg"><g_fill="none"_fill-rule="evenodd"><g_fill="%233b82f6"_fill-opacity="0.05"><circle_cx="30"_cy="30"_r="3"/></g></svg>')] pointer-events-none;
   }
   
   .cta-section {
-    background: linear-gradient(135deg, #1e40af, #3b82f6);
-    position: relative;
-    overflow: hidden;
+    @apply bg-[linear-gradient(135deg,_#1e40af,_#3b82f6)] relative overflow-hidden;
   }
   
   .cta-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-    pointer-events: none;
+    @apply content-[''] absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,_rgba(255,_255,_255,_0.1)_0%,_transparent_50%),_radial-gradient(circle_at_80%_20%,_rgba(255,_255,_255,_0.1)_0%,_transparent_50%)] pointer-events-none;
   }
   
   .cta-button {
-    background: white;
-    color: #1e40af;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+    @apply bg-white text-[#1e40af] transition-all duration-300 ease-in-out shadow-[0_10px_30px_-5px_rgba(0,_0,_0,_0.1)];
   }
   
   .cta-button:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
-    background: #f8fafc;
+    @apply -translate-y-0.5 scale-105 shadow-[0_20px_40px_-5px_rgba(0,_0,_0,_0.2)] bg-slate-50;
   }
 </style>
 
@@ -175,13 +112,13 @@
     <main>
     {% for section in sections %}
         {% if loop.index == 1 %}
-            <section class="section-enhanced animate-fade-up" style="animation-delay: 0.2s;">
+            <section class="section-enhanced animate-fade-up animate-delay-200">
                 <div class="flex flex-col lg:flex-row items-center gap-12">
-                    <div class="flex-1 animate-fade-left" style="animation-delay: 0.4s;">
+                    <div class="flex-1 animate-fade-left animate-delay-400">
                         <h1 class="title-enhanced text-4xl lg:text-5xl mb-6">{{ section.title }}</h1>
                         <p class="description-enhanced text-lg">{{ section.description }}</p>
                     </div>
-                    <div class="flex-1 flex justify-center animate-fade-right" style="animation-delay: 0.6s;">
+                    <div class="flex-1 flex justify-center animate-fade-right animate-delay-600">
                         <div class="image-container max-w-md w-full">
                             <img src="{{ section.image }}" alt="image" class="w-full h-auto object-cover" />
                         </div>
@@ -190,13 +127,13 @@
             </section>
         {% elseif loop.index == 2 %}
             <hr class="separator-enhanced">
-            <section class="section-enhanced animate-fade-up" style="animation-delay: 0.8s;">
+            <section class="section-enhanced animate-fade-up animate-delay-800">
                 <div class="flex flex-col lg:flex-row-reverse items-center gap-12">
-                    <div class="flex-1 animate-fade-right" style="animation-delay: 1s;">
+                    <div class="flex-1 animate-fade-right animate-delay-1000">
                         <h2 class="title-enhanced text-4xl lg:text-5xl mb-6">{{ section.title }}</h2>
                         <p class="description-enhanced text-lg">{{ section.description }}</p>
                     </div>
-                    <div class="flex-1 flex justify-center animate-fade-left" style="animation-delay: 1.2s;">
+                    <div class="flex-1 flex justify-center animate-fade-left animate-delay-1200">
                         <div class="image-container max-w-md w-full">
                             <img src="{{ section.image }}" alt="image" class="w-full h-auto object-cover" />
                         </div>
@@ -204,7 +141,7 @@
                 </div>
             </section>
             <hr class="separator-enhanced">
-            <section class="highlight-section section-enhanced text-center animate-fade-up" style="animation-delay: 1.4s;">
+            <section class="highlight-section section-enhanced text-center animate-fade-up animate-delay-1400">
                 <div class="relative z-10">
                     <h2 class="title-enhanced text-3xl lg:text-4xl mb-6 leading-tight">
                         Nous investissons dans l'une des plus grandes flottes de véhicules de livraison électriques au monde.
@@ -220,13 +157,13 @@
             {% set motif_index = (loop.index0) % 2 %}
             <hr class="separator-enhanced">
             {% if motif_index == 0 %}
-                <section class="section-enhanced animate-fade-up" style="animation-delay: {{ loop.index0 * 0.2 + 1.6 }}s;">
+                <section class="section-enhanced animate-fade-up" data-animation-delay="{{ loop.index0 * 0.2 + 1.6 }}">
                     <div class="flex flex-col lg:flex-row items-center gap-12">
-                        <div class="flex-1 animate-fade-left" style="animation-delay: {{ loop.index0 * 0.2 + 1.8 }}s;">
+                        <div class="flex-1 animate-fade-left" data-animation-delay="{{ loop.index0 * 0.2 + 1.8 }}">
                             <h3 class="title-enhanced text-3xl lg:text-4xl mb-6">{{ section.title }}</h3>
                             <p class="description-enhanced text-lg">{{ section.description }}</p>
                         </div>
-                        <div class="flex-1 flex justify-center animate-fade-right" style="animation-delay: {{ loop.index0 * 0.2 + 2 }}s;">
+                        <div class="flex-1 flex justify-center animate-fade-right" data-animation-delay="{{ loop.index0 * 0.2 + 2 }}">
                             <div class="image-container max-w-md w-full">
                                 <img src="{{ section.image }}" alt="image" class="w-full h-auto object-cover" />
                             </div>
@@ -234,13 +171,13 @@
                     </div>
                 </section>
             {% else %}
-                <section class="section-enhanced animate-fade-up" style="animation-delay: {{ loop.index0 * 0.2 + 1.6 }}s;">
+                <section class="section-enhanced animate-fade-up" data-animation-delay="{{ loop.index0 * 0.2 + 1.6 }}">
                     <div class="flex flex-col lg:flex-row-reverse items-center gap-12">
-                        <div class="flex-1 animate-fade-right" style="animation-delay: {{ loop.index0 * 0.2 + 1.8 }}s;">
+                        <div class="flex-1 animate-fade-right" data-animation-delay="{{ loop.index0 * 0.2 + 1.8 }}">
                             <h3 class="title-enhanced text-3xl lg:text-4xl mb-6">{{ section.title }}</h3>
                             <p class="description-enhanced text-lg">{{ section.description }}</p>
                         </div>
-                        <div class="flex-1 flex justify-center animate-fade-left" style="animation-delay: {{ loop.index0 * 0.2 + 2 }}s;">
+                        <div class="flex-1 flex justify-center animate-fade-left" data-animation-delay="{{ loop.index0 * 0.2 + 2 }}">
                             <div class="image-container max-w-md w-full">
                                 <img src="{{ section.image }}" alt="image" class="w-full h-auto object-cover" />
                             </div>
@@ -253,15 +190,15 @@
 
     </main>
 
-    <section class="cta-section mt-16 rounded-3xl shadow-2xl animate-fade-up" style="animation-delay: 2.5s;">
+    <section class="cta-section mt-16 rounded-3xl shadow-2xl animate-fade-up" data-animation-delay="2.5">
       <div class="relative z-10 max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8 p-8 lg:p-12">
-        <div class="flex-shrink-0 animate-fade-left" style="animation-delay: 2.7s;">
+        <div class="flex-shrink-0 animate-fade-left" data-animation-delay="2.7">
           <img src="img9.png" alt="Linge jaune" class="w-32 h-32 lg:w-48 lg:h-48 object-contain" />
         </div>
-        <div class="flex-1 flex flex-col items-center lg:items-start justify-center text-center lg:text-left animate-fade-up" style="animation-delay: 2.9s;">
+        <div class="flex-1 flex flex-col items-center lg:items-start justify-center text-center lg:text-left animate-fade-up" data-animation-delay="2.9">
           <h3 class="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">Ne laissez pas vos corvées définir qui vous êtes</h3>
           <div class="text-white/90 mb-6 text-lg">Entrez votre adresse et planifiez une collecte dès aujourd'hui</div>
-          <a href="{{ path('app_section') }}" class="cta-button inline-flex items-center px-8 py-4 rounded-2xl font-semibold text-lg">
+          <a href="{{ path('app_order') }}" class="cta-button inline-flex items-center px-8 py-4 rounded-2xl font-semibold text-lg">
             <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
             </svg>
@@ -414,6 +351,12 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   console.log('✨ Page "À propos" améliorée avec succès !');
+  
+  // Appliquer les délais d'animation dynamiques
+  document.querySelectorAll('[data-animation-delay]').forEach(element => {
+    const delay = element.getAttribute('data-animation-delay');
+    element.style.animationDelay = delay + 's';
+  });
 });
 </script>
 {% endblock %}

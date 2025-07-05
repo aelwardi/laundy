@@ -314,20 +314,23 @@
   document.addEventListener('DOMContentLoaded', function() {
     const mainContainer = document.querySelector('.max-w-6xl');
     if (mainContainer) {
-      mainContainer.style.opacity = '0';
-      mainContainer.style.transform = 'translateY(20px)';
+      mainContainer.classList.add('opacity-0', 'translate-y-5');
       setTimeout(() => {
-        mainContainer.style.transition = 'all 0.6s ease-out';
-        mainContainer.style.opacity = '1';
-        mainContainer.style.transform = 'translateY(0)';
+        mainContainer.classList.add('transition-all', 'duration-600', 'ease-out');
+        mainContainer.classList.remove('opacity-0', 'translate-y-5');
       }, 100);
     }
 
     document.querySelectorAll('textarea').forEach(textarea => {
-      textarea.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = this.scrollHeight + 'px';
-      });
+      // Fonction pour ajuster automatiquement la hauteur
+      function adjustHeight() {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+      }
+      
+      textarea.addEventListener('input', adjustHeight);
+      // Ajuster la hauteur initiale si le textarea contient déjà du texte
+      adjustHeight();
     });
 
     const passwordForm = document.querySelector('form[name*="password"]');
@@ -348,17 +351,15 @@
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
           setTimeout(() => {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.remove('opacity-0', 'translate-y-5');
+            entry.target.classList.add('opacity-100', 'translate-y-0');
           }, index * 100);
         }
       });
     });
 
     addressCards.forEach(card => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(20px)';
-      card.style.transition = 'all 0.5s ease-out';
+      card.classList.add('opacity-0', 'translate-y-5', 'transition-all', 'duration-500', 'ease-out');
       observer.observe(card);
     });
   });

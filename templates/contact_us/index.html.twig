@@ -3,22 +3,14 @@
 {% block title %}Contactez Nous - {{ parent() }}{% endblock %}
 
 {% block content %}
+<!-- All styles converted to Tailwind utility classes -->
 <style>
-  .contact-gradient {
-    background: linear-gradient(135deg, #1e40af, #3b82f6);
-  }
-  
-  .animate-fade-in-up {
-    animation: fade-in-up 0.8s ease-out forwards;
-    opacity: 0;
-  }
-  
-  @keyframes fade-in-up {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
-  <section class="contact-gradient py-20 relative overflow-hidden">
+  <section class="bg-gradient-to-br from-blue-800 to-blue-500 py-20 relative overflow-hidden">
     <div class="absolute inset-0 z-0">
       <svg viewBox="0 0 1440 464" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
         <ellipse cx="720" cy="0" rx="800" ry="350" fill="rgba(255,255,255,0.1)" />
@@ -27,10 +19,10 @@
     
     <div class="max-w-6xl mx-auto px-4 relative z-10">
       <div class="text-center text-white">
-        <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-fade-in-up">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards]">
           Contactez <span class="text-yellow-300">Nous</span>
         </h1>
-        <p class="text-xl mb-8 animate-fade-in-up" style="animation-delay: 0.3s;">
+        <p class="text-xl mb-8 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards] [animation-delay:0.3s]">
           Notre équipe est là pour répondre à toutes vos questions
         </p>
       </div>
@@ -39,7 +31,7 @@
 
   <div class="max-w-6xl mx-auto px-4 -mt-10 relative z-20">
     <section class="text-center mb-16">
-      <div class="bg-white rounded-3xl shadow-xl p-8 animate-fade-in-up" style="animation-delay: 0.6s;">
+      <div class="bg-white rounded-3xl shadow-xl p-8 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards] [animation-delay:0.6s]">
         <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
           Un service client <span class="text-blue-600">d'exception</span>
         </h2>
@@ -50,14 +42,14 @@
     </section>
 
     <section class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-      <div class="flex justify-center items-center animate-fade-in-up" style="animation-delay: 0.8s;">
+      <div class="flex justify-center items-center opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards] [animation-delay:0.8s]">
         <div class="relative">
           <img src="img4.png" alt="Service client" class="rounded-2xl shadow-lg max-w-full h-auto">
           <div class="absolute inset-0 bg-gradient-to-t from-blue-600/20 to-transparent rounded-2xl"></div>
         </div>
       </div>
       
-      <div class="space-y-8 animate-fade-in-up" style="animation-delay: 1s;">
+      <div class="space-y-8 opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards] [animation-delay:1s]">
         <div>
           <h3 class="text-3xl font-bold text-gray-800 mb-4">Contacter Laundry</h3>
           <p class="text-gray-600 text-lg mb-6">
@@ -78,7 +70,7 @@
           </a>
           
           <a href="#" 
-             class="flex items-center bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group">
+             class="flex items-center bg-[linear-gradient(to_right,_#10b981,_#059669)] hover:bg-[linear-gradbg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-4 rounded-2xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group">
             <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mr-4 group-hover:scale-110 transition-transform duration-300">
               <img src="svg10.svg" alt="Localisation" class="w-6 h-6 filter brightness-0 invert" />
             </div>
@@ -91,7 +83,7 @@
       </div>
     </section>
 
-    <section class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden animate-fade-in-up" style="animation-delay: 1.2s;">
+    <section class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden opacity-0 animate-[fade-in-up_0.8s_ease-out_forwards] [animation-delay:1.2s]">
       <div class="absolute inset-0 opacity-5">
         <svg class="w-full h-full" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -174,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }, observerOptions);
 
-  document.querySelectorAll('.animate-fade-in-up').forEach(el => {
+  document.querySelectorAll('[class*="animate-[fade-in-up"]').forEach(el => {
     observer.observe(el);
   });
 

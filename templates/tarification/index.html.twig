@@ -6,22 +6,19 @@
 <style>
   @keyframes fade-in-up {
     from {
-      opacity: 0;
-      transform: translateY(30px);
+      @apply opacity-0 translate-y-[30px];
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+      @apply opacity-100 translate-y-0;
     }
   }
   
   .animate-fade-in {
-    animation: fade-in-up 0.8s ease-out forwards;
+    @apply animate-[fade-in-up_0.8s_ease-out_forwards];
   }
   
   .hero-gradient {
-    background: linear-gradient(135deg, #3b82f6, #1e40af, #1d4ed8);
-    background-size: 200% 200%;
+    @apply bg-[linear-gradient(135deg,_#3b82f6,_#1e40af,_#1d4ed8)] bg-[length:200%_200%];
     animation: gradient-shift 8s ease infinite;
   }
   
@@ -31,53 +28,39 @@
   }
   
   .info-bar-gradient {
-    background: linear-gradient(135deg, #1f2937, #374151, #4b5563);
+    @apply bg-[linear-gradient(135deg,_#1f2937,_#374151,_#4b5563)];
   }
   
   .service-card-enhanced {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
+    @apply transition-all duration-400 ease-[cubic-bezier(0.4,_0,_0.2,_1)] relative overflow-hidden;
   }
   
   .service-card-enhanced::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-    transition: left 0.6s;
+    @apply content-[''] absolute top-0 -left-full w-full h-full bg-[linear-gradient(90deg,_transparent,_rgba(59,_130,_246,_0.1),_transparent)] transition-[left] duration-600;
   }
   
   .service-card-enhanced:hover::before {
-    left: 100%;
+    @apply left-full;
   }
   
   .service-card-enhanced:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.3);
+    @apply -translate-y-2 scale-[1.03] shadow-[0_20px_40px_-10px_rgba(59,_130,_246,_0.3)];
   }
   
   .chatbot-section {
-    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-    position: relative;
+    @apply bg-[linear-gradient(135deg,_#dbeafe,_#bfdbfe)] relative;
   }
   
   .icon-container {
-    transition: all 0.3s ease;
+    @apply transition-all duration-300 ease-in-out;
   }
   
   .icon-container:hover {
-    transform: scale(1.1) rotate(5deg);
+    @apply scale-110 rotate-[5deg];
   }
   
   .price-highlight {
-    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    @apply bg-[linear-gradient(135deg,_#3b82f6,_#1d4ed8)] bg-clip-text text-transparent;
   }
 </style>
 
@@ -85,7 +68,7 @@
     <div class="absolute inset-0 bg-black/10"></div>
     <div class="relative z-10">
       <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 animate-fade-in">Tarification <span class="text-yellow-300">simplifiée</span></h1>
-      <p class="text-xl text-white/90 animate-fade-in" style="animation-delay: 0.2s;">Pas de frais cachés. Des prix transparents et justes.</p>
+      <p class="text-xl text-white/90 animate-fade-in animate-delay-200">Pas de frais cachés. Des prix transparents et justes.</p>
     </div>
   </section>
 
@@ -93,7 +76,7 @@
   <div class="info-bar-gradient text-white py-6 shadow-xl">
     <div class="max-w-6xl mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-center items-center gap-8 text-sm font-medium">
-        <div class="flex items-center gap-3 group animate-fade-in" style="animation-delay: 0.4s;">
+        <div class="flex items-center gap-3 group animate-fade-in animate-delay-400">
           <span class="icon-container inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-green-500/20 backdrop-blur-sm border border-green-400/30">
             <img src="svg3.svg" alt="Livraison gratuite" class="w-6 h-6 filter brightness-0 invert" />
           </span>
@@ -103,7 +86,7 @@
           </div>
         </div>
         
-        <div class="flex items-center gap-3 group animate-fade-in" style="animation-delay: 0.6s;">
+        <div class="flex items-center gap-3 group animate-fade-in animate-delay-600">
           <span class="icon-container inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-blue-500/20 backdrop-blur-sm border border-blue-400/30">
             <img src="svg3.svg" alt="Commande minimum" class="w-6 h-6 filter brightness-0 invert" />
           </span>
@@ -113,7 +96,7 @@
           </div>
         </div>
         
-        <div class="flex items-center gap-3 group animate-fade-in" style="animation-delay: 0.8s;">
+        <div class="flex items-center gap-3 group animate-fade-in animate-delay-800">
           <span class="icon-container inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-purple-500/20 backdrop-blur-sm border border-purple-400/30">
             <img src="svg11.svg" alt="Frais de service" class="w-6 h-6 filter brightness-0 invert" />
           </span>
@@ -131,7 +114,8 @@
     <div class="flex flex-col md:flex-row justify-center gap-8">
       {% for service in services %}
       <a href="{{ path('app_tarif_details', {'id': service.id}) }}" 
-         class="service-card-enhanced flex-1 bg-white border border-gray-200 rounded-2xl shadow-lg flex flex-col items-center p-8 min-w-[280px] max-w-sm mx-auto group animate-fade-in" style="animation-delay: {{ loop.index0 * 0.2 + 1 }}s;">
+         class="service-card-enhanced flex-1 bg-white border border-gray-200 rounded-2xl shadow-lg flex flex-col items-center p-8 min-w-[280px] max-w-sm mx-auto group animate-fade-in"
+         data-animation-delay="{{ loop.index0 * 0.2 + 1 }}">
         
         <div class="w-24 h-24 rounded-3xl flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200 mb-6 group-hover:from-blue-200 group-hover:to-blue-300 transition-all duration-300 group-hover:scale-110">
           <img src="{{ service.image }}" alt="{{ service.name }}" class="w-14 h-14 object-contain"/>
@@ -160,7 +144,7 @@
       {% endfor %}
     </div>
     
-    <div class="chatbot-section rounded-3xl p-8 mt-16 shadow-xl border border-blue-200 animate-fade-in" style="animation-delay: 1.8s;">
+    <div class="chatbot-section rounded-3xl p-8 mt-16 shadow-xl border border-blue-200 animate-fade-in animate-delay-1800">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="flex-1">
           <h3 class="font-bold text-2xl text-gray-800 mb-2">Une question sur nos services ?</h3>
@@ -187,26 +171,25 @@ document.addEventListener('DOMContentLoaded', function() {
   const observer = new IntersectionObserver(function(entries) {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+        entry.target.classList.remove('opacity-0', 'translate-y-[30px]');
+        entry.target.classList.add('opacity-100', 'translate-y-0');
       }
     });
   }, observerOptions);
 
   document.querySelectorAll('.animate-fade-in').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
-    el.style.transition = 'all 0.8s ease-out';
+    el.classList.add('opacity-0', 'translate-y-[30px]', 'transition-all', 'duration-[800ms]', 'ease-out');
     observer.observe(el);
   });
 
   document.querySelectorAll('.service-card-enhanced').forEach(card => {
     card.addEventListener('mouseenter', function() {
-      this.style.zIndex = '10';
+      this.classList.add('z-10');
     });
     
     card.addEventListener('mouseleave', function() {
-      this.style.zIndex = '1';
+      this.classList.remove('z-10');
+      this.classList.add('z-[1]');
     });
   });
 
@@ -214,20 +197,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const parent = price.closest('.service-card-enhanced');
     
     parent.addEventListener('mouseenter', function() {
-      price.style.transform = 'scale(1.1)';
-      price.style.transition = 'transform 0.3s ease';
+      price.classList.add('scale-110', 'transition-transform', 'duration-300', 'ease-in-out');
     });
     
     parent.addEventListener('mouseleave', function() {
-      price.style.transform = 'scale(1)';
+      price.classList.remove('scale-110');
+      price.classList.add('scale-100');
     });
   });
 
   document.querySelectorAll('.icon-container').forEach(icon => {
     setInterval(() => {
-      icon.style.transform = 'scale(1.05)';
+      icon.classList.add('scale-105', 'transition-transform', 'duration-200');
       setTimeout(() => {
-        icon.style.transform = 'scale(1)';
+        icon.classList.remove('scale-105');
+        icon.classList.add('scale-100');
       }, 200);
     }, 3000 + Math.random() * 2000);
   });
@@ -246,6 +230,12 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   console.log('✨ Page tarification améliorée avec succès !');
+  
+  // Appliquer les délais d'animation dynamiques
+  document.querySelectorAll('[data-animation-delay]').forEach(element => {
+    const delay = element.getAttribute('data-animation-delay');
+    element.style.animationDelay = delay + 's';
+  });
 });
 </script>
 {% endblock %}
