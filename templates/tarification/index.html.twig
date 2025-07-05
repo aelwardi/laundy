@@ -231,7 +231,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   console.log('✨ Page tarification améliorée avec succès !');
   
-  // Appliquer les délais d'animation dynamiques
   document.querySelectorAll('[data-animation-delay]').forEach(element => {
     const delay = element.getAttribute('data-animation-delay');
     element.style.animationDelay = delay + 's';

@@ -17,14 +17,14 @@
     
     <div class="relative z-10 flex flex-col items-center justify-center w-full pt-32 pb-24 px-4">
       <div class="text-center max-w-4xl mx-auto">
-        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-torea-900 mb-6 leading-tight opacity-0 translate-y-[30px] animate-[fade-in-up_0.8s_ease-out_forwards]">
+        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-torea-900 mb-6 leading-tight">
           Rapide. Propre. <span class="text-blue-600">Frais.</span>
         </h1>
-        <div class="text-torea-900 mb-12 text-lg md:text-xl lg:text-2xl leading-relaxed opacity-0 translate-y-[30px] animate-[fade-in-up_0.8s_ease-out_forwards]" style="animation-delay: 0.3s;">
+        <div class="text-torea-900 mb-12 text-lg md:text-xl lg:text-2xl leading-relaxed">
           Votre linge livré en 24h avec un service professionnel
         </div>
         
-        <div class="mt-8 opacity-0 translate-y-[30px] animate-[fade-in-up_0.8s_ease-out_forwards]" style="animation-delay: 0.6s;">
+        <div class="mt-8">
           <a href="{{ path('app_order') }}"
             class="inline-flex items-center bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-semibold shadow-2xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 text-base">
             <svg class="w-5 h-5 mr-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -142,4 +142,8 @@
       </div>
     </div>
   </section>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
 {% endblock %}

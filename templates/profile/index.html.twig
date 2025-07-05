@@ -322,14 +322,12 @@
     }
 
     document.querySelectorAll('textarea').forEach(textarea => {
-      // Fonction pour ajuster automatiquement la hauteur
       function adjustHeight() {
         textarea.style.height = 'auto';
         textarea.style.height = textarea.scrollHeight + 'px';
       }
       
       textarea.addEventListener('input', adjustHeight);
-      // Ajuster la hauteur initiale si le textarea contient déjà du texte
       adjustHeight();
     });
 
