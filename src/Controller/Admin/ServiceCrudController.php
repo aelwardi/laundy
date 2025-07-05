@@ -49,12 +49,12 @@ class ServiceCrudController extends AbstractCrudController
             TextareaField::new('description', 'Description'),
             AssociationField::new('laundry', 'Blanchisserie'),
             ImageField::new('image', 'Image')
-                ->setBasePath('/public/')
-                ->setUploadDir('public/')
+                ->setBasePath('/')
+                ->setUploadDir('/')
                 ->setUploadedFileNamePattern('[randomhash].[extension]'),
             ImageField::new('icon', 'Icône')
-                ->setBasePath('/public/')
-                ->setUploadDir('public/')
+                ->setBasePath('/')
+                ->setUploadDir('/')
                 ->setUploadedFileNamePattern('[randomhash].[extension]'),
             CollectionField::new('coSevices', 'Catégories')
                 ->setEntryType(CoSeviceEmbeddedForm::class)

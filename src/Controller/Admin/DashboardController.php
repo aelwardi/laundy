@@ -53,7 +53,6 @@ class DashboardController extends AbstractDashboardController
         
         yield MenuItem::section('Support Client');
         yield MenuItem::linkToCrud('Tickets de Support', 'fas fa-ticket-alt', SupportTicket::class);
-        yield MenuItem::linkToCrud('Messages', 'fas fa-comments', Message::class);
         
         yield MenuItem::section('Commandes');
         yield MenuItem::linkToCrud('Gestion des Commandes', 'fas fa-shopping-cart', Order::class);
